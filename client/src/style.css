@@ -1,0 +1,80 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.login-container{
+  background: rgb(0,0,0);
+  background: linear-gradient(298.43deg, #0AE3D6 1.27%, #28CBFF 86.1%, #25B2E0 98.89%);
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.login-wrapper {
+  margin: 0 auto;
+  width: 400px;
+  background-color: white;
+  overflow: hidden;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.31);
+  border-radius: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: .8rem 3rem;
+  cursor: pointer;
+  transition: all .2s;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #999999; 
+}
+
+.mb-sm {
+  margin-bottom: 2em; 
+}
+
+.mb-md {
+  margin-bottom: 3em; 
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #000;
+  padding: .7em 2em;
+  border-radius: 12px;
+  width: 100%;
+  transition: all .2s;
+}
+
