@@ -10,6 +10,8 @@ const UserControllerInstance = new UsersController(new UserService());
 export default (app: Router) => {
   app.use('/users', route);
 
-  route.get('/', (req: Request, res: Response) => UserControllerInstance.get(req, res));
-  route.post('/', (req: Request, res: Response) => UserControllerInstance.save(req, res));
+  route.get('/', (req: Request, res: Response) => UserControllerInstance.read(req, res));
+  route.post('/', (req: Request, res: Response) => UserControllerInstance.create(req, res));
+  route.put('/:id', (req: Request, res: Response) => UserControllerInstance.update(req, res));
+  route.delete('/:id', (req: Request, res: Response) => UserControllerInstance.delete(req, res));
 };
