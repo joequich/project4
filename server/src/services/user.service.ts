@@ -1,10 +1,10 @@
-import { CallbackError, Document } from 'mongoose';
-import { IUser } from '../interfaces/user.interface';
+import { IPatchUser, IPutUser, IUser } from '../interfaces/user.interface';
 import User from '../models/user.model';
 
 export default class UserService {
-    async create (data = {}) {
+    async create(data: IUser) {
         try {
+            console.log('service',data);
             const user = new User(data);
             await user.save();
             return user;
@@ -14,7 +14,7 @@ export default class UserService {
         }
     }
 
-    async read (query = {}, from: number, limit: number) {
+    async list(query = {}, from: number, limit: number) {
         try {
             const [ total, users ] = await Promise.all([
                 User.countDocuments(query),
@@ -31,9 +31,28 @@ export default class UserService {
         }
     }
 
-    async update (id: string, data = {}) {
+    async readById(id: string) {
         try {
-            const user = await User.findByIdAndUpdate(id, data, { new: true });
+            const user = User.findById(id, {status: true});
+            return user;
+        } catch {
+            // Log Errors
+            throw new Error('Error while Reading User');
+        }
+    }
+
+    async getUserByEmail(email: string) {
+        try {
+            const user = User.findOne({email});
+            return user;
+        } catch {
+            throw new Error('Error while Reading User email')
+        }
+    }
+
+    async updateById (id: string, data: IPutUser | IPatchUser) {
+        try {
+            const user = await User.findByIdAndUpdate(id, {$set: data}, {new: true}).setOptions({upsert: true});
             return user;
         } catch {
             // Log Errors
@@ -41,7 +60,7 @@ export default class UserService {
         }
     }
 
-    async delete (id: string) {
+    async deleteById (id: string) {
         try {
             const user = await User.findByIdAndUpdate(id, { status: false }, { new: true });
             return user;
