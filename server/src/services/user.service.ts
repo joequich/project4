@@ -2,9 +2,8 @@ import { IPatchUser, IPutUser, IUser, IUserService } from '../interfaces/user.in
 import User from '../models/user.model';
 
 export default class UserService implements IUserService {
-    async create(data: IUser) {
+    async create(data: IUser): Promise<IUser> {
         try {
-            console.log('service',data);
             const user = new User(data);
             await user.save();
             return user;
@@ -14,7 +13,7 @@ export default class UserService implements IUserService {
         }
     }
 
-    async list(from: number, limit: number) {
+    async list(from: number, limit: number): Promise<{users: IUser[]; total: number;}> {
         try {
             const [ total, users ] = await Promise.all([
                 User.countDocuments({ status: true }),
@@ -31,7 +30,7 @@ export default class UserService implements IUserService {
         }
     }
 
-    async readById(id: string) {
+    async readById(id: string): Promise<(IUser) | null> {
         try {
             const user = User.findById(id, {status: true});
             return user;
@@ -41,7 +40,7 @@ export default class UserService implements IUserService {
         }
     }
 
-    async getUserByEmail(email: string) {
+    async getUserByEmail(email: string): Promise<(IUser) | null> {
         try {
             const user = User.findOne({email});
             return user;
@@ -50,7 +49,7 @@ export default class UserService implements IUserService {
         }
     }
 
-    async updateById (id: string, data: IPutUser | IPatchUser) {
+    async updateById(id: string, data: IPutUser | IPatchUser): Promise<(IUser) | null> {
         try {
             const user = await User.findByIdAndUpdate(id, {$set: data}, {new: true}).setOptions({upsert: true});
             return user;
@@ -60,7 +59,7 @@ export default class UserService implements IUserService {
         }
     }
 
-    async deleteById (id: string) {
+    async deleteById(id: string): Promise<(IUser) | null> {
         try {
             const user = await User.findByIdAndUpdate(id, { status: false }, { new: true });
             return user;

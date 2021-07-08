@@ -1,8 +1,8 @@
-import { IRole } from '../interfaces/role.interface';
+import { IRole, IRoleService } from '../interfaces/role.interface';
 import Role from '../models/role.model';
 
-export default class RoleService {
-    async create(data: IRole) {
+export default class RoleService implements IRoleService {
+    async create(data: IRole): Promise<IRole> {
         try {
             const role = new Role(data);
             await role.save();
@@ -13,7 +13,7 @@ export default class RoleService {
         }
     }
 
-    async getRole(role: string) {
+    async getRole(role: string): Promise<(IRole) | null>  {
         try {
             const roleExist = await Role.findOne({role});
             return roleExist;
