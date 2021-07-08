@@ -1,7 +1,7 @@
-import { IPatchUser, IPutUser, IUser } from '../interfaces/user.interface';
+import { IPatchUser, IPutUser, IUser, IUserService } from '../interfaces/user.interface';
 import User from '../models/user.model';
 
-export default class UserService {
+export default class UserService implements IUserService {
     async create(data: IUser) {
         try {
             console.log('service',data);
@@ -14,11 +14,11 @@ export default class UserService {
         }
     }
 
-    async list(query = {}, from: number, limit: number) {
+    async list(from: number, limit: number) {
         try {
             const [ total, users ] = await Promise.all([
-                User.countDocuments(query),
-                User.find(query)
+                User.countDocuments({ status: true }),
+                User.find({ status: true })
                     .skip(Number(from))
                     .limit(Number(limit))
             ]);

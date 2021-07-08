@@ -1,16 +1,16 @@
 import { Request, Response } from 'express';
-import UserService from '../services/user.service';
+import { IUserService } from '../interfaces/user.interface';
 import { setPassword } from '../helpers/bcrypt';
 
 export default class UsersController {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: IUserService) {}
 
     listUsers = async(req: Request, res: Response) => {
         const page = req.params.page ? Number(req.params.page) : 0;
         const limit = req.params.limit ? Number(req.params.limit) : 10;
 
         try {
-            const users = await this.userService.list({}, page, limit);
+            const users = await this.userService.list(page, limit);
             return res.status(200).json({ status: 200, data: users, message: 'Succesfully Users List' });
         } catch (error) {
             return res.status(400).json({ status: 400, message: error.message });
@@ -28,7 +28,6 @@ export default class UsersController {
     }
 
     createUser = async(req: Request, res: Response) => {
-        console.log('controller',req.body);
         req.body.password = setPassword(req.body.password);
         try {
             const user = await this.userService.create(req.body);
