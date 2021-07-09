@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import RoleService from "../services/role.service";
+import { IRoleService } from "../interfaces/role.interface";
 export default class RolesMiddleware {
-    constructor(private readonly roleService: RoleService) {}
+    constructor(private readonly roleService: IRoleService) {}
 
     isRoleValid = async(req: Request, res: Response, next: NextFunction) => {
         const role = req.body.role || '';

@@ -13,7 +13,7 @@ const UserSchema = new Schema<IUser>({
 });
 
 UserSchema.methods.toJSON = function() {
-    const { __v, password, _id, ...user} = this.toObject();
+    const { __v, password, ...user} = this.toObject();
     return user;
 };
 

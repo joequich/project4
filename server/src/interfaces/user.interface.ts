@@ -40,6 +40,7 @@ export interface IUserService {
   }>;
   readById: (id: string) => Promise<(IUser) | null>
   getUserByEmail: (email: string) => Promise<(IUser) | null>;
+  getUserCredentialsByEmail: (email: string) => Promise<(IUser) | null>;
   updateById: (id: string, data: IPutUser | IPatchUser) => Promise<(IUser) | null>;
   deleteById: (id: string) => Promise<(IUser) | null>;
 }

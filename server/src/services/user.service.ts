@@ -32,7 +32,7 @@ export default class UserService implements IUserService {
 
     async readById(id: string): Promise<(IUser) | null> {
         try {
-            const user = User.findById(id, {status: true});
+            const user = await User.findById(id, {status: true});
             return user;
         } catch {
             // Log Errors
@@ -42,10 +42,19 @@ export default class UserService implements IUserService {
 
     async getUserByEmail(email: string): Promise<(IUser) | null> {
         try {
-            const user = User.findOne({email});
+            const user = await User.findOne({email});
             return user;
         } catch {
-            throw new Error('Error while Reading User email')
+            throw new Error('Error while Reading User email');
+        }
+    }
+
+    async getUserCredentialsByEmail(email: string) {
+        try {
+            const user = await User.findOne({email}).select(['_id','email','password','role','google']).exec();
+            return user;
+        } catch {
+            throw new Error('Error while Reading User email');
         }
     }
 

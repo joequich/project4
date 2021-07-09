@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import UserService from "../services/user.service";
+import { IUserService } from "../interfaces/user.interface";
 export default class UsersMiddleware {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: IUserService) {}
 
     validateIfEmailExist = async(req: Request, res: Response, next: NextFunction) => {
         const email: string = req.body.email;
@@ -15,7 +15,7 @@ export default class UsersMiddleware {
 
     validateIfEmailBelongToUser = async(req: Request, res: Response, next: NextFunction) => {
         const user = await this.userService.getUserByEmail(req.body.email);
-        if(user && user.id === req.params.id) {
+        if(user && user._id === req.params.id) {
             res.status(400).json({ error: 'Invalid Email'});
         } else {
             next();
