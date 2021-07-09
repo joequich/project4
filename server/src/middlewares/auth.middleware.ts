@@ -15,7 +15,8 @@ class AuthMiddleWare {
                     email: user.email,
                     role: user.role,
                 };
-                next();
+                console.log(req.body)
+                return next();
             }    
         }
         return res.status(400).json({ status: 400, message: 'Invalid email and/or password' });

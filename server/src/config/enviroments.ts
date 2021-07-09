@@ -21,7 +21,8 @@ export default {
     DB_NAME: process.env.MONGODB_DATABASE,
     API: {
         prefix: '/api'
-    }
+    },
+    JWT_SECRETKEY: process.env.JWT_SECRETKEY
 }
 
 

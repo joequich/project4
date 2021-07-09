@@ -28,7 +28,8 @@ export default class UsersController {
     }
 
     createUser = async(req: Request, res: Response) => {
-        req.body.password = setPassword(req.body.password);
+        const { hash } = setPassword(req.body.password);
+        req.body.password = hash;
         try {
             const user = await this.userService.create(req.body);
             return res.status(200).json({ status: 200, data: user, message: "Succesfully Users Saved" });
@@ -40,7 +41,8 @@ export default class UsersController {
     patch = async(req: Request, res: Response) => {
         const { id } = req.params;
         if (req.body.password) {
-            req.body.password = setPassword(req.body.password);
+            const { hash } = setPassword(req.body.password);
+            req.body.password = hash;
         }
         const { _id, google, ...resto } = req.body;
         try {
@@ -53,7 +55,8 @@ export default class UsersController {
 
     put = async(req: Request, res: Response) => {
         const { id } = req.params;
-        req.body.password = setPassword(req.body.password);
+        const { hash } = setPassword(req.body.password);
+        req.body.password = hash;
         const { _id, google, ...resto } = req.body;
         try {
             const user = await this.userService.updateById(id, resto);
