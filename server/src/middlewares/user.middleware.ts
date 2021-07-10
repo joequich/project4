@@ -34,6 +34,8 @@ export default class UsersMiddleware {
     validateIfUserExists = async(req: Request, res: Response, next: NextFunction) => {
         const user = await this.userService.readById(req.params.id);
         if (user) {
+            res.locals.user = user;
+            console.log(res.locals.user);
             return next();
         } else {
             return res.status(404).json({ error: `User ${req.params.userId} not found` });

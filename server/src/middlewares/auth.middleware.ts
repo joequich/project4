@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { IUserService } from "../interfaces/user.interface";
-import { comparePassword } from '../helpers/bcrypt';
+import { compareSync } from '../helpers/bcrypt';
 
 class AuthMiddleWare {
     constructor(private readonly userService: IUserService) {}
@@ -9,9 +9,9 @@ class AuthMiddleWare {
         const user = await this.userService.getUserCredentialsByEmail(req.body.email);
         if(user) {
             const passHash = user.password;
-            if(comparePassword(req.body.password, passHash)) {
+            if(compareSync(req.body.password, passHash)) {
                 req.body = {
-                    id: user._id,
+                    userId: user._id,
                     email: user.email,
                     role: user.role,
                 };

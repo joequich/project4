@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { IRoleService } from "../interfaces/role.interface";
+import { ROLES, DEFAULT_ROLE } from "../constants";
 export default class RolesMiddleware {
     constructor(private readonly roleService: IRoleService) {}
 

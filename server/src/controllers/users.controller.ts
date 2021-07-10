@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { IUserService } from '../interfaces/user.interface';
-import { setPassword } from '../helpers/bcrypt';
+import { generateSalt, hashSync } from '../helpers/bcrypt';
 
 export default class UsersController {
     constructor(private readonly userService: IUserService) {}
@@ -28,8 +28,8 @@ export default class UsersController {
     }
 
     createUser = async(req: Request, res: Response) => {
-        const { hash } = setPassword(req.body.password);
-        req.body.password = hash;
+        const salt = generateSalt();
+        req.body.password = hashSync(req.body.password, salt);
         try {
             const user = await this.userService.create(req.body);
             return res.status(200).json({ status: 200, data: user, message: "Succesfully Users Saved" });
@@ -41,8 +41,8 @@ export default class UsersController {
     patch = async(req: Request, res: Response) => {
         const { id } = req.params;
         if (req.body.password) {
-            const { hash } = setPassword(req.body.password);
-            req.body.password = hash;
+            const salt = generateSalt();
+            req.body.password = hashSync(req.body.password, salt);
         }
         const { _id, google, ...resto } = req.body;
         try {
@@ -55,8 +55,8 @@ export default class UsersController {
 
     put = async(req: Request, res: Response) => {
         const { id } = req.params;
-        const { hash } = setPassword(req.body.password);
-        req.body.password = hash;
+        const salt = generateSalt();
+        req.body.password = hashSync(req.body.password, salt);
         const { _id, google, ...resto } = req.body;
         try {
             const user = await this.userService.updateById(id, resto);
