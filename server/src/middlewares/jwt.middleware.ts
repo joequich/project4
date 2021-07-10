@@ -17,7 +17,7 @@ class JwtMiddleware {
         return res.status(400).json({ status: 400, message: 'Missing required field: refreshToken' })
     }
 
-    validateJWT = (req: Request, res: Response, next: NextFunction) => {
+    validateJWT(req: Request, res: Response, next: NextFunction) {
         if (req.headers['authorization']) {
             try {
                 const authorization = req.headers['authorization'].split(' ')
@@ -32,7 +32,7 @@ class JwtMiddleware {
                 return res.status(403).json( {status: 403} );
             }
         } else {
-            return res.status(401).json({ status: 401 });
+            return res.status(401).json({ status: 401, message: 'No token was found in request' });
         }
     }
 

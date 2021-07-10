@@ -42,8 +42,11 @@ export default class UsersMiddleware {
         }
     }
 
-    extractUserId = async(req: Request, res: Response, next: NextFunction) => {
-        req.body.id = req.params.userId;
-        return next();
+    userCannotChangeRole = (req: Request, res: Response, next: NextFunction) => {
+        if ('role' in req.body && req.body.role !== res.locals.user.role) {
+            return res.status(400).json({ status: 400, message: 'User cannot change role'});
+        } else {
+            return next();
+        }
     }
 }
