@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
-import App from './App';
+// import App from './App';
+import { LoginForm } from './components/LoginForm';
 import './style.css';
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<LoginForm/>, document.getElementById('root'));
