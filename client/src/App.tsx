@@ -1,8 +1,9 @@
-import { LoginForm } from "./components/LoginForm";
+// import { LoginForm } from "./components/LoginForm";
+import { AppRouter } from "./routers/AppRouter";
 
 const App = () => {
     return (
-        <LoginForm />
+        <AppRouter />
     );
 }
 export default App;
