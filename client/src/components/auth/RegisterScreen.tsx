@@ -1,7 +1,6 @@
 import React, { FormEvent } from 'react'
 import { User as UserIcon, Mail as MailIcon, Lock as LockIcon } from 'react-feather';
 import { useForm } from '../../hooks/useForm';
-import logo from '../../assets/logo.svg';
 
 interface FormValues {
     username?: string;
@@ -23,12 +22,9 @@ export const RegisterScreen = () => {
         console.log(formValues);
     };
     return (
-        <div className="login-container">
-            <div className="login-wrapper">
+        <div className="auth-container">
+            <div className="auth-wrapper">
                 <form onSubmit={handleSubmit}>
-                    <div className="logo">
-                        <img src={logo} alt="logo" style={{ height: '48px' }} />
-                    </div>
                     <h1 className="headling">SIGN UP</h1>
                     <br />
                     <div className="input-wrapper mb-sm">
@@ -82,7 +78,7 @@ export const RegisterScreen = () => {
                             />
                         </div>
                     </div>
-                    <button type="submit" className="button button-login">
+                    <button type="submit" className="btn button-login">
                         ENTER
                     </button>
                 </form>

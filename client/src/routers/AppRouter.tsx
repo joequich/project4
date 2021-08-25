@@ -8,11 +8,13 @@ export const AppRouter = () => {
         <Router>
             <div>
                 <NavBar />
-                <Switch>
-                    <Route path="/auth" component={AuthRouter} />
-                    <Route exact path="/" component={PrincipalScreen} />
-                    <Redirect to="/auth/login"/>
-                </Switch>
+                
+                    <Switch>
+                        <Route path="/auth" component={AuthRouter} />
+                        <Route exact path="/" component={PrincipalScreen} />
+                        <Redirect to="/auth/login"/>
+                    </Switch>
+                
             </div>
         </Router>
     );

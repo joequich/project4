@@ -1,0 +1,137 @@
+$breakpoint-tablet: 768px;
+
+.navbar {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+
+    &__collapse {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: 250px;
+        position: absolute;
+        top: $header-height;
+        right: -100%;
+        // top: 70px;
+        // left: 0;
+        opacity: 1;
+        transition: all 0.5s ease;
+        border-radius: 0px 0px 25px 25px;
+        // z-index: -1;
+
+
+        
+        @media (min-width: $breakpoint-tablet) {
+            // background-color: yellowgreen;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: flex-end;
+            width: 100%;
+            position: relative;
+            height: auto;
+            // height: 500px;
+            // top: 70px;
+            // right: -100%;
+            top: auto;
+            right: auto;
+            opacity: 1;
+            transition: all 0.5s ease;
+            // z-index: 0;
+        }
+    }
+
+    &__collapse.active {
+        background-color: $secondary;
+        // left: 0;
+        right: 0;
+        opacity: 1;
+        transition: all 0.5s ease;
+        z-index: 1;
+    }
+
+    &__user {
+
+    }
+
+    &__menu-icon {
+        display: flex;
+        align-self: center;
+        padding-left: 16px;
+        @media (min-width: $breakpoint-tablet) {
+            display: none;
+        }
+    }
+
+
+
+    &__links {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+
+        a {
+            text-decoration: none;
+            color: white;
+            padding: 0.5rem 1rem;
+
+            &:hover {
+                background-color: red;
+            }
+        }
+        
+
+        @media (min-width: $breakpoint-tablet) {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            
+        }
+    }
+
+    &__auth {
+        width: 100%;
+        margin-top: 2rem;
+        // Tablet
+        @media (min-width: $breakpoint-tablet) {
+            margin: 0px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            // margin-left: auto;
+            height: 100%;
+        }
+    }
+
+    &__btn {
+        display: block;
+        border-radius: 11px;
+        border: 2px solid $accents-2;
+        margin: 0 auto;
+        margin-bottom: 1rem;
+        width: 90%;
+        font-size: 16px;
+        font-weight: 00;
+
+        
+        @media (min-width: $breakpoint-tablet) {
+            margin-right: 0.5rem;
+            margin-bottom: 0px;
+        }
+
+
+
+        &--signin {
+            background-color: transparent;
+            white-space: nowrap;
+        }
+
+        &--signup {
+            background-color: $accents-3;
+            white-space: nowrap;
+        }
+    }
+}
