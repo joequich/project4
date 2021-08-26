@@ -35,6 +35,7 @@ export const NavBar = () => {
                         Welcome, <span>Joseph</span>
                     </div>
                     <div className="navbar__menu-icon" onClick={handleMenu}>{clicked ? <Close /> : <Menu />}</div>
+                    <div onClick={handleMenu} className={clicked ? 'navbar__overlay active' : 'navbar__overlay'}></div>
                     <div className={clicked ? 'navbar__collapse active' : 'navbar__collapse'}>
                         <div></div>
                         <div className="navbar__links">

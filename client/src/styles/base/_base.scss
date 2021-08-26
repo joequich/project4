@@ -18,8 +18,10 @@ body {
 
 .content {
     display: flex;
-    padding-top: $header-height;
-    min-height: calc(100vh - #{$header-height});
+    padding-top: 65px;
+    min-height: calc(100vh - 65px);
+    background-color: red;
+    flex-direction: column;
 }
 
 input[type='password'] {
@@ -31,18 +33,22 @@ input[type='password'] {
     line-height: 48px;
 }
 
+.text-center {
+    text-align: center;
+}
+
 .mt-sm {
-    margin-top: 2em;
+    margin-top: 2rem;
 }
 
 .mt-md {
-    margin-top: 3em;
+    margin-top: 3rem;
 }
 
 .mb-sm {
-    margin-bottom: 2em;
+    margin-bottom: 2rem;
 }
 
 .mb-md {
-    margin-bottom: 3em;
+    margin-bottom: 3rem;
 }

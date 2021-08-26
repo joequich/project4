@@ -49,7 +49,7 @@ $breakpoint-tablet: 768px;
         right: 0;
         opacity: 1;
         transition: all 0.5s ease;
-        z-index: 1;
+        z-index: 2;
     }
 
     &__user {
@@ -65,7 +65,21 @@ $breakpoint-tablet: 768px;
         }
     }
 
-
+    &__overlay.active {
+        position: fixed;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: $header-height;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1;
+        @media (min-width: $breakpoint-tablet) {
+            display: none;
+        }
+    }
 
     &__links {
         display: flex;
@@ -109,7 +123,7 @@ $breakpoint-tablet: 768px;
     &__btn {
         display: block;
         border-radius: 11px;
-        border: 2px solid $accents-2;
+        border: 1px solid white;
         margin: 0 auto;
         margin-bottom: 1rem;
         width: 90%;
@@ -130,7 +144,9 @@ $breakpoint-tablet: 768px;
         }
 
         &--signup {
-            background-color: $accents-3;
+            background-color: $accents-1;
+            border: 1px solid $accents-1;
+            color: black;
             white-space: nowrap;
         }
     }

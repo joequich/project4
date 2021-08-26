@@ -1,5 +1,4 @@
 import React, { FormEvent } from 'react'
-import { User as UserIcon, Mail as MailIcon, Lock as LockIcon } from 'react-feather';
 import { useForm } from '../../hooks/useForm';
 
 interface FormValues {
@@ -25,61 +24,50 @@ export const RegisterScreen = () => {
         <div className="auth-container">
             <div className="auth-wrapper">
                 <form onSubmit={handleSubmit}>
-                    <h1 className="headling">SIGN UP</h1>
+                    <h1 className="headling text-center">SIGN UP</h1>
                     <br />
                     <div className="input-wrapper mb-sm">
-                        <div className="input-container">
-                            <div className="input-icon">
-                                <UserIcon color="black" size={20} />
-                            </div>
-                            <input
-                                type="text"
-                                name="username"
-                                className="input-field"
-                                placeholder="Username*"
-                                aria-placeholder="Your user name"
-                                autoComplete="off"
-                                value={username}
-                                onChange={handleInputChange}
-                            />
-                        </div>
+                    <label htmlFor="username">Username</label>
+                        <input
+                            type="text"
+                            name="username"
+                            className="input-field"
+                            placeholder="username*"
+                            aria-placeholder="Your user name"
+                            autoComplete="off"
+                            value={username}
+                            onChange={handleInputChange}
+                            autoFocus
+                        />
                     </div>
                     <div className="input-wrapper mb-sm">
-                        <div className="input-container">
-                            <div className="input-icon">
-                                <MailIcon color="black" size={20} />
-                            </div>
-                            <input
-                                type="text"
-                                name="email"
-                                className="input-field"
-                                placeholder="Email Address*"
-                                aria-placeholder="Your email address"
-                                autoComplete="off"
-                                value={email}
-                                onChange={handleInputChange}
-                            />
-                        </div>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            type="text"
+                            name="email"
+                            className="input-field"
+                            placeholder="email Address*"
+                            aria-placeholder="Your email address"
+                            autoComplete="off"
+                            value={email}
+                            onChange={handleInputChange}
+                        />
                     </div>
                     <div className="input-wrapper mb-sm">
-                        <div className="input-container">
-                            <div className="input-icon">
-                                <LockIcon color="black" size={20} />
-                            </div>
-                            <input
-                                type="password"
-                                name="password"
-                                className="input-field"
-                                placeholder="Password*"
-                                aria-placeholder="Your password"
-                                autoComplete="off"
-                                value={password}
-                                onChange={handleInputChange}
-                            />
-                        </div>
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            className="input-field"
+                            placeholder="password*"
+                            aria-placeholder="Your password"
+                            autoComplete="off"
+                            value={password}
+                            onChange={handleInputChange}
+                        />
                     </div>
-                    <button type="submit" className="btn button-login">
-                        ENTER
+                    <button type="submit" className="btn btn-login mt-sm">
+                        Create account
                     </button>
                 </form>
             </div>

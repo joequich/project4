@@ -1,9 +1,11 @@
 // colors
 $primary-1: #fffffa;
 $primary-2: #0d0d0d;
-$secondary: #401f3e;
-$accents-1: #5dead5;
-$accents-2: #6fc3df;
+$primary-3: #FFFDFD;
+// $secondary: #401f3e;
+$secondary: #3F2E56;
+$accents-1: #5DEAD5;
+// $accents-2: #6fc3df;
 $accents-3: #5438dc;
 
 $grey-light-1: #f2f2f7;
@@ -39,3 +41,6 @@ $header-height: 65px;
 
 //     --line: 1px solid var(--grey-light-2);
 // }
+
+// background-image: linear-gradient(to bottom, #3f2e56, #493075, #513395, #5535b8, #5438dc);
+// background-image: linear-gradient(to bottom, #3f2e56, #47306d, #4e3285, #52339e, #5535b8, #4a4ed1, #3665e9, #007cff, #00a1ff, #00beff, #00d6e9, #5dead5);
