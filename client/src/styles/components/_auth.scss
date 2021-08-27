@@ -1,13 +1,5 @@
 .auth-container {
-    background: rgb(0, 0, 0);
-    // background: linear-gradient(
-    //     301.99deg,
-    //     $accents-3 12.97%,
-    //     #6fc3df 80.81%,
-    //     #5dead5 96.23%
-    // );
-    // background-image: linear-gradient(to right bottom, #5dead5, #00ccea, #00a9ff, #007cff, #5438dc);
-    background-image: linear-gradient(to bottom, #3f2e56, #47306d, #4e3285, #52339e, #5535b8, #4a4ed1, #3665e9, #007cff, #00a1ff, #00beff, #00d6e9, #5dead5);
+    background-image: $gradiant-auth;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -20,12 +12,14 @@
 .auth-wrapper {
     margin: 0 auto;
     width: 400px;
-    background-color: white;
+    background-color: $primary-1;
     overflow: hidden;
     padding-top: 4rem;
     padding-bottom: 4rem;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: $shadow-auth;
     border-radius: 8px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 1.5rem;
+    @media (min-width: $breakpoint-tablet) {
+        padding: 3rem;
+    }
 }

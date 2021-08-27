@@ -1,12 +1,15 @@
 // colors
-$primary-1: #fffffa;
-$primary-2: #0d0d0d;
-$primary-3: #FFFDFD;
-// $secondary: #401f3e;
-$secondary: #3F2E56;
-$accents-1: #5DEAD5;
-// $accents-2: #6fc3df;
-$accents-3: #5438dc;
+$base: #FFFFFF;
+
+$primary-1: #FFFDFD;
+$primary-2: #100B00;
+$primary-3: #29326F;
+
+$secondary: #38048D;
+
+$accents-1: #28ECDD;
+$accents-2: #CBEF43;
+$accents-3: #78960D;
 
 $grey-light-1: #f2f2f7;
 $grey-light-2: #e5e5ea;
@@ -18,7 +21,13 @@ $grey-dark-2: #636366;
 $grey-dark-3: #8e8e93;
 
 $header-height: 65px;
+$breakpoint-tablet: 768px;
+$width-max: 1280px;
 
+$gradiant-auth: linear-gradient(to bottom, #38048d, #311689, #2b2085, #28277f, #272c79, #1b3e88, #0c4f95, #0060a0, #0083be, #00a7d1, #00cadb, #28ecdd);
+
+$shadow-auth: 0px 4px 7px 1px rgba(16, 11, 0, 0.25);
+$shadow-card: 0px 0px 0px 1px rgba(16,11,0,0.07);
 // :root {
 //     --primary-1: #FFFFFA;
 //     --primary-2: #0D0D0D;
@@ -44,3 +53,22 @@ $header-height: 65px;
 
 // background-image: linear-gradient(to bottom, #3f2e56, #493075, #513395, #5535b8, #5438dc);
 // background-image: linear-gradient(to bottom, #3f2e56, #47306d, #4e3285, #52339e, #5535b8, #4a4ed1, #3665e9, #007cff, #00a1ff, #00beff, #00d6e9, #5dead5);
+
+
+@mixin media-query($media) {
+    @if $media == tablet {
+        @media only screen and (min-width: 480px) and (max-width: 767px) {
+            @content;
+        }
+    }
+    @else if $media == desktop {
+        @media only screen and (min-width: 768px) and (max-width: 991px) {
+            @content;
+        }
+    }
+    @else if $media == large {
+        @media only screen and (min-width: 992px) {
+            @content;
+        }
+    }
+}

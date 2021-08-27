@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 export const NavBar = () => {
     const history = useHistory();
+    const logged = false;
     const handleRegister = () => {
         history.replace('/auth/register');
     };
@@ -31,7 +32,7 @@ export const NavBar = () => {
                     </Link>
                 </div>
                 <nav className="navbar">
-                    <div className="navbar__user">
+                    <div className={logged ? 'navbar__user logged': 'navbar__user'}>
                         Welcome, <span>Joseph</span>
                     </div>
                     <div className="navbar__menu-icon" onClick={handleMenu}>{clicked ? <Close /> : <Menu />}</div>
