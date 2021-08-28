@@ -20,7 +20,7 @@ $grey-dark-1: #48484a;
 $grey-dark-2: #636366;
 $grey-dark-3: #8e8e93;
 
-$header-height: 65px;
+$header-height: 60px;
 $breakpoint-tablet: 768px;
 $width-max: 1280px;
 
@@ -51,24 +51,32 @@ $shadow-card: 0px 0px 0px 1px rgba(16,11,0,0.07);
 //     --line: 1px solid var(--grey-light-2);
 // }
 
-// background-image: linear-gradient(to bottom, #3f2e56, #493075, #513395, #5535b8, #5438dc);
-// background-image: linear-gradient(to bottom, #3f2e56, #47306d, #4e3285, #52339e, #5535b8, #4a4ed1, #3665e9, #007cff, #00a1ff, #00beff, #00d6e9, #5dead5);
+// @mixin media-query($media) {
+//     @if $media == sm {
+//         @media only screen and (min-width: 500px) { // 640px - 1023px
+//             @content;
+//         }
+//     } 
+//     @else if $media == md {
+//         @media only screen and (min-width: 640px) and (max-width: 1023px) { // 640px - 1023px
+//             @content;
+//         }
+//     }
+//     @else if $media == lg {
+//         @media only screen and (min-width: 1024px) and (max-width: 1279px) { // 1024px - 1279px
+//             @content;
+//         }
+//     }
+//     @else if $media == xl {
+//         @media only screen and (min-width: 1280px) { // min 1280px
+//             @content;
+//         }
+//     }
+// }
 
-
-@mixin media-query($media) {
-    @if $media == tablet {
-        @media only screen and (min-width: 480px) and (max-width: 767px) {
-            @content;
-        }
-    }
-    @else if $media == desktop {
-        @media only screen and (min-width: 768px) and (max-width: 991px) {
-            @content;
-        }
-    }
-    @else if $media == large {
-        @media only screen and (min-width: 992px) {
-            @content;
-        }
-    }
-}
+// 1024 x 768
+// 1280 x 720
+// 1366 x 768
+// 1600 x 900
+// 1920 x 1080
+// 2560 x 1440

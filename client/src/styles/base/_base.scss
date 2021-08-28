@@ -1,5 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+
+/*
+
+    0.1rem = 1.6px
+    0.2rem = 3.2px
+    0.3rem = 4.8px
+    0.4rem = 6.4px
+    0.5rem = 8px
+    0.6rem = 9.6px
+    0.7rem = 11.2px
+    0.8rem = 12.8px
+    0.9rem = 14.4px
+
+
+    // 16px
+    0.75rem = 12px
+    0.875rem = 14px
+    1rem = 16px
+    1.125rem = 18px
+    1.25rem = 20px
+    1.5rem = 24px
+    1.875rem = 30px
+    2rem = 32px
+    2.25rem = 36px
+    2.5rem = 40px
+    3rem = 48px
+    4rem = 64px
+
+    // 18px
+    0.75rem = 13.5px
+    0.875rem = 15.75px
+    1rem = 18px
+    1.125rem = 20.25px
+    1.25rem = 22.5px
+    1.5rem = 27px
+    1.875 = 33.75px
+    2rem = 36px
+    2.25 = 40.5px
+    2.5rem = 45px
+    3rem = 54px
+    4rem = 72px
+    
+    For the large screen  -> 3 rem * 25px = 75px
+    For tablet screen        -> 3 rem * 18px = 54px
+    For mobile screen      -> 3 rem  * 12px = 36px
+    Default setting            -> 3rem * 16px = 48px
+
+    mobile -> 16px
+    tablet -> 18px
+    desktop -> 
+
+
+    16px 18px 21px
+    14px 16px 18px
+
+    21px 24px 32px
+
+
+
+*/
+
 *,
 *::before,
 *::after {
@@ -17,27 +78,12 @@ body {
 
 .content {
     display: flex;
-    padding-top: 65px;
-    min-height: calc(100vh - 65px);
+    padding-top: $header-height;
+    min-height: calc(100vh - #{$header-height});
     flex-direction: column;
-}
-
-.container {
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
-   
-    // @include media-query(tablet) {
-    //     max-width: 750px;
-    // }
-   
-    // @include media-query(desktop) {
-    //     max-width: 970px;
-    // }
-   
-    // @include media-query(large) {
-    //     max-width: 1170px;
-    // }
+    max-width: 1196px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 input[type='password'] {
