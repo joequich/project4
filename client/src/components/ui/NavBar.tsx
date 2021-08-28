@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
-import { Menu, X as Close } from 'react-feather';
+import { FiMenu as Menu, FiX as Close } from 'react-icons/fi';
 import logo from '../../assets/logo.svg';
 import { useState } from 'react';
 

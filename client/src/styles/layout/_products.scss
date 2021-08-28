@@ -76,11 +76,17 @@
     }
 
     &__star-rating {
+        > * {
+            font-size: 21px;
+            @media (min-width: 450px) {
+                font-size: 18px;
+            }
+        }
     }
 
     &__price {
         font-size: 18px;
-        
+
         @media (min-width: 450px) {
             font-size: 21px;
         }
