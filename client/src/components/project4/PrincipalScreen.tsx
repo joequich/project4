@@ -4,6 +4,7 @@ import { StarRating } from '../ui/StarRating';
 
 export const PrincipalScreen = () => {
     return (
+        <div className="container">
             <div className="items-list">
                 <div className="item-card">
                     <figure className="item-card__figure">
@@ -175,5 +176,7 @@ export const PrincipalScreen = () => {
                 </div>
                 
             </div>
+        </div>
+            
     )
 }

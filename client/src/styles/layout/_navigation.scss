@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     margin-left: auto;
+    height: 100%;
 
     &__collapse {
         display: flex;
@@ -21,10 +22,8 @@
             display: flex;
             align-items: center;
             flex-direction: row;
-            justify-content: flex-end;
-            width: 100%;
             position: relative;
-            height: auto;
+            height: 100%;
             top: auto;
             right: auto;
             opacity: 1;
@@ -39,7 +38,6 @@
         right: 0;
         opacity: 1;
         transition: all 0.5s ease;
-
         z-index: 2;
     }
 
@@ -57,6 +55,11 @@
         padding-left: 16px;
         @media (min-width: $breakpoint-tablet) {
             display: none;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
         }
     }
 
@@ -81,35 +84,59 @@
         align-items: center;
         flex-direction: column;
         width: 100%;
-
-        a {
-            text-decoration: none;
-            color: white;
-            padding: 0.5rem 1rem;
-
-            &:hover {
-                background-color: red;
-            }
-        }
-
+        
         @media (min-width: $breakpoint-tablet) {
             display: flex;
             align-items: center;
             flex-direction: row;
+            min-width: 50%;
+            padding-right: 48px;
+            height: 100%;
+            width: initial;
         }
+
+        a {
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #dadce0;
+
+            &:hover {
+                background-color: $accents-2;
+                color: black;
+            }
+
+            @media (min-width: $breakpoint-tablet) {
+                position: relative;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                padding: 0 16px;
+                border-bottom: none;
+            }
+        }
+
+        a.active{
+            box-shadow: 0 -3px 0 $accents-2 inset;
+        }
+
     }
 
     &__auth {
         width: 100%;
         margin-top: 2rem;
-        // margin-top: auto;
+        padding: 0 16px;
         // Tablet
         @media (min-width: $breakpoint-tablet) {
+            width: initial;
             margin: 0px;
             display: flex;
             flex-direction: row;
             align-items: center;
             height: 100%;
+            padding: 0;
         }
     }
 
@@ -121,7 +148,7 @@
         margin-bottom: 1rem;
         width: 100%;
         font-size: 16px;
-        font-weight: 00;
+        font-weight:500;
 
         @media (min-width: $breakpoint-tablet) {
             margin-right: 0.5rem;
