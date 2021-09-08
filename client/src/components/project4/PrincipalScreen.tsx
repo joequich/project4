@@ -5,8 +5,8 @@ import { StarRating } from '../ui/StarRating';
 export const PrincipalScreen = () => {
     let arr = [...Array(20)];
     return (
-        <div className="product-container">
-            <div className="items-list row-mb">
+        <div className="products-container">
+            <div className="items-list mt-md">
                 {
                     arr.map((val, idx) => (
                         <div key={idx} className="item-card">

@@ -3,16 +3,21 @@ import { Link } from 'react-router-dom';
 import imagen from '../../assets/keyboard_keychron.jpg';
 import { Edit } from '../ui/icons/Edit';
 import { Remove } from '../ui/icons/Remove';
+import { Plus } from '../ui/icons/Plus';
 
 export const ProductsScreen = () => {
 
     let arr = [...Array(10)];
 
     return (
-        <div className="product-container">
+        <div className="products-container">
             <div className="products-header">
-                <h3>All Products</h3>
-                <button>Add new product</button>
+                <span className="products-header__title">All Products</span>
+                <hr />
+                <button className="products-header__add-btn">
+                    <Plus />
+                    <span> Add new product</span>
+                </button>
             </div>
             <div className="items-list">
                 {
