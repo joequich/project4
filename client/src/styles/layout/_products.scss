@@ -1,44 +1,51 @@
+.product-container {
+    max-width: 1030px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 .items-list {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
-    padding: 16px;
+    padding: 8px;
     justify-items: center;
 
-    @media (min-width: 620px) {
-        grid-template-columns: 1fr 1fr;
+    @media (min-width: 640px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (min-width: 768px) {
+        gap: 30px;
+        padding: 16px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     @media (min-width: 1024px) {
-        grid-template-columns: 1fr 1fr 1fr;
+        gap: 30px;
+        padding: 16px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
 .item-card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #fffdfd;
-    border-radius: 16px;
+    border-radius: 9px;
     box-shadow: 0px 0px 0px 1px rgba(16, 11, 0, 0.07);
+    padding: 16px 0;
     width: 100%;
-    height: 200px;
-
-    @media (min-width: 450px) {
-        flex-direction: column;
-        width: 284px;
-        height: 416px;
-    }
+    // height: 200px;
 
     &__figure {
         align-items: center;
-        // background-color: #f1f3f4;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
         display: flex;
         justify-content: center;
-        // margin: 0 0 16px;
         overflow: hidden;
         padding: 0 8px 16px;
+        margin-bottom: 20px;
 
         img {
             height: 35vw;
@@ -46,9 +53,23 @@
             min-width: 100%;
             object-fit: cover;
 
-            @media (min-width: 450px) {
-                height: 260px;
+            @media (min-width: 640px) {
+                height: 200px; //260
             }
+        }
+    }
+
+    &__options {
+        align-self: flex-end;
+        padding-right: 8px; // 16px
+        
+        .opt {
+            padding-left: 8px; // 16px
+        }
+
+        svg {
+            width: 18px; //21px
+            height: 18px;//21px
         }
     }
 
@@ -57,12 +78,12 @@
         display: flex;
         flex-direction: column;
         padding: 8px;
-        border-left: 1px solid rgba(16, 11, 0, 0.09);
+        // border-left: 1px solid rgba(16, 11, 0, 0.09);
 
-        @media (min-width: 450px) {
+        @media (min-width: 640px) {
             border-left: none;
-            border-top: 1px solid rgba(16, 11, 0, 0.09);
-            padding: 16px;
+            // border-top: 1px solid rgba(16, 11, 0, 0.09);
+            padding: 0 16px;
         }
     }
 

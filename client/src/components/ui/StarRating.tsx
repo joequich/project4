@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Star } from './Star';
+import { Star } from './icons/Star';
 
 const createArray = (length: number) => [...Array(length)];
 
