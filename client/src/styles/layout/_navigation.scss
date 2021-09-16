@@ -151,6 +151,7 @@
         font-weight:400;
         padding: 8px 10px;
         text-decoration: none;
+        cursor: pointer;
 
         @media (min-width: $breakpoint-tablet) {
             margin-right: 0.5rem;

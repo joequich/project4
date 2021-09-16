@@ -1,22 +1,27 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import imagen from '../../assets/keyboard_keychron.jpg';
 import { Edit } from '../ui/icons/Edit';
 import { Remove } from '../ui/icons/Remove';
 import { Plus } from '../ui/icons/Plus';
 
 export const ProductsScreen = () => {
+    const history = useHistory();
 
     let arr = [...Array(10)];
+
+    const handleNew = () => {
+        history.replace('/products/add');
+    }
 
     return (
         <div className="products-container">
             <div className="products-header">
                 <span className="products-header__title">All Products</span>
                 <hr />
-                <button className="products-header__add-btn">
+                <button onClick={handleNew} className="products-header__add-btn">
                     <Plus />
-                    <span> Add new product</span>
+                    New product
                 </button>
             </div>
             <div className="items-list">
