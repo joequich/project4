@@ -23,6 +23,9 @@ export const LoginScreen = () => {
                     <form onSubmit={handleSubmit}>
                         <h1 className="headling text-center">SIGN IN</h1>
                         <br />
+                        <div className="alert alert-danger mb-sm">
+                            <span>Incorrect email or password.</span>
+                        </div>
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="email">Email</label>
                             <input
