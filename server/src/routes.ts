@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import role from './role.routes';
-import user from './users.routes';
-import auth from './auth.routes';
+import role from './roles/roles.routes.config';
+import user from './users/users.routes.config';
+import auth from './auth/auth.routes.config';
 
 // guaranteed to get dependencies
 export default () => {

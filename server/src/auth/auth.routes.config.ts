@@ -1,10 +1,10 @@
 import { Router, Request, Response} from 'express';
 import { body } from 'express-validator';
-import UserService from '../services/user.service';
-import AuthMiddleWare from '../middlewares/auth.middleware';
-import JwtMiddleware from '../middlewares/jwt.middleware';
-import { validateFields } from '../middlewares/validate-fields';
-import AuthController from '../controllers/auth.controller';
+import UserService from '../users/services/users.service';
+import AuthMiddleWare from './middleware/auth.middleware';
+import JwtMiddleware from './middleware/jwt.middleware';
+import { validateFields } from '../common/middlewares/validate-fields';
+import AuthController from './controllers/auth.controller';
 
 const route = Router();
 const userService = new UserService();

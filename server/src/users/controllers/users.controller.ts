@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { IUserService } from '../interfaces/user.interface';
-import { generateSalt, hashSync } from '../helpers/bcrypt';
+import { IUsersService } from '../../interfaces/user.interface';
+import { generateSalt, hashSync } from '../../common/helpers/bcrypt';
 
 export default class UsersController {
-    constructor(private readonly userService: IUserService) {}
+    constructor(private readonly userService: IUsersService) {}
 
     listUsers = async(req: Request, res: Response) => {
         const page = req.params.page ? Number(req.params.page) : 0;
@@ -12,7 +12,7 @@ export default class UsersController {
         try {
             const users = await this.userService.list(page, limit);
             return res.status(200).json({ status: 200, data: users, message: 'Succesfully Users List' });
-        } catch (error) {
+        } catch (error: any) {
             return res.status(400).json({ status: 400, message: error.message });
         }
     }
@@ -22,7 +22,7 @@ export default class UsersController {
         try {
             const user = await this.userService.readById(id);
             return res.status(200).json({ status: 200, data: user, message: 'Succesfully User List' });
-        } catch (error) {
+        } catch (error: any) {
             return res.status(400).json({ status: 400, message: error.message });
         }
     }
@@ -33,7 +33,7 @@ export default class UsersController {
         try {
             const user = await this.userService.create(req.body);
             return res.status(200).json({ status: 200, data: user, message: "Succesfully Users Saved" });
-        } catch (error) {
+        } catch (error: any) {
             return res.status(400).json({ status: 400, message: error.message });
         }
     }
@@ -48,7 +48,7 @@ export default class UsersController {
         try {
             const user = await this.userService.updateById(id, resto);
             return res.status(200).json({ status: 200, data: user, message: 'Succesfully User Updated' });
-        } catch (error) {
+        } catch (error: any) {
             return res.status(400).json({ status: 400, message: error.message });
         }
     }
@@ -61,7 +61,7 @@ export default class UsersController {
         try {
             const user = await this.userService.updateById(id, resto);
             return res.status(200).json({ status: 200, data: user, message: 'Succesfully User Updated' });
-        } catch (error) {
+        } catch (error: any) {
             return res.status(400).json({ status: 400, message: error.message });
         }
     }
@@ -71,7 +71,7 @@ export default class UsersController {
         try {
             const user = await this.userService.deleteById(id);
             return res.status(200).json({ status: 200, data: user, message: 'Succesgully User Deleted'})
-        } catch (error) {
+        } catch (error: any) {
             return res.status(400).json({ status: 400, message: error.message });
         }
     }

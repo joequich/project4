@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { IUserService } from "../interfaces/user.interface";
+import { IUsersService } from "../../interfaces/user.interface";
 export default class UsersMiddleware {
-    constructor(private readonly userService: IUserService) {}
+    constructor(private readonly userService: IUsersService) {}
 
     validateIfEmailExist = async(req: Request, res: Response, next: NextFunction) => {
         const email: string = req.body.email;

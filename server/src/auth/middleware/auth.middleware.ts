@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { IUserService } from "../interfaces/user.interface";
-import { compareSync } from '../helpers/bcrypt';
+import { IUsersService } from "../../interfaces/user.interface";
+import { compareSync } from '../../common/helpers/bcrypt';
 
 class AuthMiddleWare {
-    constructor(private readonly userService: IUserService) {}
+    constructor(private readonly usersService: IUsersService) {}
 
     verifyUserPassword = async(req: Request, res: Response, next: NextFunction) => {
-        const user = await this.userService.getUserCredentialsByEmail(req.body.email);
+        const user = await this.usersService.getUserCredentialsByEmail(req.body.email);
         if(user) {
             const passHash = user.password;
             if(compareSync(req.body.password, passHash)) {

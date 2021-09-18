@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IRoleService } from '../interfaces/role.interface';
+import { IRoleService } from '../../interfaces/role.interface';
 
 export default class RolesController {
     constructor(private readonly roleService: IRoleService) {}
@@ -8,7 +8,7 @@ export default class RolesController {
         try {
             const role = await this.roleService.create({ role: req.body.role })
             return res.status(200).json({ status: 200, data: role, message: "Succesfully Role Saved" });
-        } catch (error) {
+        } catch (error: any) {
             return res.status(400).json({ status: 400, message: error.message });
         }
     }

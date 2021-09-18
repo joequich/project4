@@ -1,7 +1,7 @@
-import { IPatchUser, IPutUser, IUser, IUserService } from '../interfaces/user.interface';
-import User from '../models/user.model';
+import { IPatchUser, IPutUser, IUser, IUsersService } from '../../interfaces/user.interface';
+import User from '../models/users.model';
 
-export default class UserService implements IUserService {
+export default class UsersService implements IUsersService {
     async create(data: IUser): Promise<IUser> {
         try {
             const user = new User(data);

@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { IUserService } from "../interfaces/user.interface";
+import { IUsersService } from "../../interfaces/user.interface";
 import jwt from 'jsonwebtoken';
-import { env } from '../config/index';
-import { IJwt } from "../interfaces/jwt.interface";
-import { hashSync } from "../helpers/bcrypt";
+import env from '../../common/config/env.config';
+import { IJwt } from "../../interfaces/jwt.interface";
+import { hashSync } from "../../common/helpers/bcrypt";
 
 const jwtSecretKey = env.JWT_SECRETKEY || '';
 
 class JwtMiddleware {
-    constructor(private readonly userService: IUserService) {}
+    constructor(private readonly usersService: IUsersService) {}
 
     validateBodyRefresh(req: Request, res: Response, next: NextFunction) {
         if (req.body && req.body.refreshToken) {
@@ -37,7 +37,7 @@ class JwtMiddleware {
     }
 
     validateRefreshToken = async(req: Request, res: Response, next: NextFunction) => {
-        const user = await this.userService.getUserCredentialsByEmail(res.locals.jwt.email);
+        const user = await this.usersService.getUserCredentialsByEmail(res.locals.jwt.email);
         const salt = res.locals.jwt.refreshKey;
         const hash = hashSync( res.locals.jwt.userId + jwtSecretKey, salt);
         

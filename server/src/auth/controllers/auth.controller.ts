@@ -1,8 +1,7 @@
-
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { generateSalt, hashSync } from '../helpers/bcrypt';
-import { env } from '../config/index';
+import { generateSalt, hashSync } from '../../common/helpers/bcrypt';
+import env from '../../common/config/env.config';
 
 const jwtSecret = env.JWT_SECRETKEY || '';
 const tokenDuration = '4h';
@@ -17,7 +16,7 @@ class AuthController {
             const token = jwt.sign(req.body, jwtSecret, { expiresIn: tokenDuration });
             console.log(req.body)
             return res.status(201).json({ accessToken: token, refreshToken: hash });
-        } catch (error) {
+        } catch (error: any) {
             console.log('createJWT error: %O', error);
             return res.status(500).json({ status: 500, message: error.message });
         }

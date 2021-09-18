@@ -3,13 +3,11 @@ import * as http from 'http';
 import cors from 'cors';
 import morgan from 'morgan';
 
-import { env, DBConnection } from './config/index';
+import env from './common/config/env.config';
 import routes from './routes'
 
 const app: Application = express();
 const server: http.Server = http.createServer(app);
-
-DBConnection();
 
 if (env.NODE_ENV === 'development') {
     app.use(morgan('dev'));

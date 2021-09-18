@@ -1,10 +1,10 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 import { body } from 'express-validator';
 
-import { validateFields } from '../middlewares/validate-fields';
+import { validateFields } from '../common/middlewares/validate-fields';
 
-import RolesController from '../controllers/roles.controller';
-import RoleService from '../services/role.service';
+import RolesController from '../roles/controllers/roles.controller';
+import RoleService from '../roles/services/roles.service';
 
 const route = Router();
 const RoleServiceInstance = new RoleService();

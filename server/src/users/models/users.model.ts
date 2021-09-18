@@ -1,9 +1,9 @@
-import { Schema, model, Document } from "mongoose";
-import { IUser } from '../interfaces/user.interface';
-import { Roles, DefaultRole } from "../constants";
+import mongoose from '../../common/services/mongoose.service';
+import { IUser } from '../../interfaces/user.interface';
+import { Roles, DefaultRole } from "../../constants";
 
 
-const UserSchema = new Schema<IUser>({
+const UserSchema = new mongoose.Schema<IUser>({
     username: { type: String, required: [true, 'User Name is required'] },
     email: { type: String, required: [true, 'Email is required'] },
     password: { type: String, required: [true, 'Password is required'] },
@@ -18,4 +18,4 @@ UserSchema.methods.toJSON = function() {
     return user;
 };
 
-export default model<IUser & Document>('User', UserSchema);
+export default mongoose.model<IUser & mongoose.Document>('User', UserSchema);

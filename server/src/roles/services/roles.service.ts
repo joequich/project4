@@ -1,5 +1,5 @@
-import { IRole, IRoleService } from '../interfaces/role.interface';
-import Role from '../models/role.model';
+import { IRole, IRoleService } from '../../interfaces/role.interface';
+import Role from '../models/roles.model';
 
 export default class RoleService implements IRoleService {
     async create(data: IRole): Promise<IRole> {

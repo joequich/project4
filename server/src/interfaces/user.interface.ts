@@ -32,7 +32,7 @@ export interface IPatchUser {
 }
 
 
-export interface IUserService {
+export interface IUsersService {
   create: (data: IUser) => Promise<IUser>;
   list: (from: number, limit: number) => Promise<{
     users: IUser[];
