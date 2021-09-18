@@ -16,9 +16,14 @@ class AuthController {
             const token = jwt.sign(req.body, jwtSecret, { expiresIn: tokenDuration });
             console.log(req.body)
             return res.status(201).json({ accessToken: token, refreshToken: hash });
-        } catch (error: any) {
-            console.log('createJWT error: %O', error);
-            return res.status(500).json({ status: 500, message: error.message });
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log('createJWT error: %O', error)
+                return res.status(500).json({ status: 500, message: error.message });
+            } else {
+                console.log(error);
+                return res.status(500).json({ status: 500, message: 'Unknow failure' });
+            }
         }
     }
 }
