@@ -7,7 +7,7 @@ interface FormValues {
     password?: string;
 }
 
-export const RegisterScreen = () => {
+export const RegisterPage = () => {
     const [formValues, handleInputChange] = useForm({
         username: '',
         email: '',

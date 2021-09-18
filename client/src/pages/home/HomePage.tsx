@@ -1,8 +1,8 @@
 import React from 'react';
 import imagen from '../../assets/keyboard_keychron.jpg';
-import { StarRating } from '../ui/StarRating';
+import { StarRating } from '../../components/StarRating';
 
-export const PrincipalScreen = () => {
+export const HomePage = () => {
     let arr = [...Array(20)];
     return (
         <div className="products-container">

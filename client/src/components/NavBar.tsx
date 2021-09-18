@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { FiMenu as Menu, FiX as Close } from 'react-icons/fi';
-import logo from '../../assets/logo.svg';
+import logo from '../assets/logo.svg';
 import { useState } from 'react';
 
 export const NavBar = () => {

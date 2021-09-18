@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import imagen from '../../assets/keyboard_keychron.jpg';
-import { Edit } from '../ui/icons/Edit';
-import { Remove } from '../ui/icons/Remove';
-import { Plus } from '../ui/icons/Plus';
+import { Edit } from '../../components/icons/Edit';
+import { Remove } from '../../components/icons/Remove';
+import { Plus } from '../../components/icons/Plus';
 
-export const ProductsScreen = () => {
+export const ProductsListPage = () => {
     const history = useHistory();
 
     let arr = [...Array(10)];

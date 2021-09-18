@@ -8,7 +8,7 @@ interface FormValues {
     price?: string;
 }
 
-export const ManageProductScreen = () => {
+export const ProductsManagePage = () => {
     const [formValues, handleInputChange] = useForm({
         product: '',
         description: '',
