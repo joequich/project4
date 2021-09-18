@@ -1,8 +1,8 @@
-import { model, Schema } from "mongoose";
+import mongoose from '../../common/services/mongoose.service';
 import { IRole } from "../../interfaces/role.interface";
 
-const RoleSchema = new Schema<IRole>({
+const RoleSchema = new mongoose.Schema<IRole>({
     role: { type: String, required: [true, 'Role is required'] }
 });
 
-export default model<IRole & Document>('Role', RoleSchema);
+export default mongoose.model<IRole & mongoose.Document>('Role', RoleSchema);

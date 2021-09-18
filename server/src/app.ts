@@ -4,7 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import env from './common/config/env.config';
-import routes from './routes'
+import routes from './routes';
 
 const app: Application = express();
 const server: http.Server = http.createServer(app);
