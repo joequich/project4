@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 import AuthService from '../../services/auth.service';
+
+const user = JSON.parse(localStorage.getItem('p4_user') || 'null');
+
 export const login = createAsyncThunk(
     "auth/login",
     async ({ email, password }: { email: string; password: string;}, thunkAPI) => {
@@ -20,11 +23,15 @@ export const login = createAsyncThunk(
     }
   );
 
-const initialState = {
-    checking: true,
-    logged: false,
-    username: null,
-}
+const initialState = user
+    ? { checking: false,
+        logged: true,
+        username: user.username,
+      }
+    : { checking: true,
+        logged: false,
+        username: null,
+      } 
 
 interface AuthState {
     checking: boolean;

@@ -5,12 +5,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useForm } from '../../hooks/useForm';
 
 import { login } from '../../redux/auth/authSlide';
-interface FormValues {
-    email: string | '';
-    password: string | '';
-}
-
 // interface RootState {  auth: boolean}
+interface FormsValues{
+    email: string;
+    password: string;
+}
 
 export const LoginPage = () => {
     const history = useHistory();
@@ -23,7 +22,7 @@ export const LoginPage = () => {
 
     const dispatch = useAppDispatch();
 
-    const { email, password }: FormValues = formValues;
+    const { email, password } = formValues as FormsValues;
     // const email = 'admin@example.com';
     // const password = '123456';
 
@@ -34,7 +33,7 @@ export const LoginPage = () => {
             .then(unwrapResult)
             .then(() => {
                 history.push("/products");
-                // window.location.reload();
+                window.location.reload();
             })
             // .catch(() => {
             //     setLoading(false);

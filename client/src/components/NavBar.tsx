@@ -3,10 +3,11 @@ import { Link, NavLink, useHistory } from 'react-router-dom';
 import { FiMenu as Menu, FiX as Close } from 'react-icons/fi';
 import logo from '../assets/logo.svg';
 import { useState } from 'react';
+import { useAppSelector } from '../hooks';
 
 export const NavBar = () => {
     const history = useHistory();
-    const logged = false;
+    const { logged } = useAppSelector((state) => state.auth);
     const handleRegister = () => {
         history.replace('/auth/register');
     };
