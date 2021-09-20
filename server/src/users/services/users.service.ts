@@ -51,7 +51,7 @@ export default class UsersService implements IUsersService {
 
     async getUserCredentialsByEmail(email: string) {
         try {
-            const user = await User.findOne({email}).select(['_id','email','password','role','google']).exec();
+            const user = await User.findOne({email}).select(['_id','email','password','role','google','username']).exec();
             return user;
         } catch {
             throw new Error('Error while Reading User email');

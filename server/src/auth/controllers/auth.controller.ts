@@ -15,7 +15,7 @@ class AuthController {
             req.body.refreshKey = salt;
             const token = jwt.sign(req.body, jwtSecret, { expiresIn: tokenDuration });
             console.log(req.body)
-            return res.status(201).json({ accessToken: token, refreshToken: hash });
+            return res.status(201).json({ username: req.body.username, accessToken: token, refreshToken: hash });
         } catch (error) {
             if (error instanceof Error) {
                 console.log('createJWT error: %O', error)

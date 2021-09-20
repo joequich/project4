@@ -12,6 +12,7 @@ class AuthMiddleWare {
             if(compareSync(req.body.password, passHash)) {
                 req.body = {
                     userId: user._id,
+                    username: user.username,
                     email: user.email,
                     role: user.role,
                 };
