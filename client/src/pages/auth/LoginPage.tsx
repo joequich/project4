@@ -1,21 +1,44 @@
+import { unwrapResult } from '@reduxjs/toolkit';
 import React, { FormEvent } from 'react';
+import { useHistory } from 'react-router';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useForm } from '../../hooks/useForm';
+
+import { login } from '../../redux/auth/authSlide';
 interface FormValues {
-    email?: string;
-    password?: string;
+    email: string | '';
+    password: string | '';
 }
 
+// interface RootState {  auth: boolean}
+
 export const LoginPage = () => {
+    const history = useHistory();
     const [formValues, handleInputChange] = useForm({
         email: '',
         password: '',
     });
 
+    const { logged } = useAppSelector((state) => state.auth);
+
+    const dispatch = useAppDispatch();
+
     const { email, password }: FormValues = formValues;
+    // const email = 'admin@example.com';
+    // const password = '123456';
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(formValues);
+
+        dispatch(login({ email, password }))
+            .then(unwrapResult)
+            .then(() => {
+                history.push("/products");
+                // window.location.reload();
+            })
+            // .catch(() => {
+            //     setLoading(false);
+            // });
     };
     return (
             <div className="auth-container">
