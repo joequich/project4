@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 import authReduce from './auth/authSlide';
 
 const store =  configureStore({

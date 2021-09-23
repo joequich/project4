@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
-import { FiMenu as Menu, FiX as Close } from 'react-icons/fi';
 import logo from '../assets/logo.svg';
 import { useState } from 'react';
 import { useAppSelector } from '../hooks';
+import { Close } from './icons/Close';
+import { Menu } from './icons/Menu';
 
 export const NavBar = () => {
     const history = useHistory();

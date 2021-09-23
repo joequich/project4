@@ -1,11 +1,21 @@
 .alert {
-    padding: 1rem;
+    padding: 0.7rem 1rem 1rem;
     border: 1px solid;
     font-size: 14px;
+    display: flex;
+    flex-direction: column;
+
+    &__close-icon {
+        align-self: flex-end;
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
 }
 
 .alert-danger {
-    border-color: #DA525D;
-    background: #FFF2F3;
-    color: #7A091D;
+    border-color: #da525d;
+    background: #fff2f3;
+    color: #7a091d;
 }

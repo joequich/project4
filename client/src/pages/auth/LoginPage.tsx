@@ -1,6 +1,6 @@
-import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FormEvent, useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import { AlertMessage } from '../../components/AlertMessage';
 import { FullPageLoader } from '../../components/FullPageLoader';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useForm } from '../../hooks/useForm';
@@ -64,9 +64,7 @@ export const LoginPage = () => {
                         <h1 className="headling text-center">SIGN IN</h1>
                         <br />
                         {isError && (
-                            <div className="alert alert-danger mb-sm">
-                                <span>{error}</span>
-                            </div>
+                            <AlertMessage errorMessage={error}/>
                         )}
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="email">Email</label>
