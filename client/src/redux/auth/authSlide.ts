@@ -1,72 +1,63 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-
-import AuthService from '../../services/auth.service';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { login } from './authAction';
 
 const user = JSON.parse(localStorage.getItem('p4_user') || 'null');
 
-export const login = createAsyncThunk(
-    "auth/login",
-    async ({ email, password }: { email: string; password: string;}, thunkAPI) => {
-      try {
-        const data = await AuthService.login(email, password);
-        return data;
-      } catch (error: any) {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        console.log(message)
-        return thunkAPI.rejectWithValue(message);
-      }
-    }
-  );
-
 const initialState = user
-    ? { checking: false,
-        logged: true,
-        username: user.username,
-      }
-    : { checking: true,
-        logged: false,
-        username: null,
-      } 
+    ? { isChecking: false, logged: true, username: user.username, isError: false, error: '' }
+    : { isChecking: false, logged: false, username: null, isError: false, error: '' };
+
+type AuthAction = { username: string; message: string;}
 
 interface AuthState {
-    checking: boolean;
-    username?: string;
     logged: boolean;
+    username: string | null;
+    isChecking: boolean;
+    isError: boolean;
+    error: string | undefined;
 }
 
-type AuthAction =
-    | { username: string }
-
-    
+interface ErrorPayload {
+    status: number;
+    message: string;
+    errors: Record<string, string>
+}
 
 const authSlice = createSlice({
     name: 'authSlice',
     initialState,
     reducers: {
-        
+        clearState: (state) => {
+            state.isChecking = false;
+            state.logged = false;
+            state.isError = false;
+            return state;
+        }
     },
     extraReducers(builder) {
-        builder
-            .addCase(login.fulfilled,(state, action) => {
-                state.username = action.payload.username;
-                state.checking = false;
-                state.logged = true;
-            })
-        // checkingFinish: (state) => {
-        //     ...state,
-        //     checking: false,
-        //     logged: true
-        // },
-        // logout: () => {
-        //     checking: true
-        //     logged: false
-        // }
-    }
+        builder.addCase(login.pending, (state: AuthState) => {
+            state.isChecking = true;
+        });
+        builder.addCase(login.fulfilled, (state: AuthState, action) => {
+            state.username = action.payload.username;
+            state.isChecking = false;
+            state.logged = true;
+        });
+        builder.addCase(login.rejected, (state: AuthState, action) => {
+            const payload = action.payload as ErrorPayload;
+            if (action.payload) {        
+                state.error = payload.message
+                if(payload.errors)
+                    state.error =  JSON.stringify( payload.errors);
+            } else {        
+                state.error = action.error.message      
+            }
+            state.isChecking = false;
+            state.isError = true;
+        });
+    },
 });
+
+export const { clearState } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,12 +1,14 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import { FullPageLoader } from '../../components/FullPageLoader';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useForm } from '../../hooks/useForm';
 
-import { login } from '../../redux/auth/authSlide';
+import { login } from '../../redux/auth/authAction';
+import { clearState } from '../../redux/auth/authSlide';
 // interface RootState {  auth: boolean}
-interface FormsValues{
+interface FormsValues {
     email: string;
     password: string;
 }
@@ -18,7 +20,9 @@ export const LoginPage = () => {
         password: '',
     });
 
-    const { logged } = useAppSelector((state) => state.auth);
+    const { logged, isChecking, isError, error } = useAppSelector(
+        state => state.auth
+    );
 
     const dispatch = useAppDispatch();
 
@@ -26,28 +30,44 @@ export const LoginPage = () => {
     // const email = 'admin@example.com';
     // const password = '123456';
 
+    useEffect(() => {
+        if (logged) {
+            history.push('/products');
+            window.location.reload();
+        }
+
+        if (isError) {
+            console.log('clearState')
+            dispatch(clearState);
+        }
+    }, [logged, isChecking, isError, dispatch, history])
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        dispatch(login({ email, password }))
-            .then(unwrapResult)
-            .then(() => {
-                history.push("/products");
-                window.location.reload();
-            })
-            // .catch(() => {
-            //     setLoading(false);
+        dispatch(login({ email, password }));
+            // .then(unwrapResult)
+            // .then(() => {
+            //     history.push('/products');
+            //     window.location.reload();
             // });
+        // .catch(() => {
+        //     setLoading(false);
+        // });
     };
     return (
+        <>
+            {isChecking && <FullPageLoader />}
             <div className="auth-container">
                 <div className="auth-wrapper">
                     <form onSubmit={handleSubmit}>
                         <h1 className="headling text-center">SIGN IN</h1>
                         <br />
-                        <div className="alert alert-danger mb-sm">
-                            <span>Incorrect email or password.</span>
-                        </div>
+                        {isError && (
+                            <div className="alert alert-danger mb-sm">
+                                <span>{error}</span>
+                            </div>
+                        )}
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="email">Email</label>
                             <input
@@ -81,5 +101,6 @@ export const LoginPage = () => {
                     </form>
                 </div>
             </div>
+        </>
     );
 };
