@@ -26,7 +26,7 @@ class AuthMiddleWare {
             .status(400)
             .json({
                 status: 400,
-                error: { message: 'Invalid email and/or password' },
+                message: 'Invalid email and/or password'
             });
     };
 }

@@ -8,10 +8,8 @@ interface IErrors {
 }
 interface ErrorPayload {
     status: number;
-    error: {
-        message: string;
-        errors?: IErrors[];
-    };
+    message: string;
+    errors?: IErrors[];
 }
 
 export const AlertMessage = ({ error }: { error: ErrorPayload | SerializedError; }) => {
@@ -24,11 +22,16 @@ export const AlertMessage = ({ error }: { error: ErrorPayload | SerializedError;
     };
 
     useEffect(() => {
-        if ('error' in error) {
-            setMessage(error.error.message);
-            if ('errors' in error.error) setErrors(error.error.errors!);
-        } else {
+        if('message' in error) {
             setMessage(error.message!);
+        } else {
+            setMessage('xD');
+        }
+        
+        if ('errors' in error) {
+            setErrors(error.errors!);
+        } else {
+            setErrors(undefined);
         }
     }, [errors, message, error]);
 

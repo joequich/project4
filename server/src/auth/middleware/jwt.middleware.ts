@@ -18,7 +18,7 @@ class JwtMiddleware {
             .status(400)
             .json({
                 status: 400,
-                error: { message: 'Missing required field: refreshToken' },
+                message: 'Missing required field: refreshToken'
             });
     }
 
@@ -44,7 +44,7 @@ class JwtMiddleware {
                 .status(401)
                 .json({
                     status: 401,
-                    error: { message: 'No token was found in request' },
+                    message: 'No token was found in request'
                 });
         }
     }
@@ -69,7 +69,7 @@ class JwtMiddleware {
                 .status(400)
                 .json({ 
                     status: 400,
-                    error: { message: 'Invalid refresh token' },
+                    message: 'Invalid refresh token',
                 });
         }
     };

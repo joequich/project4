@@ -4,8 +4,8 @@ import { login } from './authAction';
 const user = JSON.parse(localStorage.getItem('p4_user') || 'null');
 
 const initialState = user
-    ? { isChecking: false, logged: true, username: user.username, isError: false, error: {} }
-    : { isChecking: false, logged: false, username: null, isError: false, error: {} };
+    ? { isChecking: false, logged: true, username: user.username, isError: false, error: { message: ''} }
+    : { isChecking: false, logged: false, username: null, isError: false, error: { message: ''} };
 
 type AuthAction = { username: string; message: string;}
 
@@ -17,10 +17,14 @@ interface AuthState {
     error: ErrorPayload | SerializedError;
 }
 
+interface IErrors {
+    value: string;
+    reason: string;
+}
 interface ErrorPayload {
     status: number;
     message: string;
-    errors: Record<string, string>
+    errors?: IErrors[];
 }
 
 const authSlice = createSlice({
@@ -31,6 +35,7 @@ const authSlice = createSlice({
             state.isChecking = false;
             state.logged = false;
             state.isError = false;
+            // state.error =
             return state;
         }
     },

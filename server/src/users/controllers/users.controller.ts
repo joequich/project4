@@ -22,12 +22,12 @@ export default class UsersController {
             if (err instanceof Error) {
                 return res
                     .status(400)
-                    .json({ status: 400, error: { message: err.message }, });
+                    .json({ status: 400, message: err.message });
             } else {
                 console.log(err);
                 return res
                     .status(500)
-                    .json({ status: 500, error: { message: 'Unknow failure' }, });
+                    .json({ status: 500, message: 'Unknow failure' });
             }
         }
     };
@@ -47,12 +47,12 @@ export default class UsersController {
             if (err instanceof Error) {
                 return res
                     .status(400)
-                    .json({ status: 400, error: { message: err.message }, });
+                    .json({ status: 400, message: err.message });
             } else {
                 console.log(err);
                 return res
                     .status(500)
-                    .json({ status: 500, error: { message: 'Unknow failure' }, });
+                    .json({ status: 500, message: 'Unknow failure' });
             }
         }
     };
@@ -73,12 +73,12 @@ export default class UsersController {
             if (err instanceof Error) {
                 return res
                     .status(400)
-                    .json({ status: 400, error: { message: err.message }, });
+                    .json({ status: 400, message: err.message });
             } else {
                 console.log(err);
                 return res
                     .status(500)
-                    .json({ status: 500, error: { message: 'Unknow failure' }, });
+                    .json({ status: 500, message: 'Unknow failure' });
             }
         }
     };
@@ -103,12 +103,12 @@ export default class UsersController {
             if (err instanceof Error) {
                 return res
                     .status(400)
-                    .json({ status: 400, error: { message: err.message }, });
+                    .json({ status: 400, message: err.message });
             } else {
                 console.log(err);
                 return res
                     .status(500)
-                    .json({ status: 500, error: { message: 'Unknow failure' }, });
+                    .json({ status: 500, message: 'Unknow failure' });
             }
         }
     };
@@ -131,12 +131,12 @@ export default class UsersController {
             if (err instanceof Error) {
                 return res
                     .status(400)
-                    .json({ status: 400, error: { message: err.message }, });
+                    .json({ status: 400, message: err.message });
             } else {
                 console.log(err);
                 return res
                     .status(500)
-                    .json({ status: 500, error: { message: 'Unknow failure' }, });
+                    .json({ status: 500, message: 'Unknow failure' });
             }
         }
     };
@@ -156,12 +156,12 @@ export default class UsersController {
             if (err instanceof Error) {
                 return res
                     .status(400)
-                    .json({ status: 400, error: { message: err.message }, });
+                    .json({ status: 400, message: err.message });
             } else {
                 console.log(err);
                 return res
                     .status(500)
-                    .json({ status: 500, error: { message: 'Unknow failure' }, });
+                    .json({ status: 500, message: 'Unknow failure' });
             }
         }
     };

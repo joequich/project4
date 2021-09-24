@@ -12,7 +12,7 @@ export const validateFields = ( req: Request, res: Response, next: NextFunction 
             .status(400)
             .json({
                 status: 400,
-                error: { message: 'Invalid fields', errors: errors.array() },
+                message: 'Invalid fields', errors: errors.array()
             });
     }
     next();

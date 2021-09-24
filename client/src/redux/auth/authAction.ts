@@ -6,8 +6,8 @@ const client = axios.create({
 });
 
 interface ValidationErrors {  
-    errorMessage: string  
-    field_errors: Record<string, string>
+    errorMessage: string;  
+    field_errors: Record<string, string>;
 }
 
 export const login = createAsyncThunk(
@@ -26,8 +26,8 @@ export const login = createAsyncThunk(
         } catch (err: any) {
             let error: AxiosError<ValidationErrors> = err; // cast the error for access    
             if (!error.response) {      throw err    }
-            console.log('actions', error.response.data)
-        return thunkAPI.rejectWithValue(error.response.data);
+            // console.log('actions', error.response.data)
+        return thunkAPI.rejectWithValue(err.response.data);
     }
     }
 );

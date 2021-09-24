@@ -19,10 +19,10 @@ class AuthController {
         } catch (err) {
             if (err instanceof Error) {
                 console.log('createJWT error: %O', err)
-                return res.status(500).json({ status: 500, error: { message: err.message }, });
+                return res.status(500).json({ status: 500, message: err.message });
             } else {
                 console.log(err);
-                return res.status(500).json({ status: 500, error: { message: 'Unknow failure' }, });
+                return res.status(500).json({ status: 500, message: 'Unknow failure' });
             }
         }
     }

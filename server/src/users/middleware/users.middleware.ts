@@ -11,7 +11,7 @@ export default class UsersMiddleware {
                 .status(400)
                 .json({
                     status: 400,
-                    error: { message: `User email ${email} already exists` },
+                    message: `User email ${email} already exists`
                 });
         } else {
             return next();
@@ -23,7 +23,7 @@ export default class UsersMiddleware {
         if (user && user._id === req.params.id) {
             return res
                 .status(400)
-                .json({ status: 400, error: { message: 'Invalid Email' } });
+                .json({ status: 400, message: 'Invalid Email' });
         } else {
             return next();
         }
@@ -49,7 +49,7 @@ export default class UsersMiddleware {
                 .status(404)
                 .json({
                     status: 404,
-                    error: { message: `User ${req.params.userId} not found` },
+                    message: `User ${req.params.userId} not found`
                 });
         }
     };
@@ -60,7 +60,7 @@ export default class UsersMiddleware {
                 .status(400)
                 .json({
                     status: 400,
-                    error: { message: 'User cannot change role' },
+                    message: 'User cannot change role'
                 });
         } else {
             return next();

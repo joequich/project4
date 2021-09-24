@@ -1,4 +1,4 @@
-import { FormEvent, useEffect } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { AlertMessage } from '../../components/AlertMessage';
 import { FullPageLoader } from '../../components/FullPageLoader';
@@ -29,15 +29,11 @@ export const LoginPage = () => {
             history.push('/products');
             window.location.reload();
         }
-
-        if (isError) {
-            console.log('clearState')
-            dispatch(clearState);
-        }
-    }, [logged, isChecking, isError, dispatch, history])
+    }, [logged, dispatch, history]);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        dispatch(clearState());
         dispatch(login({ email, password }));
     };
     return (

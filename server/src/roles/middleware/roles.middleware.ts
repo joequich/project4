@@ -12,10 +12,8 @@ export default class RolesMiddleware {
         } else {
             res.status(400).json({
                 status: 400,
-                error: {
-                    message: 'Invalid Role',
-                    errors: [{ value: role, reason: 'Not registered' }],
-                },
+                message: 'Invalid Role',
+                errors: [{ value: role, reason: 'Not registered' }]
             });
         }
     };
@@ -29,15 +27,13 @@ export default class RolesMiddleware {
                 } else {
                     return res.status(403).json({
                         status: 403,
-                        error: {
-                            message: 'Invalid Role',
-                            errors: [
-                                {
-                                    value: `${userRole}`,
-                                    reason: `The service requires one of these roles ${roles}`,
-                                },
-                            ],
-                        },
+                        message: 'Invalid Role',
+                        errors: [
+                            {
+                                value: `${userRole}`,
+                                reason: `The service requires one of these roles ${roles}`,
+                            },
+                        ],
                     });
                 }
             } catch (error) {
@@ -60,9 +56,7 @@ export default class RolesMiddleware {
             } else {
                 return res.status(403).json({
                     status: 403,
-                    error: {
-                        message: 'You need permissions, cannot do this',
-                    },
+                message: 'You need permissions, cannot do this',
                 });
             }
         }
