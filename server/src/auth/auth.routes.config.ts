@@ -16,8 +16,8 @@ export default (app: Router) => {
     app.use('/auth', route);
 
     route.post('/login', [
-        body('email', 'Email is not valid').isEmail(),
-        body('password', 'Password is not valid').isString(),
+        body('email', 'Invalid email value').isEmail(),
+        body('password', 'Invalid string value').isString(),
         validateFields,
         authMiddleware.verifyUserPassword,
     ], authController.generateJWT);

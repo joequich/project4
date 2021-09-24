@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from "express";
-import { IUsersService } from "../../interfaces/user.interface";
+import { NextFunction, Request, Response } from 'express';
+import { IUsersService } from '../../interfaces/user.interface';
 import jwt from 'jsonwebtoken';
 import env from '../../common/config/env.config';
-import { IJwt } from "../../interfaces/jwt.interface";
-import { hashSync } from "../../common/helpers/bcrypt";
+import { IJwt } from '../../interfaces/jwt.interface';
+import { hashSync } from '../../common/helpers/bcrypt';
 
 const jwtSecretKey = env.JWT_SECRETKEY || '';
 
@@ -14,45 +14,65 @@ class JwtMiddleware {
         if (req.body && req.body.refreshToken) {
             return next();
         }
-        return res.status(400).json({ status: 400, message: 'Missing required field: refreshToken' })
+        return res
+            .status(400)
+            .json({
+                status: 400,
+                error: { message: 'Missing required field: refreshToken' },
+            });
     }
 
     validateJWT(req: Request, res: Response, next: NextFunction) {
         if (req.headers['authorization']) {
             try {
-                const authorization = req.headers['authorization'].split(' ')
+                const authorization = req.headers['authorization'].split(' ');
                 if (authorization[0] !== 'Bearer') {
                     return res.status(401).json({ status: 401 });
                 } else {
-                    res.locals.jwt = jwt.verify(authorization[1], jwtSecretKey) as IJwt;
-                    console.log(res.locals.jwt)
+                    res.locals.jwt = jwt.verify(
+                        authorization[1],
+                        jwtSecretKey
+                    ) as IJwt;
+                    console.log(res.locals.jwt);
                     return next();
                 }
             } catch (error) {
-                return res.status(403).json( {status: 403} );
+                return res.status(403).json({ status: 403 });
             }
         } else {
-            return res.status(401).json({ status: 401, message: 'No token was found in request' });
+            return res
+                .status(401)
+                .json({
+                    status: 401,
+                    error: { message: 'No token was found in request' },
+                });
         }
     }
 
-    validateRefreshToken = async(req: Request, res: Response, next: NextFunction) => {
-        const user = await this.usersService.getUserCredentialsByEmail(res.locals.jwt.email);
+    validateRefreshToken = async ( req: Request, res: Response, next: NextFunction ) => {
+        const user = await this.usersService.getUserCredentialsByEmail(
+            res.locals.jwt.email
+        );
         const salt = res.locals.jwt.refreshKey;
-        const hash = hashSync( res.locals.jwt.userId + jwtSecretKey, salt);
-        
+        const hash = hashSync(res.locals.jwt.userId + jwtSecretKey, salt);
+
         if (hash === req.body.refreshToken && user) {
             req.body = {
                 userId: user._id,
                 email: user.email,
                 role: user.role,
             };
-            console.log(req.body)
+            console.log(req.body);
             return next();
         } else {
-            return res.status(400).json({ status: 400, message: 'Invalid refresh token'});
+            return res
+                .status(400)
+                .json({ 
+                    status: 400,
+                    error: { message: 'Invalid refresh token' },
+                });
         }
-    }
+    };
 }
 
 export default JwtMiddleware;

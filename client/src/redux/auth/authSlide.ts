@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, SerializedError } from '@reduxjs/toolkit';
 import { login } from './authAction';
 
 const user = JSON.parse(localStorage.getItem('p4_user') || 'null');
 
 const initialState = user
-    ? { isChecking: false, logged: true, username: user.username, isError: false, error: '' }
-    : { isChecking: false, logged: false, username: null, isError: false, error: '' };
+    ? { isChecking: false, logged: true, username: user.username, isError: false, error: {} }
+    : { isChecking: false, logged: false, username: null, isError: false, error: {} };
 
 type AuthAction = { username: string; message: string;}
 
@@ -14,7 +14,7 @@ interface AuthState {
     username: string | null;
     isChecking: boolean;
     isError: boolean;
-    error: string | undefined;
+    error: ErrorPayload | SerializedError;
 }
 
 interface ErrorPayload {
@@ -38,19 +38,16 @@ const authSlice = createSlice({
         builder.addCase(login.pending, (state: AuthState) => {
             state.isChecking = true;
         });
-        builder.addCase(login.fulfilled, (state: AuthState, action) => {
+        builder.addCase(login.fulfilled, (state: AuthState, action: PayloadAction<AuthAction>) => {
             state.username = action.payload.username;
             state.isChecking = false;
             state.logged = true;
         });
         builder.addCase(login.rejected, (state: AuthState, action) => {
-            const payload = action.payload as ErrorPayload;
             if (action.payload) {        
-                state.error = payload.message
-                if(payload.errors)
-                    state.error =  JSON.stringify( payload.errors);
+                state.error = action.payload as ErrorPayload
             } else {        
-                state.error = action.error.message      
+                state.error = action.error
             }
             state.isChecking = false;
             state.isError = true;

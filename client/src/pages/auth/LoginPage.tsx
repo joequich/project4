@@ -1,10 +1,10 @@
 import { FormEvent, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { AlertMessage } from '../../components/AlertMessage';
 import { FullPageLoader } from '../../components/FullPageLoader';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useForm } from '../../hooks/useForm';
-
+import {RootState} from '../../redux/store';
 import { login } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
 // interface RootState {  auth: boolean}
@@ -20,11 +20,11 @@ export const LoginPage = () => {
         password: '',
     });
 
-    const { logged, isChecking, isError, error } = useAppSelector(
-        state => state.auth
+    const { logged, isChecking, isError, error } = useSelector(
+        (state: RootState) => state.auth
     );
 
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
 
     const { email, password } = formValues as FormsValues;
     // const email = 'admin@example.com';
@@ -64,7 +64,7 @@ export const LoginPage = () => {
                         <h1 className="headling text-center">SIGN IN</h1>
                         <br />
                         {isError && (
-                            <AlertMessage errorMessage={error}/>
+                            <AlertMessage error={error}/>
                         )}
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="email">Email</label>

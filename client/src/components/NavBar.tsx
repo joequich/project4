@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import { useState } from 'react';
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../hooks/Redux';
 import { Close } from './icons/Close';
 import { Menu } from './icons/Menu';
 
