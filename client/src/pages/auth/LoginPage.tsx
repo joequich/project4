@@ -1,13 +1,12 @@
 import { FormEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { AlertMessage } from '../../components/AlertMessage';
 import { FullPageLoader } from '../../components/FullPageLoader';
 import { useForm } from '../../hooks/useForm';
-import {RootState} from '../../redux/store';
+import { useAppSelector, useAppDispatch} from '../../hooks/Redux';
+
 import { login } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
-// interface RootState {  auth: boolean}
 interface FormsValues {
     email: string;
     password: string;
@@ -15,20 +14,15 @@ interface FormsValues {
 
 export const LoginPage = () => {
     const history = useHistory();
+    const dispatch = useAppDispatch();
+    const { logged, isChecking, isError, error } = useAppSelector(
+        (state) => state.auth
+    );
     const [formValues, handleInputChange] = useForm({
         email: '',
         password: '',
     });
-
-    const { logged, isChecking, isError, error } = useSelector(
-        (state: RootState) => state.auth
-    );
-
-    const dispatch = useDispatch();
-
     const { email, password } = formValues as FormsValues;
-    // const email = 'admin@example.com';
-    // const password = '123456';
 
     useEffect(() => {
         if (logged) {
@@ -44,16 +38,7 @@ export const LoginPage = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         dispatch(login({ email, password }));
-            // .then(unwrapResult)
-            // .then(() => {
-            //     history.push('/products');
-            //     window.location.reload();
-            // });
-        // .catch(() => {
-        //     setLoading(false);
-        // });
     };
     return (
         <>
