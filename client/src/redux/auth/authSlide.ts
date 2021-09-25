@@ -1,14 +1,5 @@
-import { createSlice, PayloadAction, SerializedError } from '@reduxjs/toolkit';
+import { createSlice, SerializedError } from '@reduxjs/toolkit';
 import { login } from './authAction';
-
-const user = JSON.parse(localStorage.getItem('p4_user') || 'null');
-
-const initialState = user
-    ? { isChecking: false, logged: true, username: user.username, isError: false, error: { message: ''} }
-    : { isChecking: false, logged: false, username: null, isError: false, error: { message: ''} };
-
-type AuthAction = { username: string; message: string;}
-
 interface AuthState {
     logged: boolean;
     username: string | null;
@@ -27,6 +18,12 @@ interface ErrorPayload {
     errors?: IErrors[];
 }
 
+const user = JSON.parse(localStorage.getItem('p4_user') || 'null');
+
+const initialState = user
+    ? { isChecking: false, logged: true, username: user.username, isError: false, error: { message: ''} }
+    : { isChecking: false, logged: false, username: null, isError: false, error: { message: ''} };
+
 const authSlice = createSlice({
     name: 'authSlice',
     initialState,
@@ -43,7 +40,7 @@ const authSlice = createSlice({
         builder.addCase(login.pending, (state: AuthState) => {
             state.isChecking = true;
         });
-        builder.addCase(login.fulfilled, (state: AuthState, action: PayloadAction<AuthAction>) => {
+        builder.addCase(login.fulfilled, (state: AuthState, action) => {
             state.username = action.payload.username;
             state.isChecking = false;
             state.logged = true;

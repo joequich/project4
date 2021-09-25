@@ -1,14 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-
-const client = axios.create({
-    baseURL: 'http://localhost:7000/api'
-});
-
 interface ValidationErrors {  
     errorMessage: string;  
     field_errors: Record<string, string>;
 }
+
+const client = axios.create({
+    baseURL: 'http://localhost:7000/api'
+});
 
 export const login = createAsyncThunk(
     'auth/login',
@@ -18,10 +17,16 @@ export const login = createAsyncThunk(
     ) => {
         try {
             const response = await client.post('/auth/login',{ email, password });
+            console.log(typeof response)
             if(response.data.accessToken) {
-                localStorage.setItem('p4_user', JSON.stringify(response.data))
+                localStorage.setItem('p4_user', JSON.stringify({
+                    ...response.data,
+                    token_init_date: new Date().getTime()
+                }));
             }
-            return response.data;
+            return {
+                username: response.data.username as string
+            }
 
         } catch (err: any) {
             let error: AxiosError<ValidationErrors> = err; // cast the error for access    
@@ -39,8 +44,7 @@ export const register = createAsyncThunk(
         thunkAPI    
     ) => {
         try {
-            // const data = await AuthService.register(username, email, password);
-            // return data;
+            const response = await client.post('/users', { username, email, password});
         } catch (error) {
             if (error instanceof Error) {
                 console.log(error.message);

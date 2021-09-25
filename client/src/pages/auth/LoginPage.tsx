@@ -19,7 +19,7 @@ export const LoginPage = () => {
         (state) => state.auth
     );
     const [formValues, handleInputChange] = useForm({
-        email: '',
+        email: 'admin@example.com',
         password: '',
     });
     const { email, password } = formValues as FormsValues;
