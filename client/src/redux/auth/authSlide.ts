@@ -1,5 +1,5 @@
 import { createSlice, SerializedError } from '@reduxjs/toolkit';
-import { login } from './authAction';
+import { login, logout, register } from './authAction';
 interface AuthState {
     logged: boolean;
     username: string | null;
@@ -46,13 +46,36 @@ const authSlice = createSlice({
             state.logged = true;
         });
         builder.addCase(login.rejected, (state: AuthState, action) => {
+            state.isChecking = false;
+            state.isError = true;
             if (action.payload) {        
                 state.error = action.payload as ErrorPayload
             } else {        
                 state.error = action.error
             }
+        });
+        builder.addCase(register.pending, (state: AuthState) => {
+            state.isChecking = true;
+        });
+        builder.addCase(register.fulfilled, (state: AuthState) => {
+            state.isChecking = false;
+        });
+        builder.addCase(register.rejected, (state: AuthState, action) => {
             state.isChecking = false;
             state.isError = true;
+            if (action.payload) {        
+                state.error = action.payload as ErrorPayload
+            } else {        
+                state.error = action.error
+            }
+        });
+        builder.addCase(logout.pending, (state: AuthState) => {
+            state.isChecking = true;
+        });
+        builder.addCase(logout.fulfilled, (state: AuthState) => {
+            state.isChecking = false;
+            state.logged = false;
+            state.username = null;
         });
     },
 });

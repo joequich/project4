@@ -17,7 +17,6 @@ export const login = createAsyncThunk(
     ) => {
         try {
             const response = await client.post('/auth/login',{ email, password });
-            console.log(typeof response)
             if(response.data.accessToken) {
                 localStorage.setItem('p4_user', JSON.stringify({
                     ...response.data,
@@ -45,14 +44,18 @@ export const register = createAsyncThunk(
     ) => {
         try {
             const response = await client.post('/users', { username, email, password});
-        } catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-                return thunkAPI.rejectWithValue(error.message);
-            } else {
-                console.log('Unknown failure');
-                return thunkAPI.rejectWithValue('Unknown failure');
+            return {
+                username: response.data.user.username as string
             }
+        } catch (err: any) {
+            let error: AxiosError<ValidationErrors> = err; // cast the error for access    
+            if (!error.response) {      throw err    }
+            // console.log('actions', error.response.data)
+            return thunkAPI.rejectWithValue(err.response.data);
         }
     }
 )
+
+export const logout = createAsyncThunk('auth/logout', () => {
+    localStorage.removeItem("p4_user");
+});
