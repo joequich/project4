@@ -63,17 +63,17 @@ export default class UsersController {
         try {
             const user = await this.userService.create(req.body);
             return res
-                .status(200)
+                .status(201)
                 .json({
-                    status: 200,
-                    data: user,
+                    status: 201,
+                    user,
                     message: 'Succesfully Users Saved',
                 });
         } catch (err) {
             if (err instanceof Error) {
                 return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                    .status(409)
+                    .json({ status: 409, message: err.message });
             } else {
                 console.log(err);
                 return res
