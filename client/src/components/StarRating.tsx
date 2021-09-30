@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Star } from './icons/Star';
+import { StarIcon } from './icons/StarIcon';
 
 const createArray = (length: number) => [...Array(length)];
 
@@ -9,7 +9,7 @@ export const StarRating = ({ style = {}, totalStars = 5}) => {
     return (
         <div style={{padding: '5px 0px', ...style}}>
             {createArray(totalStars).map((n, i) => (
-                <Star 
+                <StarIcon 
                     key={i}
                     selected={selectedStars>i}
                     onSelect={() => setSelectedStars(i+1)}

@@ -2,26 +2,34 @@ import React from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import { useState } from 'react';
-import { useAppSelector } from '../hooks/Redux';
-import { Close } from './icons/Close';
-import { Menu } from './icons/Menu';
+import { useAppDispatch, useAppSelector } from '../hooks/Redux';
+import { CloseIcon } from './icons/CloseIcon';
+import { MenuIcon } from './icons/MenuIcon';
+import { LogoutIcon } from './icons/LogoutIcon';
+import { logout } from '../redux/auth/authAction';
+import { UserIcon } from './icons/UserIcon';
 
 export const NavBar = () => {
     const history = useHistory();
-    const { logged } = useAppSelector((state) => state.auth);
+    const dispatch = useAppDispatch();
+    const { logged, username } = useAppSelector(state => state.auth);
+    const [clicked, setClicked] = useState(false);
+
     const handleRegister = () => {
         history.replace('/auth/register');
+        setClicked(false);
     };
 
-    // const handleLogout = () => {
-    //     history.replace('/login');
-    // };
+    const handleLogout = () => {
+        dispatch(logout());
+        history.replace('/auth/login');
+    };
 
     const handleLogin = () => {
-        history.replace('/login');
+        history.replace('/auth/login');
+        setClicked(false);
     };
 
-    const [clicked, setClicked] = useState(false);
     const handleMenu = () => {
         setClicked(!clicked);
     };
@@ -34,15 +42,8 @@ export const NavBar = () => {
                     </Link>
                 </div>
                 <nav className="navbar">
-                    <div
-                        className={
-                            logged ? 'navbar__user logged' : 'navbar__user'
-                        }
-                    >
-                        Welcome, <span>Joseph</span>
-                    </div>
                     <div className="navbar__menu-icon" onClick={handleMenu}>
-                        {clicked ? <Close /> : <Menu />}
+                        {clicked ? <CloseIcon /> : <MenuIcon />}
                     </div>
                     <div
                         onClick={handleMenu}
@@ -68,7 +69,23 @@ export const NavBar = () => {
                             </NavLink>
                         </div>
                         {logged ? (
-                            <div className="navbar__auth">Logout</div>
+                            <div className="navbar__auth">
+                                <div
+                                    className={
+                                        logged
+                                            ? 'navbar__auth--user logged'
+                                            : 'navbar__auth--user user'
+                                    }
+                                >
+                                   <UserIcon /> <span>{username}</span>
+                                </div>
+                                <button
+                                    className="navbar__btn btn navbar__btn--logout"
+                                    onClick={handleLogout}
+                                >
+                                    Log Out <LogoutIcon />
+                                </button>
+                            </div>
                         ) : (
                             <div className="navbar__auth">
                                 <button

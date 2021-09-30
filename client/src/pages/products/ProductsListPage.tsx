@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import imagen from '../../assets/keyboard_keychron.jpg';
-import { Edit } from '../../components/icons/Edit';
-import { Remove } from '../../components/icons/Remove';
-import { Plus } from '../../components/icons/Plus';
+import { EditIcon } from '../../components/icons/EditIcon';
+import { RemoveIcon } from '../../components/icons/RemoveIcon';
+import { PlusIcon } from '../../components/icons/PlusIcon';
 
 export const ProductsListPage = () => {
     const history = useHistory();
@@ -20,7 +20,7 @@ export const ProductsListPage = () => {
                 <span className="products-header__title">All Products</span>
                 <hr />
                 <button onClick={handleNew} className="products-header__add-btn">
-                    <Plus />
+                    <PlusIcon />
                     New product
                 </button>
             </div>
@@ -30,10 +30,10 @@ export const ProductsListPage = () => {
                         <div key={idx} className="item-card">
                             <div className="item-card__options">
                                 <Link className="opt" to="">
-                                    <Edit />
+                                    <EditIcon />
                                 </Link>
                                 <Link className="opt" to="">
-                                    <Remove />
+                                    <RemoveIcon />
                                 </Link>
                             </div>
                             <figure className="item-card__figure">

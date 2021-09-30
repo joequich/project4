@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Close } from './icons/Close';
+import { CloseIcon } from './icons/CloseIcon';
 import { SerializedError } from '@reduxjs/toolkit';
 
 interface IErrors {
@@ -42,7 +42,7 @@ export const AlertMessage = ({ error }: { error: ErrorPayload | SerializedError;
     return (
         <div className="alert alert-danger mb-sm">
             <div className="alert__close-icon" onClick={handleClose}>
-                <Close />
+                <CloseIcon />
             </div>
             <span>{message}</span>
             <ul>

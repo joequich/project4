@@ -41,14 +41,6 @@
         z-index: 2;
     }
 
-    &__user {
-        display: none;
-    }
-
-    &__user.logged {
-        display: block;
-    }
-
     &__menu-icon {
         display: flex;
         align-self: center;
@@ -84,7 +76,7 @@
         align-items: center;
         flex-direction: column;
         width: 100%;
-        
+
         @media (min-width: $breakpoint-tablet) {
             display: flex;
             align-items: center;
@@ -105,7 +97,7 @@
 
             &:hover {
                 background-color: $accents-2;
-                color: black!important;
+                color: black !important;
             }
 
             @media (min-width: $breakpoint-tablet) {
@@ -118,16 +110,18 @@
             }
         }
 
-        a.active{
+        a.active {
             color: $accents-2;
         }
-
     }
 
     &__auth {
         width: 100%;
         margin-top: 2rem;
         padding: 0 16px;
+        display: flex;
+        flex-direction: column;
+        // align-items: flex-end;
         // Tablet
         @media (min-width: $breakpoint-tablet) {
             width: initial;
@@ -138,24 +132,46 @@
             height: 100%;
             padding: 0;
         }
+
+        &--user {
+            display: none;
+        }
+
+        &--user.logged {
+            display: flex;
+            align-self: flex-end;
+            margin-bottom: 1rem;
+            margin-right: 1rem;
+
+            @media (min-width: $breakpoint-tablet) {
+                align-self: auto;
+                margin-bottom: 0;
+            }
+
+            svg {
+                margin-right: 0.55rem;
+                width: 24px;
+                height: 24px;
+            }
+        }
     }
 
     &__btn {
-        display: block;
+        display: flex;
         border-radius: 4px;
         border: 1px solid white;
-        margin: 0 auto;
         margin-bottom: 1rem;
-        width: 100%;
         font-size: 14px;
-        font-weight:400;
+        font-weight: 400;
         padding: 8px 10px;
         text-decoration: none;
         cursor: pointer;
+        justify-content: center;
 
         @media (min-width: $breakpoint-tablet) {
             margin-right: 0.5rem;
             margin-bottom: 0px;
+            justify-content: initial;
         }
 
         &--signin {
@@ -168,6 +184,22 @@
             border: 1px solid $accents-1;
             color: black;
             white-space: nowrap;
+        }
+
+        &--logout {
+            background-color: transparent;
+            border: none;
+            white-space: nowrap;
+            align-self: flex-end;
+            @media (min-width: $breakpoint-tablet) {
+                align-self: initial;
+            }
+            svg {
+                color: $accents-1;
+                margin-left: 0.35rem;
+                width: 18px;
+                height: 18px;
+            }
         }
     }
 }

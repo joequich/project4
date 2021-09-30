@@ -1,6 +1,6 @@
 import { FiMenu } from 'react-icons/fi';
 
-export const Menu = () => {
+export const MenuIcon = () => {
     return (
         <FiMenu />
     )
