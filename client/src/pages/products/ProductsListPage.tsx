@@ -1,9 +1,8 @@
-import React from 'react'
 import { Link, useHistory } from 'react-router-dom';
+import { FiEdit as EditIcon } from 'react-icons/fi';
+import { FiTrash2 as RemoveIcon } from 'react-icons/fi';
+import { FiPlus as PlusIcon } from 'react-icons/fi';
 import imagen from '../../assets/keyboard_keychron.jpg';
-import { EditIcon } from '../../components/icons/EditIcon';
-import { RemoveIcon } from '../../components/icons/RemoveIcon';
-import { PlusIcon } from '../../components/icons/PlusIcon';
 
 export const ProductsListPage = () => {
     const history = useHistory();

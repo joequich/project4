@@ -1,8 +1,8 @@
 import React, { FormEvent, useState } from 'react'
 import { AlertMessage } from '../../components/AlertMessage';
 import { FullPageLoader } from '../../components/FullPageLoader';
-import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import { useForm } from '../../hooks/useForm';
+import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import { register } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
 

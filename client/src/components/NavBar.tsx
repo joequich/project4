@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
-import logo from '../assets/logo.svg';
 import { useState } from 'react';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/Redux';
-import { CloseIcon } from './icons/CloseIcon';
-import { MenuIcon } from './icons/MenuIcon';
-import { LogoutIcon } from './icons/LogoutIcon';
 import { logout } from '../redux/auth/authAction';
-import { UserIcon } from './icons/UserIcon';
+import { FiX as CloseIcon } from 'react-icons/fi';
+import { FiMenu as MenuIcon } from 'react-icons/fi';
+import { FiLogOut as LogoutIcon } from 'react-icons/fi';
+import { FaUserAstronaut as UserIcon } from 'react-icons/fa';
+import logo from '../assets/logo.svg';
 
 export const NavBar = () => {
     const history = useHistory();

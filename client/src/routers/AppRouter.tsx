@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { HomePage } from '../pages/home/HomePage';
 import { AuthRouter } from './AuthRouter';
 import { NavBar } from '../components/NavBar';
+import { HomePage } from '../pages/home/HomePage';
 import { ProductsListPage } from '../pages/products/ProductsListPage';
 import { ProductsManagePage } from '../pages/products/ProductsManagePage';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { CloseIcon } from './icons/CloseIcon';
 import { SerializedError } from '@reduxjs/toolkit';
+import { FiX as CloseIcon } from 'react-icons/fi';
 
 interface IErrors {
     value: string;

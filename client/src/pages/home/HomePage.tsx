@@ -1,6 +1,5 @@
-import React from 'react';
-import imagen from '../../assets/keyboard_keychron.jpg';
 import { StarRating } from '../../components/StarRating';
+import imagen from '../../assets/keyboard_keychron.jpg';
 
 export const HomePage = () => {
     let arr = [...Array(20)];
