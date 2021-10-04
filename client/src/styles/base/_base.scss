@@ -122,3 +122,19 @@ hr {
     border-width: 1px 0;
     margin: 18px 0;
 }
+.hr-break {
+    border: none;
+    border-top: 1px solid $grey-dark-3;
+    color: $primary-2;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+}
+.hr-break:after {
+    font-size: 14px;
+    background: #fff;
+    content: attr(data-break);
+    padding: 0 8px;
+    position: relative;
+    top: -13px;
+}

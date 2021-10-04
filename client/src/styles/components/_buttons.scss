@@ -6,7 +6,7 @@
     font-size: 12px;
     // text-transform: uppercase;
     // padding: 0.8rem 3rem;
-    padding: 7px 10px 7px 10px;
+    // padding: 7px 10px 7px 10px;
     // width: 90%;
 
     &:hover {
@@ -16,8 +16,9 @@
 
 .btn-login {
     background: $primary-2;
-    padding: 0.8rem 3rem;
+    padding: 0.65rem 3rem;
     width: 100%;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 600;
+    border-radius: 4px;
 }

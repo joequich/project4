@@ -6,6 +6,7 @@ import { useForm } from '../../hooks/useForm';
 import { useAppSelector, useAppDispatch} from '../../hooks/Redux';
 import { login } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
+import { GoogleSignIn } from '../../components/GoogleSignIn';
 interface FormsValues {
     email: string;
     password: string;
@@ -54,7 +55,7 @@ export const LoginPage = () => {
                                 className="input-field"
                                 placeholder="example@example.com"
                                 aria-placeholder="Your email"
-                                autoComplete="off"
+                                autoComplete="email"
                                 value={email}
                                 onChange={handleInputChange}
                                 autoFocus
@@ -68,15 +69,17 @@ export const LoginPage = () => {
                                 className="input-field"
                                 placeholder="********"
                                 aria-placeholder="Your password"
-                                autoComplete="off"
+                                autoComplete="current-password"
                                 value={password}
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <button type="submit" className="btn btn-login mt-sm">
+                        <button type="submit" className="btn btn-login mb-sm">
                             Sign In
                         </button>
                     </form>
+                    <hr className="hr-break" data-break="or"/>
+                    <GoogleSignIn />
                 </div>
             </div>
         </>

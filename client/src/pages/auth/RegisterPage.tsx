@@ -55,7 +55,7 @@ export const RegisterPage = () => {
                                 className="input-field"
                                 placeholder="username*"
                                 aria-placeholder="Your user name"
-                                autoComplete="off"
+                                autoComplete="username"
                                 value={username}
                                 onChange={handleInputChange}
                                 autoFocus
@@ -69,7 +69,7 @@ export const RegisterPage = () => {
                                 className="input-field"
                                 placeholder="email Address*"
                                 aria-placeholder="Your email address"
-                                autoComplete="off"
+                                autoComplete="email"
                                 value={email}
                                 onChange={handleInputChange}
                             />
@@ -82,7 +82,7 @@ export const RegisterPage = () => {
                                 className="input-field"
                                 placeholder="password*"
                                 aria-placeholder="Your password"
-                                autoComplete="off"
+                                autoComplete="new-password"
                                 value={password}
                                 onChange={handleInputChange}
                             />

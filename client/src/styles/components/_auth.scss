@@ -11,7 +11,7 @@
 
 .auth-wrapper {
     margin: 0 auto;
-    width: 400px;
+    max-width: 400px;
     background-color: $primary-1;
     overflow: hidden;
     padding-top: 4rem;
@@ -22,4 +22,10 @@
     @media (min-width: $breakpoint-tablet) {
         padding: 3rem;
     }
+}
+
+input[type=email]:not(:focus):invalid,
+input[type=password]:not(:focus):invalid {
+  color: red;
+  outline-color: red;
 }
