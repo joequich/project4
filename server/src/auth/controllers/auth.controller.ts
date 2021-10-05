@@ -40,6 +40,7 @@ class AuthController {
             if (!user) {
                 user = await this.usersService.create(userData);
             }
+            console.log(user);
             
             const { token, hash } = generateJWT({
                 userId: user._id || '',
