@@ -1,5 +1,5 @@
-import { createSlice, SerializedError } from '@reduxjs/toolkit';
-import { login, logout, register } from './authAction';
+import { createSlice, isAnyOf, SerializedError } from '@reduxjs/toolkit';
+import { googleSignIn, login, logout, register } from './authAction';
 interface AuthState {
     logged: boolean;
     username: string | null;
@@ -37,23 +37,6 @@ const authSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(login.pending, (state: AuthState) => {
-            state.isChecking = true;
-        });
-        builder.addCase(login.fulfilled, (state: AuthState, action) => {
-            state.username = action.payload.username;
-            state.isChecking = false;
-            state.logged = true;
-        });
-        builder.addCase(login.rejected, (state: AuthState, action) => {
-            state.isChecking = false;
-            state.isError = true;
-            if (action.payload) {        
-                state.error = action.payload as ErrorPayload
-            } else {        
-                state.error = action.error
-            }
-        });
         builder.addCase(register.pending, (state: AuthState) => {
             state.isChecking = true;
         });
@@ -76,6 +59,23 @@ const authSlice = createSlice({
             state.isChecking = false;
             state.logged = false;
             state.username = null;
+        });
+        builder.addMatcher(isAnyOf(login.pending, googleSignIn.pending), (state: AuthState) => {
+            state.isChecking = true;
+        });
+        builder.addMatcher(isAnyOf(login.fulfilled, googleSignIn.fulfilled), (state: AuthState, action) => {
+            state.username = action.payload.username;
+            state.isChecking = false;
+            state.logged = true;
+        });
+        builder.addMatcher(isAnyOf(login.rejected, googleSignIn.rejected), (state: AuthState, action) => {
+            state.isChecking = false;
+            state.isError = true;
+            if (action.payload) {        
+                state.error = action.payload as ErrorPayload
+            } else {        
+                state.error = action.error
+            }
         });
     },
 });

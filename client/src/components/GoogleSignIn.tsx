@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 
-export const GoogleSignIn = () => {
+export const GoogleSignIn = ({handleGoogle}: { handleGoogle: (idToken: string) => void; }) => {
     console.log('googlesignin render');
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
         if (isMounted) return;
+
+        const handleCredentialResponse = (resp: CredentialResponse) => {
+            if (!resp.clientId || !resp.credential) return;
+            handleGoogle(resp.credential);
+        };
 
         const initGsiButton = () => {
             if (!window.google || isMounted) return;
@@ -43,12 +48,7 @@ export const GoogleSignIn = () => {
             window.google?.accounts.id.cancel();
             document.getElementById('google-script')?.remove();
         };
-    }, [isMounted]);
-
-    const handleCredentialResponse = (resp: CredentialResponse) => {
-        if (!resp.clientId || !resp.credential) return;
-        console.log(resp);
-    };
-
+    }, [isMounted, handleGoogle]);
+    
     return <button id="btn-google" className={'btn g_id_signin'} />;
 };

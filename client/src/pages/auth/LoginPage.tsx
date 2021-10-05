@@ -4,7 +4,7 @@ import { AlertMessage } from '../../components/AlertMessage';
 import { FullPageLoader } from '../../components/FullPageLoader';
 import { useForm } from '../../hooks/useForm';
 import { useAppSelector, useAppDispatch} from '../../hooks/Redux';
-import { login } from '../../redux/auth/authAction';
+import { googleSignIn, login } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
 import { GoogleSignIn } from '../../components/GoogleSignIn';
 interface FormsValues {
@@ -36,6 +36,11 @@ export const LoginPage = () => {
         dispatch(clearState());
         dispatch(login({ email, password }));
     };
+
+    const googleSubmit = (idToken: string) => {
+        dispatch(clearState());
+        dispatch(googleSignIn({ idToken}));
+    }
     return (
         <>
             {isChecking && <FullPageLoader />}
@@ -79,7 +84,7 @@ export const LoginPage = () => {
                         </button>
                     </form>
                     <hr className="hr-break" data-break="or"/>
-                    <GoogleSignIn />
+                    <GoogleSignIn handleGoogle={googleSubmit}/>
                 </div>
             </div>
         </>
