@@ -22,7 +22,12 @@ export default {
     API: {
         prefix: '/api'
     },
-    JWT_SECRETKEY: process.env.JWT_SECRETKEY
+    JWT_SECRETKEY: process.env.JWT_SECRETKEY,
+    GOOGLE: {
+        CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+        SECRET_ID: process.env.GOOGLE_SECRET_ID,
+    },
+    CLOUDINARY_URL: process.env.CLOUDINARY_URL,
 }
 
 

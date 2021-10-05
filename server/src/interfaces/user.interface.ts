@@ -42,5 +42,5 @@ export interface IUsersService {
   getUserByEmail: (email: string) => Promise<(IUser) | null>;
   getUserCredentialsByEmail: (email: string) => Promise<(IUser) | null>;
   updateById: (id: string, data: IPutUser | IPatchUser) => Promise<(IUser) | null>;
-  deleteById: (id: string) => Promise<(IUser) | null>;
+  deleteById: (id: string) => Promise<({id:string, deleted: boolean}) | null>;
 }

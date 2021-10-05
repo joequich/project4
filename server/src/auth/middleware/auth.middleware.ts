@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { IUsersService } from '../../interfaces/user.interface';
 import { compareSync } from '../../common/helpers/bcrypt';
+import { OAuth2Client } from 'google-auth-library';
+import env from '../../common/config/env.config';
 
 class AuthMiddleWare {
     constructor(private readonly usersService: IUsersService) {}
@@ -29,6 +31,33 @@ class AuthMiddleWare {
                 message: 'Invalid email and/or password'
             });
     };
+
+    verifyUserGoogle = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { idToken } = req.body;
+            const client = new OAuth2Client(env.GOOGLE.CLIENT_ID);
+            const ticket = await client.verifyIdToken({
+                idToken,
+                audience: env.GOOGLE.CLIENT_ID,
+            });
+    
+            const payload = ticket.getPayload();
+    
+            req.body = {
+                username: payload?.name,
+                email: payload?.email,
+                image: payload?.picture
+            }
+            next();
+        } catch{
+            return res
+                .status(400)
+                .json({
+                    status: 400,
+                    message: 'Invalid google token'
+                });
+        }
+    }
 }
 
 export default AuthMiddleWare;

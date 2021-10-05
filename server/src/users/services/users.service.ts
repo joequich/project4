@@ -68,10 +68,10 @@ export default class UsersService implements IUsersService {
         }
     }
 
-    async deleteById(id: string): Promise<(IUser) | null> {
+    async deleteById(id: string) {
         try {
-            const user = await User.findByIdAndUpdate(id, { status: false }, { new: true });
-            return user;
+            await User.findByIdAndDelete(id);
+            return { id, deleted: true };
         } catch {
             throw new Error('Error while deleting user');
         }

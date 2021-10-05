@@ -144,13 +144,13 @@ export default class UsersController {
     removeUser = async (req: Request, res: Response) => {
         const { id } = req.params;
         try {
-            const user = await this.userService.deleteById(id);
+            await this.userService.deleteById(id);
             return res
                 .status(200)
                 .json({
                     status: 200,
-                    user,
-                    message: 'Succesgully User Deleted',
+                    user: id,
+                    message: 'Succesfully User Deleted',
                 });
         } catch (err) {
             if (err instanceof Error) {

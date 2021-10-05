@@ -1,21 +1,54 @@
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import { generateSalt, hashSync } from '../../common/helpers/bcrypt';
-import env from '../../common/config/env.config';
-
-const jwtSecret = env.JWT_SECRETKEY || '';
-const tokenDuration = '4h';
+import { generateJWT } from '../../common/helpers/generate-jwt';
+import { IUsersService } from '../../interfaces/user.interface';
 
 class AuthController {
-    async generateJWT(req: Request, res: Response) {
+    constructor(private readonly usersService: IUsersService) {}
+    generateJWT(req: Request, res: Response) {
         try {
-            const refreshId = req.body.userId + jwtSecret;
-            const salt = generateSalt();
-            const hash = hashSync(refreshId, salt);
-            req.body.refreshKey = salt;
-            const token = jwt.sign(req.body, jwtSecret, { expiresIn: tokenDuration });
-            console.log(req.body)
+            const { token, hash } = generateJWT({
+                userId: req.body.userId,
+                username: req.body.username,
+                email: req.body.email,
+                role: req.body.email
+            });
+
             return res.status(201).json({ username: req.body.username, accessToken: token, refreshToken: hash });
+        } catch (err) {
+            if (err instanceof Error) {
+                console.log('createJWT error: %O', err)
+                return res.status(500).json({ status: 500, message: err.message });
+            } else {
+                console.log(err);
+                return res.status(500).json({ status: 500, message: 'Unknow failure' });
+            }
+        }
+    }
+
+    signInGoogle = async(req: Request, res: Response) => {
+        try {
+            const userData = { 
+                username: req.body.username || '',
+                email: req.body.email,
+                password: ':lol',
+                image: req.body.picture,
+                google: true,
+            };
+
+            let user = await this.usersService.getUserByEmail(userData.email);
+
+            if (!user) {
+                user = await this.usersService.create(userData);
+            }
+            
+            const { token, hash } = generateJWT({
+                userId: user._id || '',
+                username: user.username,
+                email: user.email,
+                role: user.role || '',
+            });
+
+            return res.status(201).json({ username: user.username, accessToken: token, refreshToken: hash });
         } catch (err) {
             if (err instanceof Error) {
                 console.log('createJWT error: %O', err)

@@ -8,7 +8,7 @@ import AuthController from './controllers/auth.controller';
 
 const route = Router();
 const userService = new UserService();
-const authController = new AuthController();
+const authController = new AuthController(userService);
 const authMiddleware = new AuthMiddleWare(userService);
 const jwtMiddleware = new JwtMiddleware(userService);
 
@@ -21,6 +21,12 @@ export default (app: Router) => {
         validateFields,
         authMiddleware.verifyUserPassword,
     ], authController.generateJWT);
+
+    route.post('/google', [
+        body('idToken', 'Invalid token value').not().isEmpty(),
+        validateFields,
+        authMiddleware.verifyUserGoogle,
+    ], authController.signInGoogle);
 
     route.post('/refresh-token', [
         jwtMiddleware.validateJWT,
