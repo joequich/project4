@@ -13,21 +13,9 @@ import toast from 'react-hot-toast';
 export const LoginPage = () => {
     const history = useHistory();
     const dispatch = useAppDispatch();
-    const { logged, isChecking, isError, error } = useAppSelector(
+    const { isSuccess, isChecking, isError, error } = useAppSelector(
         state => state.auth
     );
-
-    useEffect(() => {
-        if (logged) {
-            history.push('/');
-            window.location.reload();
-        }
-
-        if (isError) {
-            dispatch(clearState());
-            toast.error(error.message);
-        }
-    }, [logged, dispatch, history, isError, error]);
 
     const handleLogin = function () {
         dispatch(clearState());
@@ -50,6 +38,19 @@ export const LoginPage = () => {
 
     const { email, password } = formValues as IFormLogin;
     const errorsForm = errors as IErrorFormLogin;
+
+    useEffect(() => {
+        if (isSuccess) {
+            dispatch(clearState());
+            history.push('/');
+            // window.location.reload();
+        }
+
+        if (isError) {
+            toast.error(error.message);
+            dispatch(clearState());
+        }
+    }, [isSuccess, dispatch, history, isError, error]);
 
     return (
         <>

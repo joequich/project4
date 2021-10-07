@@ -12,7 +12,7 @@ import logo from '../assets/logo.svg';
 export const NavBar = () => {
     const history = useHistory();
     const dispatch = useAppDispatch();
-    const { logged, username } = useAppSelector(state => state.auth);
+    const { username } = useAppSelector(state => state.auth);
     const [clicked, setClicked] = useState(false);
 
     const handleRegister = () => {
@@ -68,11 +68,11 @@ export const NavBar = () => {
                                 Products
                             </NavLink>
                         </div>
-                        {logged ? (
+                        {!!username ? (
                             <div className="navbar__auth">
                                 <div
                                     className={
-                                        logged
+                                        !!username
                                             ? 'navbar__auth--user logged'
                                             : 'navbar__auth--user user'
                                     }

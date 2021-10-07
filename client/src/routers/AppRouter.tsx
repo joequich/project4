@@ -9,7 +9,7 @@ import { useAppSelector } from '../hooks/Redux';
 import { AlertMessage } from '../components/AlertMessage';
 
 export const AppRouter = () => {
-    const { logged } = useAppSelector(state => state.auth);
+    const { username } = useAppSelector(state => state.auth);
     return (
         <Router>
             <div>
@@ -19,8 +19,8 @@ export const AppRouter = () => {
                         <Switch>
                             <Route path="/auth" component={AuthRouter} />
                             <Route exact path="/" component={HomePage} />
-                            <PrivateRoute exact isAuthenticated={logged} path="/products" component={ProductsListPage} />
-                            <PrivateRoute exact isAuthenticated={logged} path="/products/add" component={ProductsManagePage} />
+                            <PrivateRoute exact isAuthenticated={!!username} path="/products" component={ProductsListPage} />
+                            <PrivateRoute exact isAuthenticated={!!username} path="/products/add" component={ProductsManagePage} />
                             <Redirect to="/auth/login"/>
                         </Switch>
                     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { IErrorFormRegister, IFormRegister } from '../../interfaces/Forms';
 import { validateRegisterFields } from '../../helpers/validate-fields';
@@ -10,30 +10,15 @@ import { clearState } from '../../redux/auth/authSlide';
 
 export const RegisterPage = () => {
     const dispatch = useAppDispatch();
-    const { isChecking, isError, error } = useAppSelector(state => state.auth);
-    const [success, setSuccess] = useState(false);
-
-    useEffect(() => {
-        if (success && !isError) {
-            console.log(isError)
-            toast.success('User registered successfully!!');
-        }
-
-        if (isError) {
-            toast.error(error.message);
-        }
-    }, [dispatch, error, isError, success]);
+    const { isSuccess, isChecking, isError, error } = useAppSelector(
+        state => state.auth
+    );
 
     const handleRegister = () => {
-        dispatch(clearState());
-        setSuccess(false);
-        dispatch(register({ username, email, password })).then(() => {
-            setSuccess(true);
-            resetValues();
-        });
+        dispatch(register({ username, email, password }));
     };
 
-    const { values: formValues, resetValues, handleChange, handleSubmit, errors, } = useForm(
+    const { values: formValues, handleChange, handleSubmit, errors, } = useForm(
         {
             username: '',
             email: '',
@@ -45,6 +30,18 @@ export const RegisterPage = () => {
 
     const { username, email, password } = formValues as IFormRegister;
     const errorsForm = errors as IErrorFormRegister;
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success('User registered successfully!!');
+            dispatch(clearState());
+        }
+
+        if (isError) {
+            toast.error(error.message);
+            dispatch(clearState());
+        }
+    }, [dispatch, error, isError, isSuccess]);
 
     return (
         <>

@@ -1,7 +1,7 @@
 import { createSlice, isAnyOf, SerializedError } from '@reduxjs/toolkit';
 import { googleSignIn, login, logout, register } from './authAction';
 interface AuthState {
-    logged: boolean;
+    isSuccess: boolean;
     username: string | null;
     isChecking: boolean;
     isError: boolean;
@@ -21,8 +21,8 @@ interface ErrorPayload {
 const user = JSON.parse(localStorage.getItem('p4_user') || 'null');
 
 const initialState = user
-    ? { isChecking: false, logged: true, username: user.username, isError: false, error: { message: ''} }
-    : { isChecking: false, logged: false, username: null, isError: false, error: { message: ''} };
+    ? { isChecking: false, isSuccess: true, username: user.username, isError: false, error: { message: ''} }
+    : { isChecking: false, isSuccess: false, username: null, isError: false, error: { message: ''} };
 
 const authSlice = createSlice({
     name: 'authSlice',
@@ -30,7 +30,7 @@ const authSlice = createSlice({
     reducers: {
         clearState: (state) => {
             state.isChecking = false;
-            state.logged = false;
+            state.isSuccess = false;
             state.isError = false;
             // state.error =
             return state;
@@ -42,6 +42,7 @@ const authSlice = createSlice({
         });
         builder.addCase(register.fulfilled, (state: AuthState) => {
             state.isChecking = false;
+            state.isSuccess = true;
         });
         builder.addCase(register.rejected, (state: AuthState, action) => {
             state.isChecking = false;
@@ -57,7 +58,7 @@ const authSlice = createSlice({
         });
         builder.addCase(logout.fulfilled, (state: AuthState) => {
             state.isChecking = false;
-            state.logged = false;
+            state.isSuccess = false;
             state.username = null;
         });
         builder.addMatcher(isAnyOf(login.pending, googleSignIn.pending), (state: AuthState) => {
@@ -66,7 +67,7 @@ const authSlice = createSlice({
         builder.addMatcher(isAnyOf(login.fulfilled, googleSignIn.fulfilled), (state: AuthState, action) => {
             state.username = action.payload.username;
             state.isChecking = false;
-            state.logged = true;
+            state.isSuccess = true;
         });
         builder.addMatcher(isAnyOf(login.rejected, googleSignIn.rejected), (state: AuthState, action) => {
             state.isChecking = false;
