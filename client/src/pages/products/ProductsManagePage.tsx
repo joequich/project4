@@ -1,27 +1,28 @@
 import React, { FormEvent } from 'react'
+import { validateProductFields } from '../../helpers/validate-fields';
 import { useForm } from '../../hooks/useForm';
-
-interface FormValues {
-    product?: string;
-    description?: string;
-    stock?: string;
-    price?: string;
-}
+import { IFormAddProduct } from '../../interfaces/Forms';
 
 export const ProductsManagePage = () => {
-    const [formValues, handleInputChange] = useForm({
-        product: '',
-        description: '',
-        stock: '0',
-        price: '0',
-    });
-
-    const { product, description, stock, price }: FormValues = formValues;
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    
+    const handleAddProduct = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(formValues);
     };
+    
+    const { values: formValues, handleChange, handleSubmit } = useForm(
+        {
+            product: '',
+            description: '',
+            stock: 0,
+            price: 0,
+        },
+        handleAddProduct,
+        validateProductFields
+    );
+
+    const { product, description, stock, price } = formValues as IFormAddProduct;
+        
     return (
         <div className="products-container">
             <div className="products-header">
@@ -39,7 +40,7 @@ export const ProductsManagePage = () => {
                         aria-placeholder="Your product name"
                         autoComplete="off"
                         value={product}
-                        onChange={handleInputChange}
+                        onChange={handleChange}
                         autoFocus
                     />
                 </div>
@@ -52,7 +53,7 @@ export const ProductsManagePage = () => {
                         aria-placeholder="Your description"
                         autoComplete="off"
                         value={description}
-                        onChange={handleInputChange}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="input-wrapper mb-sm">
@@ -65,7 +66,7 @@ export const ProductsManagePage = () => {
                         aria-placeholder="Product Stock"
                         autoComplete="off"
                         value={stock}
-                        onChange={handleInputChange}
+                        onChange={handleChange}
                         autoFocus
                     />
                 </div>
@@ -79,7 +80,7 @@ export const ProductsManagePage = () => {
                         aria-placeholder="Product Price"
                         autoComplete="off"
                         value={price}
-                        onChange={handleInputChange}
+                        onChange={handleChange}
                     />
                 </div>
                 <button type="submit" className="btn mt-sm">

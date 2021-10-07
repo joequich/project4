@@ -1,46 +1,56 @@
-import React, { FormEvent, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { AlertMessage } from '../../components/AlertMessage';
-import { FullPageLoader } from '../../components/FullPageLoader';
+import { IErrorFormLogin, IFormLogin } from '../../interfaces/Forms';
+import { validateLoginFields } from '../../helpers/validate-fields';
+import { useAppSelector, useAppDispatch } from '../../hooks/Redux';
 import { useForm } from '../../hooks/useForm';
-import { useAppSelector, useAppDispatch} from '../../hooks/Redux';
+import { FullPageLoader } from '../../components/FullPageLoader';
+import { GoogleSignIn } from '../../components/GoogleSignIn';
 import { googleSignIn, login } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
-import { GoogleSignIn } from '../../components/GoogleSignIn';
-interface FormsValues {
-    email: string;
-    password: string;
-}
+import toast from 'react-hot-toast';
 
 export const LoginPage = () => {
     const history = useHistory();
     const dispatch = useAppDispatch();
     const { logged, isChecking, isError, error } = useAppSelector(
-        (state) => state.auth
+        state => state.auth
     );
-    const [formValues, handleInputChange] = useForm({
-        email: 'admin@example.com',
-        password: '',
-    });
-    const { email, password } = formValues as FormsValues;
 
     useEffect(() => {
         if (logged) {
-            history.push('/products');
+            history.push('/');
             window.location.reload();
         }
-    }, [logged, dispatch, history]);
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        if (isError) {
+            dispatch(clearState());
+            toast.error(error.message);
+        }
+    }, [logged, dispatch, history, isError, error]);
+
+    const handleLogin = function () {
         dispatch(clearState());
         dispatch(login({ email, password }));
     };
 
     const googleSubmit = (idToken: string) => {
         dispatch(clearState());
-        dispatch(googleSignIn({ idToken}));
-    }
+        dispatch(googleSignIn({ idToken }));
+    };
+
+    const { values: formValues, handleChange, handleSubmit, errors } = useForm(
+        {
+            email: 'admin@example.com',
+            password: '',
+        },
+        handleLogin,
+        validateLoginFields
+    );
+
+    const { email, password } = formValues as IFormLogin;
+    const errorsForm = errors as IErrorFormLogin;
+
     return (
         <>
             {isChecking && <FullPageLoader />}
@@ -49,42 +59,58 @@ export const LoginPage = () => {
                     <form onSubmit={handleSubmit}>
                         <h1 className="headling text-center">SIGN IN</h1>
                         <br />
-                        {isError && (
-                            <AlertMessage error={error}/>
-                        )}
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="email">Email</label>
                             <input
                                 type="text"
                                 name="email"
-                                className="input-field"
+                                className={
+                                    errorsForm.fields.email
+                                        ? 'input-error input-field'
+                                        : 'input-field'
+                                }
                                 placeholder="example@example.com"
                                 aria-placeholder="Your email"
                                 autoComplete="email"
                                 value={email}
-                                onChange={handleInputChange}
+                                onChange={handleChange}
                                 autoFocus
                             />
+                            {errorsForm.fields.email ? (
+                                <p className="msg-error ">
+                                    {errorsForm.fields.email}
+                                </p>
+                            ) : null}
                         </div>
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="password">Password</label>
                             <input
                                 type="password"
                                 name="password"
-                                className="input-field"
+                                className={
+                                    errorsForm.fields.password
+                                        ? 'input-error input-field'
+                                        : 'input-field'
+                                }
                                 placeholder="********"
                                 aria-placeholder="Your password"
                                 autoComplete="current-password"
+                                min="6"
                                 value={password}
-                                onChange={handleInputChange}
+                                onChange={handleChange}
                             />
+                            {errorsForm.fields.password ? (
+                                <p className="msg-error ">
+                                    {errorsForm.fields.password}
+                                </p>
+                            ) : null}
                         </div>
                         <button type="submit" className="btn btn-login mb-sm">
                             Sign In
                         </button>
                     </form>
-                    <hr className="hr-break" data-break="or"/>
-                    <GoogleSignIn handleGoogle={googleSubmit}/>
+                    <hr className="hr-break" data-break="or" />
+                    <GoogleSignIn handleGoogle={googleSubmit} />
                 </div>
             </div>
         </>

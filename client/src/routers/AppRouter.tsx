@@ -6,6 +6,7 @@ import { ProductsListPage } from '../pages/products/ProductsListPage';
 import { ProductsManagePage } from '../pages/products/ProductsManagePage';
 import { PrivateRoute } from './PrivateRoute';
 import { useAppSelector } from '../hooks/Redux';
+import { AlertMessage } from '../components/AlertMessage';
 
 export const AppRouter = () => {
     const { logged } = useAppSelector(state => state.auth);
@@ -14,6 +15,7 @@ export const AppRouter = () => {
             <div>
                 <NavBar />
                     <div className="content">
+                        <AlertMessage />
                         <Switch>
                             <Route path="/auth" component={AuthRouter} />
                             <Route exact path="/" component={HomePage} />

@@ -6,22 +6,31 @@
     border: 1px solid #000;
     padding: 8px 15px 8px 15px;
     border-radius: 4px;
-    transition: all .2s;
+    transition: all 0.2s;
     width: 100%;
     margin-top: 0.5rem;
-  }
-  
-  .input-field:focus {
-    border: 1px solid cyan;
-  }
-  
-  .input-wrapper {
+}
+
+// .input-field:focus {
+//     border: 1px solid cyan;
+// }
+
+.input-wrapper {
     display: flex;
     flex-flow: column;
-  }
-  
-  .input-container .input-icon{
+}
+
+.input-container .input-icon {
     position: absolute;
     left: 8px;
     top: 8px;
-  }
+}
+
+.input-error {
+    border: 1px solid red;
+}
+.msg-error {
+    margin-top: 0.25rem;
+    font-size: 14px;
+    color: red;
+}
