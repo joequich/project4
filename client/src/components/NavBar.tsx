@@ -35,7 +35,7 @@ export const NavBar = () => {
     };
     return (
         <header className="header">
-            <div className="header__container">
+            <div className="header__container mh-auto">
                 <div className="header__logo">
                     <Link to="/">
                         <img src={logo} alt="logo" />
