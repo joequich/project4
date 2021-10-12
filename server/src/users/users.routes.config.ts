@@ -2,12 +2,12 @@ import { Router } from 'express';
 import { check } from 'express-validator';
 import UsersController from './controllers/users.controller';
 import UsersService from './services/users.service';
-import UsersMiddleware from './middleware/users.middleware';
+import UsersMiddleware from './middlewares/users.middleware';
 import RoleService from '../roles/services/roles.service';
 import { validateFields } from '../common/middlewares/validate-fields';
-import RolesMiddleware from '../roles/middleware/roles.middleware';
+import RolesMiddleware from '../roles/middlewares/roles.middleware';
 import { Roles } from '../constants';
-import JwtMiddleware from '../auth/middleware/jwt.middleware';
+import JwtMiddleware from '../auth/middlewares/jwt.middleware';
 
 const route = Router();
 const usersService = new UsersService();

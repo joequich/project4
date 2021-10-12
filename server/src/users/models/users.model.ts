@@ -14,7 +14,9 @@ const UserSchema = new mongoose.Schema<IUser>({
 });
 
 UserSchema.methods.toJSON = function() {
-    const { __v, password, ...user} = this.toObject();
+    const user = this.toObject();
+    delete user.__v;
+    delete user.password;
     return user;
 };
 

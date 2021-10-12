@@ -49,7 +49,7 @@ export default class UsersService implements IUsersService {
         }
     }
 
-    async getUserCredentialsByEmail(email: string) {
+    async getUserCredentialsByEmail(email: string): Promise<IUser | null>{
         try {
             const user = await User.findOne({email}).select(['_id','email','password','role','google','username']).exec();
             return user;
@@ -68,7 +68,7 @@ export default class UsersService implements IUsersService {
         }
     }
 
-    async deleteById(id: string) {
+    async deleteById(id: string): Promise<{ id: string; deleted: boolean } | null> {
         try {
             await User.findByIdAndDelete(id);
             return { id, deleted: true };

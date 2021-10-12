@@ -1,73 +1,18 @@
 import { Request, Response } from 'express';
-import { IUsersService } from '../../interfaces/user.interface';
-import { generateSalt, hashSync } from '../../common/helpers/bcrypt';
+import { IProductsService } from '../../interfaces/product.interface';
 
-export default class UsersController {
-    constructor(private readonly userService: IUsersService) {}
+export default class ProductsController {
+    constructor(private readonly productsService: IProductsService) {}
 
-    listUsers = async (req: Request, res: Response) => {
-        const page = req.params.page ? Number(req.params.page) : 0;
-        const limit = req.params.limit ? Number(req.params.limit) : 10;
-
+    createProduct = async (req: Request, res: Response) => {
         try {
-            const users = await this.userService.list(page, limit);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    users,
-                    message: 'Succesfully Users List',
-                });
-        } catch (err) {
-            if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
-            } else {
-                console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
-            }
-        }
-    };
-
-    getUserById = async (req: Request, res: Response) => {
-        const id = req.params.id;
-        try {
-            const user = await this.userService.readById(id);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    user,
-                    message: 'Succesfully User List',
-                });
-        } catch (err) {
-            if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
-            } else {
-                console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
-            }
-        }
-    };
-
-    createUser = async (req: Request, res: Response) => {
-        const salt = generateSalt();
-        req.body.password = hashSync(req.body.password, salt);
-        try {
-            const user = await this.userService.create(req.body);
+            const product = await this.productsService.create(req.body);
             return res
                 .status(201)
                 .json({
                     status: 201,
-                    user,
-                    message: 'Succesfully User Saved',
+                    product,
+                    message: 'Succesfully Product Saved',
                 });
         } catch (err) {
             if (err instanceof Error) {
@@ -81,23 +26,69 @@ export default class UsersController {
                     .json({ status: 500, message: 'Unknow failure' });
             }
         }
+    }
+
+    listProducts = async (req: Request, res: Response) => {
+        const page = req.params.page ? Number(req.params.page) : 0;
+        const limit = req.params.limit ? Number(req.params.limit) : 10;
+
+        try {
+            const products = await this.productsService.list(page, limit);
+
+            return res.status(200).json({
+                status: 200,
+                products,
+                message: 'Succesfully Products List',
+            });
+        } catch (err) {
+            if (err instanceof Error) {
+                return res
+                    .status(400)
+                    .json({ status: 400, message: err.message });
+            } else {
+                console.log(err);
+                return res
+                    .status(500)
+                    .json({ status: 500, message: 'Unknow failure' });
+            }
+        }
     };
 
-    patch = async (req: Request, res: Response) => {
-        const { id } = req.params;
-        if (req.body.password) {
-            const salt = generateSalt();
-            req.body.password = hashSync(req.body.password, salt);
-        }
-        const { _id, google, ...resto } = req.body;
+    getProductById = async (req: Request, res: Response) => {
+        const id = req.params.id;
         try {
-            const user = await this.userService.updateById(id, resto);
+            const product = await this.productsService.readById(id);
             return res
                 .status(200)
                 .json({
                     status: 200,
-                    user,
-                    message: 'Succesfully User Updated',
+                    product,
+                    message: 'Succesfully Product List',
+                });
+        } catch (err) {
+            if (err instanceof Error) {
+                return res
+                    .status(400)
+                    .json({ status: 400, message: err.message });
+            } else {
+                console.log(err);
+                return res
+                    .status(500)
+                    .json({ status: 500, message: 'Unknow failure' });
+            }
+        }
+    };
+
+    patch = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        try {
+            const product = await this.productsService.updateById(id, req.body);
+            return res
+                .status(200)
+                .json({
+                    status: 200,
+                    product,
+                    message: 'Succesfully Product Updated',
                 });
         } catch (err) {
             if (err instanceof Error) {
@@ -115,17 +106,14 @@ export default class UsersController {
 
     put = async (req: Request, res: Response) => {
         const { id } = req.params;
-        const salt = generateSalt();
-        req.body.password = hashSync(req.body.password, salt);
-        const { _id, google, ...resto } = req.body;
         try {
-            const user = await this.userService.updateById(id, resto);
+            const product = await this.productsService.updateById(id, req.body);
             return res
                 .status(200)
                 .json({
                     status: 200,
-                    user,
-                    message: 'Succesfully User Updated',
+                    product,
+                    message: 'Succesfully Product Updated',
                 });
         } catch (err) {
             if (err instanceof Error) {
@@ -144,13 +132,13 @@ export default class UsersController {
     removeUser = async (req: Request, res: Response) => {
         const { id } = req.params;
         try {
-            await this.userService.deleteById(id);
+            await this.productsService.deleteById(id);
             return res
                 .status(200)
                 .json({
                     status: 200,
-                    user: id,
-                    message: 'Succesfully User Deleted',
+                    product: id,
+                    message: 'Succesfully Product Deleted',
                 });
         } catch (err) {
             if (err instanceof Error) {
