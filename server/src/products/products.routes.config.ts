@@ -1,18 +1,24 @@
 import { Router } from "express";
 import { body } from 'express-validator';
-import ProductsController from "./controllers/products.controller";
-import ProductsService from "./services/products.service";
+import { Roles } from '../constants';
 import { validateFields } from '../common/middlewares/validate-fields';
-import JwtMiddleware from "../auth/middlewares/jwt.middleware";
+import upload from "../common/middlewares/multer-upload";
+import ProductsService from "./services/products.service";
+import RoleService from "../roles/services/roles.service";
 import UsersService from "../users/services/users.service";
 import ProductsMiddleware from "./middlewares/products.middleware";
+import JwtMiddleware from "../auth/middlewares/jwt.middleware";
+import RolesMiddleware from "../roles/middlewares/roles.middleware";
+import ProductsController from "./controllers/products.controller";
 
 const route = Router();
 const usersService = new UsersService();
 const productsService = new ProductsService();
+const roleService = new RoleService();
 
 const jwtMiddleware = new JwtMiddleware(usersService);
 const productsMiddleware = new ProductsMiddleware(productsService);
+const rolesMiddleware = new RolesMiddleware(roleService);
 
 const productsController = new ProductsController(productsService);
 
@@ -22,8 +28,9 @@ const ProductsRoute = (app: Router) => {
     // create a product - private - anyone with a valid token
     route.post('/', [
         jwtMiddleware.validateJWT,
+        upload.single('image'),
         body('name', 'Invalid name value').not().isEmpty(),
-        validateFields
+        validateFields,
     ], productsController.createProduct)
 
     // get all products - public
@@ -33,11 +40,34 @@ const ProductsRoute = (app: Router) => {
     // update - private - anyone with a valid token
     route.put('/:id', [
         jwtMiddleware.validateJWT,
+        upload.single('image'),
         body('name', 'Invalid name value').not().isEmpty(),
+        body('image', 'Invalid image value'),
+        body('description', 'Invalid name value').not().isEmpty(),
+        body('price', 'Invalid name value').not().isEmpty(),
+        body('stock', 'Invalid name value').not().isEmpty(),
+        validateFields,
         productsMiddleware.validateIfProductExists,
     ], productsController.put);
 
-    
+    // update (patch) - private - anyone with a valid token
+    route.patch('/:id', [
+        jwtMiddleware.validateJWT,
+        upload.single('image'),
+        body('name', 'Invalid name value').isString().optional(),
+        body('image', 'Invalid image value').optional(),
+        body('description', 'Invalid name value').isString().optional(),
+        body('price', 'Invalid name value').isNumeric().optional(),
+        body('stock', 'Invalid name value').isNumeric().optional(),
+        validateFields,
+        productsMiddleware.validateIfProductExists,
+    ], productsController.put);
+
+    // delete a product
+    route.delete('/:id', [
+        jwtMiddleware.validateJWT,
+        rolesMiddleware.hasRole(Roles.ADMIN),
+    ], productsController.removeProduct)
 }
 
 export default ProductsRoute;

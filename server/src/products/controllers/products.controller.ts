@@ -6,14 +6,15 @@ export default class ProductsController {
 
     createProduct = async (req: Request, res: Response) => {
         try {
+            const { userId } = res.locals.jwt;
+            if (req.file?.path) req.body.image = req.file.path;
+            req.body.user = userId;
             const product = await this.productsService.create(req.body);
-            return res
-                .status(201)
-                .json({
-                    status: 201,
-                    product,
-                    message: 'Succesfully Product Saved',
-                });
+            return res.status(201).json({
+                status: 201,
+                product,
+                message: 'Succesfully Product Saved',
+            });
         } catch (err) {
             if (err instanceof Error) {
                 return res
@@ -26,11 +27,11 @@ export default class ProductsController {
                     .json({ status: 500, message: 'Unknow failure' });
             }
         }
-    }
+    };
 
     listProducts = async (req: Request, res: Response) => {
-        const page = req.params.page ? Number(req.params.page) : 0;
-        const limit = req.params.limit ? Number(req.params.limit) : 10;
+        const page = req.query.page ? Number(req.query.page) : 0;
+        const limit = req.query.limit ? Number(req.query.limit) : 10;
 
         try {
             const products = await this.productsService.list(page, limit);
@@ -58,13 +59,11 @@ export default class ProductsController {
         const id = req.params.id;
         try {
             const product = await this.productsService.readById(id);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    product,
-                    message: 'Succesfully Product List',
-                });
+            return res.status(200).json({
+                status: 200,
+                product,
+                message: 'Succesfully Product List',
+            });
         } catch (err) {
             if (err instanceof Error) {
                 return res
@@ -81,15 +80,16 @@ export default class ProductsController {
 
     patch = async (req: Request, res: Response) => {
         const { id } = req.params;
+        const { userId } = res.locals.jwt;
+        if (req.file?.path) req.body.image = req.file.path;
+        req.body.user = userId;
         try {
             const product = await this.productsService.updateById(id, req.body);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    product,
-                    message: 'Succesfully Product Updated',
-                });
+            return res.status(200).json({
+                status: 200,
+                product,
+                message: 'Succesfully Product Updated',
+            });
         } catch (err) {
             if (err instanceof Error) {
                 return res
@@ -106,15 +106,16 @@ export default class ProductsController {
 
     put = async (req: Request, res: Response) => {
         const { id } = req.params;
+        const { userId } = res.locals.jwt;
+        if (req.file?.path) req.body.image = req.file.path;
+        req.body.user = userId;
         try {
             const product = await this.productsService.updateById(id, req.body);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    product,
-                    message: 'Succesfully Product Updated',
-                });
+            return res.status(200).json({
+                status: 200,
+                product,
+                message: 'Succesfully Product Updated',
+            });
         } catch (err) {
             if (err instanceof Error) {
                 return res
@@ -129,17 +130,15 @@ export default class ProductsController {
         }
     };
 
-    removeUser = async (req: Request, res: Response) => {
+    removeProduct = async (req: Request, res: Response) => {
         const { id } = req.params;
         try {
             await this.productsService.deleteById(id);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    product: id,
-                    message: 'Succesfully Product Deleted',
-                });
+            return res.status(200).json({
+                status: 200,
+                product: id,
+                message: 'Succesfully Product Deleted',
+            });
         } catch (err) {
             if (err instanceof Error) {
                 return res

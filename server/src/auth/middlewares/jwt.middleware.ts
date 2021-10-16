@@ -23,6 +23,7 @@ class JwtMiddleware {
     }
 
     validateJWT(req: Request, res: Response, next: NextFunction) {
+        console.log('boyd',req.body)
         if (req.headers['authorization']) {
             try {
                 const authorization = req.headers['authorization'].split(' ');
@@ -33,11 +34,10 @@ class JwtMiddleware {
                         authorization[1],
                         jwtSecretKey
                     ) as IJwt;
-                    console.log(res.locals.jwt);
                     return next();
                 }
             } catch (error) {
-                return res.status(403).json({ status: 403 });
+                return res.status(403).json({ status: 403, message: 'Invalid Token' });
             }
         } else {
             return res
@@ -62,7 +62,6 @@ class JwtMiddleware {
                 email: user.email,
                 role: user.role,
             };
-            console.log(req.body);
             return next();
         } else {
             return res

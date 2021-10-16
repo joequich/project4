@@ -13,12 +13,12 @@ export default class UsersService implements IUsersService {
         }
     }
 
-    async list(from: number, limit: number): Promise<{users: IUser[]; total: number;}> {
+    async list(page: number, limit: number): Promise<{users: IUser[]; total: number;}> {
         try {
             const [ total, users ] = await Promise.all([
                 User.countDocuments({ status: true }),
                 User.find({ status: true })
-                    .skip(Number(from))
+                    .skip(Number(limit) * Number(page))
                     .limit(Number(limit))
             ]);
             return {

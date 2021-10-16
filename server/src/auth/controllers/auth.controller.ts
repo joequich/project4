@@ -16,10 +16,8 @@ class AuthController {
             return res.status(201).json({ username: req.body.username, accessToken: token, refreshToken: hash });
         } catch (err) {
             if (err instanceof Error) {
-                console.log('createJWT error: %O', err)
                 return res.status(500).json({ status: 500, message: err.message });
             } else {
-                console.log(err);
                 return res.status(500).json({ status: 500, message: 'Unknow failure' });
             }
         }
@@ -40,7 +38,6 @@ class AuthController {
             if (!user) {
                 user = await this.usersService.create(userData);
             }
-            console.log(user);
             
             const { token, hash } = generateJWT({
                 userId: user._id || '',
@@ -52,10 +49,8 @@ class AuthController {
             return res.status(201).json({ username: user.username, accessToken: token, refreshToken: hash });
         } catch (err) {
             if (err instanceof Error) {
-                console.log('createJWT error: %O', err)
                 return res.status(500).json({ status: 500, message: err.message });
             } else {
-                console.log(err);
                 return res.status(500).json({ status: 500, message: 'Unknow failure' });
             }
         }

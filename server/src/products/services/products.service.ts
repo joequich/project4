@@ -1,13 +1,18 @@
 import { IProduct, IProductsService, IPostProduct, IPutProduct, IPatchProduct } from "../../interfaces/product.interface";
 import Product from '../models/products.model';
+import { destroyImage, uploadImage } from "../../common/services/cloudinary.service";
 
 export default class ProductsService implements IProductsService {
     async create (data: IPostProduct): Promise<IProduct> {
         try {
+            if(data.image){
+                const image = await uploadImage(data.image);
+                data.image = image;
+            }
             const product = new Product(data);
             await product.save();
             return product;
-        } catch {
+        } catch (error){
             throw new Error('Error while save products');
         }
     }
@@ -17,6 +22,7 @@ export default class ProductsService implements IProductsService {
             const [ total, products ] = await Promise.all([
                 Product.countDocuments(),
                 Product.find()
+                    .populate('user', 'username')
                     .skip(Number(from))
                     .limit(Number(limit))
             ]);
@@ -30,7 +36,7 @@ export default class ProductsService implements IProductsService {
     }
     async readById (id: string): Promise<IProduct | null> {
         try {
-            const product = await Product.findById(id);
+            const product = await Product.findById(id).populate('user', 'username');
             return product;
         } catch {
             throw new Error('Error while reading a product');
@@ -48,8 +54,14 @@ export default class ProductsService implements IProductsService {
 
     async updateById (id: string, data: IPutProduct | IPatchProduct): Promise<IProduct | null> {
         try {
-            const product = await Product.findByIdAndUpdate(id, {$set: data}, {new: true}).setOptions({upsert: true});
-            return product;
+            if(data.image){
+                const product = await Product.findById(id);
+                if(product?.image) await destroyImage(product.image);
+                const image = await uploadImage(data.image);
+                data.image = image;
+            }
+            const productUpdated = await Product.findByIdAndUpdate(id, {$set: data}, {new: true}).setOptions({upsert: true});
+            return productUpdated;
         } catch {
             throw new Error('Error while updating a product');
         }

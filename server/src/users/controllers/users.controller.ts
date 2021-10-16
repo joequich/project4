@@ -6,8 +6,8 @@ export default class UsersController {
     constructor(private readonly userService: IUsersService) {}
 
     listUsers = async (req: Request, res: Response) => {
-        const page = req.params.page ? Number(req.params.page) : 0;
-        const limit = req.params.limit ? Number(req.params.limit) : 10;
+        const page = req.query.page ? Number(req.query.page) : 0;
+        const limit = req.query.limit ? Number(req.query.limit) : 10;
 
         try {
             const users = await this.userService.list(page, limit);

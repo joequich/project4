@@ -20,7 +20,6 @@ class AuthMiddleWare {
                     email: user.email,
                     role: user.role,
                 };
-                console.log(req.body);
                 return next();
             }
         }

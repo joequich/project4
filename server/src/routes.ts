@@ -1,14 +1,16 @@
 import { Router } from 'express';
-import role from './roles/roles.routes.config';
-import user from './users/users.routes.config';
+import roles from './roles/roles.routes.config';
+import users from './users/users.routes.config';
 import auth from './auth/auth.routes.config';
+import products from './products/products.routes.config';
 
 // guaranteed to get dependencies
 export default () => {
 	const app = Router();
-	user(app);
-	role(app);
+	users(app);
+	roles(app);
 	auth(app);
+	products(app);
 
 	return app
 }

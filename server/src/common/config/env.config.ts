@@ -27,7 +27,12 @@ export default {
         CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
         SECRET_ID: process.env.GOOGLE_SECRET_ID,
     },
-    CLOUDINARY_URL: process.env.CLOUDINARY_URL,
+    CLOUDINARY: {
+        URL: process.env.CLOUDINARY_URL,
+        CLOUD_NAME: process.env.CLOUDINARY_NAME,
+        API_KEY: process.env.CLOUDINARY_API_KEY,
+        API_SECRET: process.env.CLOUDINARY_API_SECRET,
+    }
 }
 
 

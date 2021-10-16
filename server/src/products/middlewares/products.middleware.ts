@@ -10,7 +10,7 @@ export default class ProductsMiddleware {
         if (!id.match(/^[0-9a-fA-F]{24}$/)) {
             throw new Error(`Id does not exist ${id}`);
         }
-        
+
         const product = await this.productsService.readById(id);
         if (product) {
             return next();

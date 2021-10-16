@@ -2,7 +2,7 @@ import mongoose from "../../common/services/mongoose.service";
 import { IProduct } from "../../interfaces/product.interface";
 
 
-const ProductSchema = new mongoose.Schema<IProduct>({
+const ProductSchema = new mongoose.Schema({
     name: { type: String, required: [true, 'Name of product is required']},
     image: { type: String, required: false },
     description: { type: String },

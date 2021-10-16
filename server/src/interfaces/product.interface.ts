@@ -14,7 +14,7 @@ export interface IPostProduct {
     description?: string;
     price?: number;
     stock?: number;
-    user: string;
+    user?: string;
 }
 
 export interface IPutProduct {
