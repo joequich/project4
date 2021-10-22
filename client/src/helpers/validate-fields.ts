@@ -48,12 +48,16 @@ export const validateProductFields = (values: IFormAddProduct) => {
         errors.description = 'Description required';
     }
 
-    if (!values.stock) {
-        errors.stock = 'Stock required';
+    if (isNaN(Number(values.stock))) {
+        errors.stock = 'Number value is required';
+    } else if (Number(values.stock) < 0) {
+        errors.stock = 'Stock cannot be negative';
     }
 
-    if (!values.price) {
-        errors.price = 'Price is required';
+    if (isNaN(Number(values.price))) {
+        errors.price = 'Number value is required';
+    } else if (Number(values.price) < 0) {
+        errors.price = 'Price cannot be negative';
     }
 
     return errors;

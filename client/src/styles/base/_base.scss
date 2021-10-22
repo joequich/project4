@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-
 /*
 
     0.1rem = 1.6px
@@ -109,12 +108,20 @@ input[type='password'] {
     margin-top: 1rem;
 }
 
+.ml-sm {
+    margin-left: 1rem;
+}
+
 .mt-md {
     margin-top: 2.5rem;
 }
 
 .mb-sm {
     margin-bottom: 1rem;
+}
+
+.ml-sm {
+    margin-left: 1rem;
 }
 
 .mb-md {
@@ -142,4 +149,9 @@ hr {
     padding: 0 8px;
     position: relative;
     top: -13px;
+}
+
+textarea {
+    width: 300px;
+    height: 150px;
 }

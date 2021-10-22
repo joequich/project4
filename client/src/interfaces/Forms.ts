@@ -31,3 +31,8 @@ export interface IFormAddProduct {
     stock: string;
     price: string;
 }
+
+
+export interface IErrorFormAddProduct {
+    fields: IFormAddProduct;
+}

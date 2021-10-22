@@ -15,7 +15,7 @@ export const ProductsListPage = () => {
 
     return (
         <div className="products-container">
-            <div className="products-header">
+            <div className="products-header mt-md">
                 <span className="products-header__title">All Products</span>
                 <hr />
                 <button onClick={handleNew} className="products-header__add-btn">

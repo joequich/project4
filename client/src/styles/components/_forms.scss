@@ -11,9 +11,10 @@
     margin-top: 0.5rem;
 }
 
-// .input-field:focus {
-//     border: 1px solid cyan;
-// }
+.forms-group {
+    display: flex;
+    flex-direction: column;
+}
 
 .input-wrapper {
     display: flex;

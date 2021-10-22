@@ -61,7 +61,7 @@ export const NavBar = () => {
                         }
                     >
                         <div className="navbar__links">
-                            <NavLink activeClassName="active" to="/">
+                            <NavLink exact activeClassName="active" to="/">
                                 Home
                             </NavLink>
                             <NavLink activeClassName="active" to="/products">
@@ -80,7 +80,7 @@ export const NavBar = () => {
                                    <UserIcon /> <span>{username}</span>
                                 </div>
                                 <button
-                                    className="navbar__btn btn navbar__btn--logout"
+                                    className="btn-navbar btn btn-logout"
                                     onClick={handleLogout}
                                 >
                                     Log Out <LogoutIcon />
@@ -89,13 +89,13 @@ export const NavBar = () => {
                         ) : (
                             <div className="navbar__auth">
                                 <button
-                                    className="navbar__btn btn navbar__btn--signin"
+                                    className="btn-navbar btn btn-signin"
                                     onClick={handleLogin}
                                 >
                                     Sign In
                                 </button>
                                 <button
-                                    className="navbar__btn btn navbar__btn--signup"
+                                    className="btn-navbar btn btn-signup"
                                     onClick={handleRegister}
                                 >
                                     Sign Up

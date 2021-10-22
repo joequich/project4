@@ -1,12 +1,15 @@
+// dropzone drag and drop - upload
 .dropzone-area {
     border: 2px dashed #38048d;
-    height: 500px;
-    width: 700px;
+    height: 300px;
+    max-width: 500px;
+    width: 100%;
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    align-self: center;
 }
 
 .dropzone-area.active {
@@ -15,22 +18,69 @@
     padding: 4px;
 }
 
+.dropzone-area svg {
+    color: $primary-3;
+}
+
+.dropzone-area header {
+    font-size: 24px;
+    font-weight: 500;
+    color: $primary-3;
+}
+.dropzone-area span {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 10px 0 15px 0;
+    color: $primary-3;
+}
+
 .dropzone-img {
     display: block;
     width: auto;
     height: 100%;
+    object-fit: cover;
 }
 
+
+// two columns forms
+.row-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    @media (min-width: 768px) {
+        font-size: 16px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 35px;
+    }
+}
+.col-50 {
+    position: relative;
+    width: 50%;
+}
+.col {
+    position: relative;
+}
 
 .products-container {
     max-width: 1030px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
+    @media (min-width: 768px) {
+        padding: 0 32px;
+    }
+}
+
+.products-btn {
+    display: flex;
+    align-self: flex-end;
+    justify-self: flex-end;
 }
 
 .products-header {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
 
@@ -153,11 +203,9 @@
         display: flex;
         flex-direction: column;
         padding: 8px;
-        // border-left: 1px solid rgba(16, 11, 0, 0.09);
 
         @media (min-width: 640px) {
             border-left: none;
-            // border-top: 1px solid rgba(16, 11, 0, 0.09);
             padding: 0 16px;
         }
     }
