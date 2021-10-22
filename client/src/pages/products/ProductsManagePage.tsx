@@ -1,15 +1,16 @@
-import React, { FormEvent } from 'react'
+import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { validateProductFields } from '../../helpers/validate-fields';
 import { useForm } from '../../hooks/useForm';
 import { IFormAddProduct } from '../../interfaces/Forms';
+import { useDropzone, DropzoneOptions } from 'react-dropzone';
+import { FiUploadCloud as UploadCloudIcon } from 'react-icons/fi';
 
 export const ProductsManagePage = () => {
-    
     const handleAddProduct = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(formValues);
     };
-    
+
     const { values: formValues, handleChange, handleSubmit } = useForm(
         {
             product: '',
@@ -21,14 +22,80 @@ export const ProductsManagePage = () => {
         validateProductFields
     );
 
-    const { product, description, stock, price } = formValues as IFormAddProduct;
-        
+    const {
+        product,
+        description,
+        stock,
+        price,
+    } = formValues as IFormAddProduct;
+
+    interface IFile {
+        preview: string;
+        name: string;
+    }
+
+    const [files, setFiles] = useState<IFile[]>([]);
+    const onDrop = useCallback(acceptedFiles => {
+        console.log(acceptedFiles);
+        setFiles(
+            acceptedFiles.map((file: any) =>
+                Object.assign(file, { preview: URL.createObjectURL(file) })
+            )
+        );
+    }, []);
+
+    const options: DropzoneOptions = {
+        accept: 'image/*',
+        onDrop,
+        noClick: true,
+        noKeyboard: true,
+        maxFiles: 1,
+    };
+
+    const { getRootProps, getInputProps, open, isDragActive } = useDropzone(
+        options
+    );
+
+    const thumbs = files.map((file, idx) => (
+        <img key={idx} alt="aaa" src={file.preview} className="dropzone-img" />
+    ));
+    useEffect(
+        () => () => {
+            // Make sure to revoke the data uris to avoid memory leaks
+            files.forEach(file => URL.revokeObjectURL(file.preview));
+        },
+        [files]
+    );
+
     return (
         <div className="products-container">
             <div className="products-header">
                 <span className="products-header__title">Add Products</span>
                 <hr />
             </div>
+
+            <div
+                className={
+                    thumbs.length === 0
+                        ? 'dropzone-area'
+                        : 'dropzone-area active'
+                }
+                {...getRootProps()}
+            >
+                <input {...getInputProps()} />
+                {!(thumbs.length === 0) ? (
+                    thumbs
+                ) : (
+                    <>
+                    <UploadCloudIcon size={100} color=""/>
+                    <span>Drop an Image here</span>
+                    <button type="button" onClick={open}>
+                        Browse File
+                    </button>
+                    </>
+                )}
+            </div>
+
             <form onSubmit={handleSubmit}>
                 <div className="input-wrapper mb-sm">
                     <label htmlFor="email">Product: </label>
@@ -91,5 +158,5 @@ export const ProductsManagePage = () => {
                 </button>
             </form>
         </div>
-    )
-}
+    );
+};

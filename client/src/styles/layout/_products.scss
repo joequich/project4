@@ -1,3 +1,27 @@
+.dropzone-area {
+    border: 2px dashed #38048d;
+    height: 500px;
+    width: 700px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.dropzone-area.active {
+    border: 2px solid #38048d;
+    border-radius: 2px;
+    padding: 4px;
+}
+
+.dropzone-img {
+    display: block;
+    width: auto;
+    height: 100%;
+}
+
+
 .products-container {
     max-width: 1030px;
     width: 100%;
@@ -9,7 +33,7 @@
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    
+
     &__title {
         font-size: 18px;
         @media (min-width: 768px) {
@@ -26,7 +50,7 @@
         margin-left: auto;
         align-items: center;
         border: none;
-        box-shadow: 0 1px 3px hsla(0, 0%, 0%, .2);
+        box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
         border-radius: 3px;
         cursor: pointer;
         margin-bottom: 20px;
@@ -34,7 +58,7 @@
         &:active {
             background-color: $accents-3;
         }
-        
+
         @media (min-width: 768px) {
             font-size: 14px;
             padding: 8px 10px;
@@ -51,7 +75,6 @@
         }
     }
 }
-
 
 .items-list {
     display: grid;
@@ -110,17 +133,17 @@
     &__options {
         align-self: flex-end;
         padding-right: 8px; // 16px
-        
+
         .opt {
             padding-left: 8px; // 16px
         }
 
         svg {
             width: 24px; //21px
-            height: 24px;//21px
+            height: 24px; //21px
             @media (min-width: 640px) {
                 width: 21px; //21px
-                height: 21px;//21px
+                height: 21px; //21px
             }
         }
     }
@@ -145,7 +168,6 @@
         @media (min-width: 450px) {
             font-size: 18px;
         }
-
     }
 
     &__star-rating {
