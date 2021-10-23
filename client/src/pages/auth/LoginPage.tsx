@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/Redux';
 import { useForm } from '../../hooks/useForm';
 import { FullPageLoader } from '../../components/FullPageLoader';
 import { GoogleSignIn } from '../../components/GoogleSignIn';
-import { googleSignIn, login } from '../../redux/auth/authAction';
+import { login } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
 import toast from 'react-hot-toast';
 
@@ -20,11 +20,6 @@ export const LoginPage = () => {
     const handleLogin = function () {
         dispatch(clearState());
         dispatch(login({ email, password }));
-    };
-
-    const googleSubmit = (idToken: string) => {
-        dispatch(clearState());
-        dispatch(googleSignIn({ idToken }));
     };
 
     const { values: formValues, handleChange, handleSubmit, errors } = useForm(
@@ -111,7 +106,7 @@ export const LoginPage = () => {
                         </button>
                     </form>
                     <hr className="hr-break" data-break="or" />
-                    <GoogleSignIn handleGoogle={googleSubmit} />
+                    <GoogleSignIn />
                 </div>
             </div>
         </>

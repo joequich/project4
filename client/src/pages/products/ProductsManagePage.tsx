@@ -4,6 +4,7 @@ import { useForm } from '../../hooks/useForm';
 import { IErrorFormAddProduct, IFormAddProduct } from '../../interfaces/Forms';
 import { useDropzone, DropzoneOptions } from 'react-dropzone';
 import { FiUploadCloud as UploadCloudIcon } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export const ProductsManagePage = () => {
     const handleAddProduct = () => {
@@ -21,13 +22,7 @@ export const ProductsManagePage = () => {
         validateProductFields
     );
 
-    const {
-        product,
-        description,
-        stock,
-        price,
-    } = formValues as IFormAddProduct;
-
+    const { product, description, stock, price, } = formValues as IFormAddProduct;
     const errorsForm = errors as IErrorFormAddProduct;
 
     interface IFile {
@@ -36,12 +31,16 @@ export const ProductsManagePage = () => {
     }
 
     const [files, setFiles] = useState<IFile[]>([]);
-    const onDrop = useCallback(acceptedFiles => {
+    const onDrop = useCallback((acceptedFiles, fileRejections) => {
         console.log(acceptedFiles);
         setFiles(
             acceptedFiles.map((file: any) =>
                 Object.assign(file, { preview: URL.createObjectURL(file) })
             )
+        );
+
+        fileRejections.forEach((file: any) =>
+            file.errors.forEach((err: any) => toast.error(err.message))
         );
     }, []);
 
@@ -51,11 +50,10 @@ export const ProductsManagePage = () => {
         noClick: true,
         noKeyboard: true,
         maxFiles: 1,
+        multiple: false,
     };
 
-    const { getRootProps, getInputProps, open, isDragActive } = useDropzone(
-        options
-    );
+    const { getRootProps, getInputProps, open } = useDropzone(options);
 
     const thumbs = files.map((file, idx) => (
         <img key={idx} alt="aaa" src={file.preview} className="dropzone-img" />
@@ -84,17 +82,21 @@ export const ProductsManagePage = () => {
                 {...getRootProps()}
             >
                 <input {...getInputProps()} />
-                {!(thumbs.length === 0) ? (
-                    thumbs
-                ) : (
+                {thumbs.length === 0 ? (
                     <>
                         <UploadCloudIcon size={100} color="" />
                         <header>Drop an Image here</header>
                         <span>OR</span>
-                        <button type="button" className="btn btn-upload" onClick={open}>
+                        <button
+                            type="button"
+                            className="btn btn-upload"
+                            onClick={open}
+                        >
                             Browse File
                         </button>
                     </>
+                ) : (
+                    thumbs
                 )}
             </div>
 

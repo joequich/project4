@@ -142,6 +142,10 @@
             margin-bottom: 1rem;
             margin-right: 1rem;
 
+            span {
+                white-space: nowrap;
+            }
+
             @media (min-width: $breakpoint-tablet) {
                 align-self: auto;
                 margin-bottom: 0;
