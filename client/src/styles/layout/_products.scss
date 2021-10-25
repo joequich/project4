@@ -49,15 +49,14 @@
     @media (min-width: 768px) {
         font-size: 16px;
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 35px;
+        gap: 2.5rem;
     }
 }
 .col-50 {
-    position: relative;
     width: 50%;
 }
 .col {
-    position: relative;
+    width: 100%;
 }
 
 .products-container {
