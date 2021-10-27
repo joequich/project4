@@ -11,15 +11,15 @@ This project aims to create an application with login and crud of products.
 - Products Crud 
 
 
-### Instalación
+### Installation
 
-Utilice el gestor de paquetes [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) para instalar los paquetes.
+Use the package manager [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to install the packages.
 
 ```bash
 npm install
 ```
 
-### Ejecución
+### Execution
 
 ```bash
 npm run start
@@ -34,9 +34,9 @@ npm run start
 - Products Crud Endpoints 
 - Users Crud Endpoints
 
-### Instalación
+### Installation
 
-Utilice el gestor de paquetes [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) para instalar los paquetes.
+Use the package manager [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to install the packages.
 
 ```bash
 npm install
@@ -62,7 +62,7 @@ CLOUDINARY_API_KEY=your cloudinary api key
 CLOUDINARY_API_SECRET=your cloudinary api secret
 ```
 
-### Ejecución
+### Execution
 
 For Development
 ```bash
