@@ -21,6 +21,13 @@ class AuthMiddleWare {
                     role: user.role,
                 };
                 return next();
+            } else {
+                return res
+                .status(400)
+                .json({
+                    status: 400,
+                    message: 'Invalid email and/or password'
+                });
             }
         }
         return res
