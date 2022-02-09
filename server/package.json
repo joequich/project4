@@ -1,11 +1,15 @@
 {
   "name": "project4-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
-  "main": "dist/app.js",
+  "main": "dist/server.js",
+  "engines": {
+    "node": "14.17.1",
+    "npm": "6.14.13"
+  },
   "scripts": {
-    "dev": "tsc && nodemon dist/app.js",
-    "start": "tsc && cross-env NODE_ENV=production node dist/app.js",
+    "dev": "tsc && nodemon dist/server.js",
+    "start": "tsc && cross-env NODE_ENV=production node dist/server.js",
     "lint": "npx eslint . --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,34 +18,34 @@
     "url": "https://github.com/joequich/project4.git/server"
   },
   "author": "Joseph Quispe",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/joequich/project4/#readme",
-  "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
-    "@types/cors": "^2.8.10",
-    "@types/express": "^4.17.12",
-    "@types/jsonwebtoken": "^8.5.4",
-    "@types/morgan": "^1.9.2",
-    "@types/multer": "^1.4.7",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
-    "cross-env": "^7.0.3",
-    "eslint": "^7.28.0",
-    "nodemon": "^2.0.7",
-    "source-map-support": "^0.5.19",
-    "typescript": "^4.3.2"
-  },
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "cloudinary": "^1.27.1",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "express-validator": "^6.12.0",
-    "google-auth-library": "^7.10.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.14",
-    "morgan": "^1.10.0",
-    "multer": "^1.4.3"
+    "bcrypt": "5.0.1",
+    "cloudinary": "1.27.1",
+    "cors": "2.8.5",
+    "dotenv": "10.0.0",
+    "express": "4.17.1",
+    "express-validator": "6.12.0",
+    "google-auth-library": "7.10.0",
+    "jsonwebtoken": "8.5.1",
+    "mongoose": "5.12.14",
+    "morgan": "1.10.0",
+    "multer": "1.4.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "5.0.0",
+    "@types/cors": "2.8.10",
+    "@types/express": "4.17.12",
+    "@types/jsonwebtoken": "8.5.4",
+    "@types/morgan": "1.9.2",
+    "@types/multer": "1.4.7",
+    "@typescript-eslint/eslint-plugin": "4.27.0",
+    "@typescript-eslint/parser": "4.27.0",
+    "cross-env": "7.0.3",
+    "eslint": "7.28.0",
+    "nodemon": "2.0.7",
+    "source-map-support": "0.5.19",
+    "typescript": "4.3.2"
   }
 }
