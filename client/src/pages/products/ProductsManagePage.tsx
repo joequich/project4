@@ -1,70 +1,48 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { validateProductFields } from '../../helpers/validate-fields';
 import { useForm } from '../../hooks/useForm';
 import { IErrorFormAddProduct, IFormAddProduct } from '../../interfaces/Forms';
-import { useDropzone, DropzoneOptions } from 'react-dropzone';
-import { FiUploadCloud as UploadCloudIcon } from 'react-icons/fi';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 
 export const ProductsManagePage = () => {
-    const handleAddProduct = () => {
-        console.log(formValues);
+    const handleAddProduct = async() => {
+        console.log(formValues)
+        // try {
+        //     const data = new FormData();
+        //     formValues['product'] && data.append('name', formValues['product'])
+        //     formValues['description'] && data.append('description', formValues['description'])
+        //     formValues['stock'] && data.append('stock', formValues['stock'])
+        //     formValues['price'] && data.append('price', formValues['price'])
+        //     image && data.append('image', image)
+        //     // const response = await client.post('/products');
+        // } catch (err) {
+        //     console.log(err);
+        // }
     };
+
+    const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+
+        if(!files) return;
+
+        setImage(files[0]);
+    }
 
     const { values: formValues, handleChange, handleSubmit, errors } = useForm(
         {
             product: '',
             description: '',
-            stock: 0,
-            price: 0,
+            stock: '0',
+            price: '0',
         },
         handleAddProduct,
         validateProductFields
     );
 
+    const [image, setImage] = useState<File>();
+
     const { product, description, stock, price, } = formValues as IFormAddProduct;
     const errorsForm = errors as IErrorFormAddProduct;
-
-    interface IFile {
-        preview: string;
-        name: string;
-    }
-
-    const [files, setFiles] = useState<IFile[]>([]);
-    const onDrop = useCallback((acceptedFiles, fileRejections) => {
-        console.log(acceptedFiles);
-        setFiles(
-            acceptedFiles.map((file: any) =>
-                Object.assign(file, { preview: URL.createObjectURL(file) })
-            )
-        );
-
-        fileRejections.forEach((file: any) =>
-            file.errors.forEach((err: any) => toast.error(err.message))
-        );
-    }, []);
-
-    const options: DropzoneOptions = {
-        accept: 'image/*',
-        onDrop,
-        noClick: true,
-        noKeyboard: true,
-        maxFiles: 1,
-        multiple: false,
-    };
-
-    const { getRootProps, getInputProps, open } = useDropzone(options);
-
-    const thumbs = files.map((file, idx) => (
-        <img key={idx} alt="aaa" src={file.preview} className="dropzone-img" />
-    ));
-    useEffect(
-        () => () => {
-            // Make sure to revoke the data uris to avoid memory leaks
-            files.forEach(file => URL.revokeObjectURL(file.preview));
-        },
-        [files]
-    );
 
     return (
         <div className="products-container">
@@ -72,35 +50,8 @@ export const ProductsManagePage = () => {
                 <span className="products-header__title">Add Products</span>
                 <hr />
             </div>
-
-            <div
-                className={
-                    thumbs.length === 0
-                        ? 'dropzone-area'
-                        : 'dropzone-area active'
-                }
-                {...getRootProps()}
-            >
-                <input {...getInputProps()} />
-                {thumbs.length === 0 ? (
-                    <>
-                        <UploadCloudIcon size={100} color="" />
-                        <header>Drop an Image here</header>
-                        <span>OR</span>
-                        <button
-                            type="button"
-                            className="btn btn-upload"
-                            onClick={open}
-                        >
-                            Browse File
-                        </button>
-                    </>
-                ) : (
-                    thumbs
-                )}
-            </div>
-
             <form onSubmit={handleSubmit} className="forms-group mt-md">
+            
                 <div className="row-grid">
                     <div className="col">
                         <div className="input-wrapper mb-sm">
@@ -177,6 +128,18 @@ export const ProductsManagePage = () => {
                                 </p>
                             ) : null}
                         </div>
+                        <div className="input-wrapper mb-sm">
+                            <label htmlFor="image">Choose a product picture:</label>
+                            <input 
+                                type="file" 
+                                id="image" 
+                                name="image" 
+                                accept="image/png, image/jpeg"
+                                onChange={handleImage}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-50">
                     </div>
                 </div>
                 <div className="products-btn mt-sm mb-md">
