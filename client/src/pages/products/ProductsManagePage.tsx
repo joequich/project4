@@ -7,17 +7,17 @@ import { IErrorFormAddProduct, IFormAddProduct } from '../../interfaces/Forms';
 export const ProductsManagePage = () => {
     const handleAddProduct = async() => {
         console.log(formValues)
-        // try {
-        //     const data = new FormData();
-        //     formValues['product'] && data.append('name', formValues['product'])
-        //     formValues['description'] && data.append('description', formValues['description'])
-        //     formValues['stock'] && data.append('stock', formValues['stock'])
-        //     formValues['price'] && data.append('price', formValues['price'])
-        //     image && data.append('image', image)
-        //     // const response = await client.post('/products');
-        // } catch (err) {
-        //     console.log(err);
-        // }
+        try {
+            const data = new FormData();
+            formValues['product'] && data.append('name', formValues['product'])
+            formValues['description'] && data.append('description', formValues['description'])
+            formValues['stock'] && data.append('stock', formValues['stock'])
+            formValues['price'] && data.append('price', formValues['price'])
+            image && data.append('image', image)
+            // const response = await client.post('/products');
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
