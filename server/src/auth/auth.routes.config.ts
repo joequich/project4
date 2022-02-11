@@ -29,8 +29,6 @@ export default (app: Router) => {
     ], authController.signInGoogle);
 
     route.post('/refresh-token', [
-        jwtMiddleware.validateJWT,
-        jwtMiddleware.validateBodyRefresh,
         jwtMiddleware.validateRefreshToken,
         authController.generateJWT
     ]);

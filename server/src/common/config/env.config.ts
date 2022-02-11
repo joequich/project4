@@ -14,15 +14,22 @@ if (envFound.error) {
 export default {
     NODE_ENV: process.env.NODE_ENV,
     PORT: parseInt(process.env.PORT ? process.env.PORT : '', 10),
-    DB_HOST: process.env.MONGODB_HOST,
-    DB_PORT: process.env.MONGODB_PORT,
-    DB_USER: process.env.MONGODB_USER,
-    DB_PASS: process.env.MONGODB_PASS,
-    DB_NAME: process.env.MONGODB_DATABASE,
+    DB: {
+        HOST: process.env.MONGODB_HOST,
+        PORT: process.env.MONGODB_PORT,
+        USER: process.env.MONGODB_USER,
+        PASS: process.env.MONGODB_PASS,
+        NAME: process.env.MONGODB_DATABASE,
+    },
     API: {
         prefix: '/api'
     },
-    JWT_SECRETKEY: process.env.JWT_SECRETKEY,
+    JWT: {
+        ACCESS_SECRET_KEY: process.env.JWT_ACCESS_SECRET_KEY,
+        ACCESS_EXPIRATION_TIME: process.env.JWT_ACCESS_EXPIRATION_TIME,
+        REFRESH_SECRET_KEY: process.env.JWT_REFRESH_SECRET_KEY,
+        REFRESH_EXPIRATION_TIME: process.env.JWT_REFRESH_EXPIRATION_TIME,
+    },
     GOOGLE: {
         CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
         SECRET_ID: process.env.GOOGLE_SECRET_ID,

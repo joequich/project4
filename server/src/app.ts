@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 
 import env from './common/config/env.config';
 import routes from './routes';
@@ -12,6 +13,8 @@ if (env.NODE_ENV === 'development') {
 }
 app.use(cors());
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.use(env.API.prefix, routes());
 

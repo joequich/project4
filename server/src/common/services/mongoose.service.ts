@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 import env from '../config/env.config';
 let strUrlMongo = ''
 
-if (env.DB_USER) {
-    strUrlMongo = `mongodb+srv://${env.DB_USER}:${env.DB_PASS}@${env.DB_HOST}/${env.DB_NAME}?retryWrites=true&w=majority`;
+if (env.DB.USER) {
+    strUrlMongo = `mongodb+srv://${env.DB.USER}:${env.DB.PASS}@${env.DB.HOST}/${env.DB.NAME}?retryWrites=true&w=majority`;
 } else {
-    strUrlMongo = `mongodb://${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}`;
+    strUrlMongo = `mongodb://${env.DB.HOST}:${env.DB.PORT}/${env.DB.NAME}`;
 }
 
 const options = {

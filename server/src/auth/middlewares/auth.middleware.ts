@@ -7,10 +7,18 @@ import env from '../../common/config/env.config';
 class AuthMiddleWare {
     constructor(private readonly usersService: IUsersService) {}
 
+    validateBodyRequest = async ( req: Request, res: Response, next: NextFunction ) => {
+        if (req.body && req.body.email, req.body.password) {
+            return next();
+        } else {
+            return res.status(400).json({
+                message: 'Mandatory fields are missing: email and password',
+            });
+        }        
+    }
+
     verifyUserPassword = async ( req: Request, res: Response, next: NextFunction ) => {
-        const user = await this.usersService.getUserCredentialsByEmail(
-            req.body.email
-        );
+        const user = await this.usersService.getUserCredentialsByEmail(req.body.email);
         if (user) {
             const passHash = user.password;
             if (compareSync(req.body.password, passHash)) {
@@ -23,19 +31,15 @@ class AuthMiddleWare {
                 return next();
             } else {
                 return res
-                .status(400)
-                .json({
-                    status: 400,
-                    message: 'Invalid email and/or password'
-                });
+                    .status(400)
+                    .json({
+                        message: 'Invalid email and/or password'
+                    });
             }
         }
-        return res
-            .status(400)
-            .json({
-                status: 400,
-                message: 'Invalid email and/or password'
-            });
+        return res.status(400).json({
+            message: 'Invalid email and/or password'
+        });
     };
 
     verifyUserGoogle = async (req: Request, res: Response, next: NextFunction) => {
@@ -54,14 +58,11 @@ class AuthMiddleWare {
                 email: payload?.email,
                 image: payload?.picture
             }
-            next();
+            return next();
         } catch{
-            return res
-                .status(400)
-                .json({
-                    status: 400,
-                    message: 'Invalid google token'
-                });
+            return res.status(400).json({
+                message: 'Invalid google token'
+            });
         }
     }
 }

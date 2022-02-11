@@ -5,22 +5,10 @@ import env from '../../common/config/env.config';
 import { IJwt } from '../../interfaces/jwt.interface';
 import { hashSync } from '../../common/helpers/bcrypt';
 
-const jwtSecretKey = env.JWT_SECRETKEY || '';
+const jwtAccessSecret = env.JWT.ACCESS_SECRET_KEY || '';
 
 class JwtMiddleware {
     constructor(private readonly usersService: IUsersService) {}
-
-    validateBodyRefresh(req: Request, res: Response, next: NextFunction) {
-        if (req.body && req.body.refreshToken) {
-            return next();
-        }
-        return res
-            .status(400)
-            .json({
-                status: 400,
-                message: 'Missing required field: refreshToken'
-            });
-    }
 
     validateJWT(req: Request, res: Response, next: NextFunction) {
         console.log('boyd',req.body)
@@ -28,11 +16,11 @@ class JwtMiddleware {
             try {
                 const authorization = req.headers['authorization'].split(' ');
                 if (authorization[0] !== 'Bearer') {
-                    return res.status(401).json({ status: 401 });
+                    return res.status(401).json({ message: 'No token was found in request'});
                 } else {
                     res.locals.jwt = jwt.verify(
                         authorization[1],
-                        jwtSecretKey
+                        jwtAccessSecret
                     ) as IJwt;
                     return next();
                 }
@@ -40,37 +28,57 @@ class JwtMiddleware {
                 return res.status(403).json({ status: 403, message: 'Invalid Token' });
             }
         } else {
-            return res
-                .status(401)
-                .json({
-                    status: 401,
-                    message: 'No token was found in request'
-                });
+            return res.status(401).json({
+                 message: 'No token was found in request'
+            });
         }
     }
 
     validateRefreshToken = async ( req: Request, res: Response, next: NextFunction ) => {
-        const user = await this.usersService.getUserCredentialsByEmail(
-            res.locals.jwt.email
-        );
-        const salt = res.locals.jwt.refreshKey;
-        const hash = hashSync(res.locals.jwt.userId + jwtSecretKey, salt);
-
-        if (hash === req.body.refreshToken && user) {
-            req.body = {
-                userId: user._id,
-                email: user.email,
-                role: user.role,
-            };
-            return next();
+        if (req.headers['authorization']) {
+            try {
+                const authorization = req.headers['authorization'].split(' ');
+                if (authorization[0] !== 'Bearer') {
+                    return res.status(401).json({ message: 'No token was found in request'});
+                } else {
+                    res.locals.jwt = jwt.verify(
+                        authorization[1],
+                        jwtAccessSecret
+                    ) as IJwt;
+                    return next();
+                }
+            } catch (error) {
+                console.log('Refresh Token exist, but there is an error ', error)
+                console.log('Cookie with refresh token ', req.cookies.Refresh)
+                return res.status(403).json({ status: 403, message: 'Invalid Token' });
+            }
         } else {
-            return res
-                .status(400)
-                .json({ 
-                    status: 400,
-                    message: 'Invalid refresh token',
-                });
+            return res.status(401).json({
+                message: 'No token was found in request'
+            });
         }
+
+        // const user = await this.usersService.getUserCredentialsByEmail(
+        //     res.locals.jwt.email
+        // );
+        // const salt = res.locals.jwt.refreshKey;
+        // const hash = hashSync(res.locals.jwt.userId + jwtSecretKey, salt);
+
+        // if (hash === req.body.refreshToken && user) {
+        //     req.body = {
+        //         userId: user._id,
+        //         email: user.email,
+        //         role: user.role,
+        //     };
+        //     return next();
+        // } else {
+        //     return res
+        //         .status(400)
+        //         .json({ 
+        //             status: 400,
+        //             message: 'Invalid refresh token',
+        //         });
+        // }
     };
 }
 
