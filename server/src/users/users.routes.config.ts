@@ -22,12 +22,13 @@ const jwtMiddleware = new JwtMiddleware(usersService);
 export default (app: Router) => {
     app.use('/users', route);
 
-    route.get('/', usersController.listUsers);
+    route.get('/', jwtMiddleware.validateJWT, usersController.listUsers);
     route.post('/', [
         check('username', 'Username is required').not().isEmpty(),
         check('email', 'Email is not valid').isEmail(),
         check('password', 'Must include password (6+ characters)').isLength({ min: 6 }),
         validateFields,
+        jwtMiddleware.validateJWT,
         usersMiddleware.validateIfEmailExist,
         rolesMiddleware.isRoleValid,
     ], usersController.createUser);
@@ -40,6 +41,7 @@ export default (app: Router) => {
         check('status','Status is required').isBoolean().optional(),
         check('google','Google is required').isBoolean().optional(),
         validateFields,
+        jwtMiddleware.validateJWT,
         usersMiddleware.validatePatchEmail,
         usersMiddleware.userCannotChangeRole,
         rolesMiddleware.hasRole(Roles.USER),
@@ -53,13 +55,14 @@ export default (app: Router) => {
         check('status','Status is required'),
         check('google','Google is required'),
         validateFields,
+        jwtMiddleware.validateJWT,
         usersMiddleware.validateIfEmailBelongToUser,
         usersMiddleware.userCannotChangeRole,
         rolesMiddleware.hasRole(Roles.USER),
     ], usersController.put);
     route.delete('/:id', [
-        usersMiddleware.validateIfUserExists,
         jwtMiddleware.validateJWT,
+        usersMiddleware.validateIfUserExists,
         rolesMiddleware.onlySameUserOrAdmin
     ], usersController.removeUser);
 };

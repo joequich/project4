@@ -3,7 +3,6 @@ import { IUsersService } from '../../interfaces/user.interface';
 import jwt from 'jsonwebtoken';
 import env from '../../common/config/env.config';
 import { IJwt } from '../../interfaces/jwt.interface';
-import { hashSync } from '../../common/helpers/bcrypt';
 
 const jwtAccessSecret = env.JWT.ACCESS_SECRET_KEY || '';
 
@@ -11,51 +10,56 @@ class JwtMiddleware {
     constructor(private readonly usersService: IUsersService) {}
 
     validateJWT(req: Request, res: Response, next: NextFunction) {
-        console.log('boyd',req.body)
-        if (req.headers['authorization']) {
-            try {
-                const authorization = req.headers['authorization'].split(' ');
-                if (authorization[0] !== 'Bearer') {
-                    return res.status(401).json({ message: 'No token was found in request'});
-                } else {
-                    res.locals.jwt = jwt.verify(
-                        authorization[1],
-                        jwtAccessSecret
-                    ) as IJwt;
-                    return next();
-                }
-            } catch (error) {
-                return res.status(403).json({ status: 403, message: 'Invalid Token' });
-            }
-        } else {
+        const authHeader = req.headers.authorization;
+        const authParts = authHeader?.split(' ');
+
+        if (authParts?.length !== 2) {
             return res.status(401).json({
-                 message: 'No token was found in request'
+                message: 'No authorization token was found in request'
             });
+        }
+
+        if(!/^Bearer$/i.test(authParts[0])) {
+            return res.status(401).json({
+                message: 'Bad format, authorization format is: Bearer [token]'
+            });
+        }
+
+        // it could be a decode step to verify the algorithm type
+
+        try {
+            res.locals.jwt = jwt.verify( authParts[1], jwtAccessSecret ) as IJwt;
+            return next();
+        } catch (error) {
+            return res.status(401).json({ message: 'Invalid Token' });
         }
     }
 
     validateRefreshToken = async ( req: Request, res: Response, next: NextFunction ) => {
-        if (req.headers['authorization']) {
-            try {
-                const authorization = req.headers['authorization'].split(' ');
-                if (authorization[0] !== 'Bearer') {
-                    return res.status(401).json({ message: 'No token was found in request'});
-                } else {
-                    res.locals.jwt = jwt.verify(
-                        authorization[1],
-                        jwtAccessSecret
-                    ) as IJwt;
-                    return next();
-                }
-            } catch (error) {
-                console.log('Refresh Token exist, but there is an error ', error)
-                console.log('Cookie with refresh token ', req.cookies.Refresh)
-                return res.status(403).json({ status: 403, message: 'Invalid Token' });
-            }
-        } else {
+        const authHeader = req.headers.authorization;
+        const authParts = authHeader?.split(' ');
+
+        if (authParts?.length !== 2) {
             return res.status(401).json({
-                message: 'No token was found in request'
+                message: 'No authorization token was found in request'
             });
+        }
+
+        if(!/^Bearer$/i.test(authParts[0])) {
+            return res.status(401).json({
+                message: 'Bad format, authorization format is: Bearer [token]'
+            });
+        }
+
+        // it could be a decode step to verify the algorithm type
+
+        try {
+            res.locals.jwt = jwt.verify( authParts[1], jwtAccessSecret ) as IJwt;
+            return next();
+        } catch (error) {
+            console.log('Refresh Token exist, but there is an error ', error)
+            console.log('Cookie with refresh token ', req.cookies.Refresh)
+            return res.status(401).json({ message: 'Invalid Token' });
         }
 
         // const user = await this.usersService.getUserCredentialsByEmail(
