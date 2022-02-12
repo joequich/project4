@@ -1,20 +1,13 @@
-const ID_USER_KEY = "p4_user";
+const P4_STORE_KEY = "p4_token";
 
-export interface PayloadJwt{
-    userId: string;
-    username: string;
-    email: string;
-    role: string;
-}
-
-export const getUser = (): PayloadJwt => {
-    return JSON.parse(window.localStorage.getItem(ID_USER_KEY) || 'null');
+export const getToken = (): string => {
+    return JSON.parse(window.localStorage.getItem(P4_STORE_KEY) || 'null');
 };
 
-export const saveUser = (user: PayloadJwt): void => {
-    window.localStorage.setItem(ID_USER_KEY, JSON.stringify(user));
+export const saveToken = (token: string): void => {
+    window.localStorage.setItem(P4_STORE_KEY, JSON.stringify(token));
 };
 
-export const destroyUser = (): void => {
-    window.localStorage.removeItem(ID_USER_KEY);
+export const destroyToken = (): void => {
+    window.localStorage.removeItem(P4_STORE_KEY);
 };

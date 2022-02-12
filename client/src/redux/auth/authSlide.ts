@@ -5,18 +5,21 @@ interface AuthState {
     username: string | null;
     isChecking: boolean;
     isError: boolean;
-    error: ErrorPayload | SerializedError;
+    // error: ErrorPayload | SerializedError;
+    error: {
+        message: string 
+    } | SerializedError;
 }
 
-interface IErrors {
-    value: string;
-    reason: string;
-}
-interface ErrorPayload {
-    status: number;
-    message: string;
-    errors?: IErrors[];
-}
+// interface IErrors {
+//     value: string;
+//     reason: string;
+// }
+// interface ErrorPayload {
+//     status: number;
+//     message: string;
+//     errors?: IErrors[];
+// }
 
 const user = JSON.parse(localStorage.getItem('p4_user') || 'null');
 
@@ -48,7 +51,7 @@ const authSlice = createSlice({
             state.isChecking = false;
             state.isError = true;
             if (action.payload) {        
-                state.error = action.payload as ErrorPayload
+                state.error.message = action.payload as string
             } else {        
                 state.error = action.error
             }
@@ -73,7 +76,7 @@ const authSlice = createSlice({
             state.isChecking = false;
             state.isError = true;
             if (action.payload) {        
-                state.error = action.payload as ErrorPayload
+                state.error.message = action.payload as string
             } else {        
                 state.error = action.error
             }

@@ -1,13 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import API from '../../config/axios';
+import { saveToken, destroyToken } from '../../helpers/jwtLocalStorage';
 interface ValidationErrors {  
     errorMessage: string;  
     field_errors: Record<string, string>;
 }
-
-const client = axios.create({
-    baseURL: 'http://localhost:3030/api'
-});
 
 export const login = createAsyncThunk(
     'auth/login',
@@ -16,23 +14,24 @@ export const login = createAsyncThunk(
         thunkAPI
     ) => {
         try {
-            const response = await client.post('/auth/login',{ email, password });
-            if(response.data.accessToken) {
-                localStorage.setItem('p4_user', JSON.stringify({
-                    ...response.data,
-                    token_init_date: new Date().getTime()
-                }));
+            const response = await API.post('/auth/login',{ email, password });
+            const accessToken = response.data.accessToken as string
+            if(accessToken) {
+                saveToken(accessToken)
             }
             return {
                 username: response.data.username as string
             }
 
-        } catch (err: any) {
-            let error: AxiosError<ValidationErrors> = err; // cast the error for access    
-            if (!error.response) {      throw err    }
-            // console.log('actions', error.response.data)
-        return thunkAPI.rejectWithValue(err.response.data);
-    }
+        } catch (err) {
+            if (err instanceof Error) {
+                console.log(err.message)
+                return thunkAPI.rejectWithValue(err.message);
+            } else {
+                console.log('aaa', err)
+                return thunkAPI.rejectWithValue('Unknow failure');
+            }
+        }
     }
 );
 
@@ -43,7 +42,7 @@ export const register = createAsyncThunk(
         thunkAPI    
     ) => {
         try {
-            const response = await client.post('/users', { username, email, password});
+            const response = await API.post('/users', { username, email, password});
             return {
                 username: response.data.user.username as string
             }
@@ -58,12 +57,10 @@ export const register = createAsyncThunk(
 
 export const googleSignIn = createAsyncThunk('auth/google', async({idToken}: {idToken: string}, thunkAPI) =>{
     try {
-        const response = await client.post('/auth/google', { idToken });
-        if(response.data.accessToken) {
-            localStorage.setItem('p4_user', JSON.stringify({
-                ...response.data,
-                token_init_date: new Date().getTime()
-            }));
+        const response = await API.post('/auth/google', { idToken });
+        const accessToken = response.data.accessToken as string
+        if(accessToken) {
+            saveToken(accessToken)
         }
         return {
             username: response.data.username as string
@@ -77,5 +74,5 @@ export const googleSignIn = createAsyncThunk('auth/google', async({idToken}: {id
 })
 
 export const logout = createAsyncThunk('auth/logout', () => {
-    localStorage.removeItem("p4_user");
+    destroyToken();
 });
