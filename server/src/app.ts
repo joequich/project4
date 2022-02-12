@@ -1,5 +1,4 @@
 import express, { Application } from 'express';
-import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 
@@ -11,7 +10,14 @@ const app: Application = express();
 if (env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
-app.use(cors());
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    // res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, Authorization, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
+});
+
 app.use(express.json());
 
 app.use(cookieParser());
