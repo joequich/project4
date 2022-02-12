@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse }  from 'axios';
-import { getToken, destroyToken } from '../helpers/jwtLocalStorage';
+import { getUserToken, destroyUserToken } from '../helpers/jwtLocalStorage';
 
 const API: AxiosInstance = axios.create({
     baseURL: 'http://localhost:3030/api/',
@@ -11,15 +11,19 @@ const API: AxiosInstance = axios.create({
 // API.defaults.withCredentials = true;
 API.interceptors.request.use(function (config: AxiosRequestConfig) {
     // Do something before request is sent
-    const token = getToken();
-    if (token) {
-        config.headers.authorization = `Bearer ${token}`;
+    const userData = getUserToken();
+    if (userData) {
+        config.headers.authorization = `Bearer ${userData.accessToken}`;
     }
     return config;
 }, function (error: AxiosError) {
     // Do something with request error
     return Promise.reject(error);
 });
+
+interface AxiosConfig extends AxiosRequestConfig{
+    _isRetry: boolean;
+}
 
 // Add a response interceptor
 API.interceptors.response.use(function (response: AxiosResponse) {
@@ -29,11 +33,24 @@ API.interceptors.response.use(function (response: AxiosResponse) {
 }, function (error: AxiosError) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    // const originalRequest = error.config
-    // console.log(error);
+    // let originalRequest = error.config as AxiosConfig
+    // originalRequest._isRetry = false;
     // console.log(originalRequest);
+
     if (error.response?.status === 401) {
-        destroyToken();
+        // console.log('errrrror')
+        // if(!originalRequest._isRetry) {
+        //     originalRequest._isRetry = true;
+        //     return API.post('/auth/refresh-token')
+        //         .then(res => {
+        //             let resData = res.data;
+        //             console.log(resData)
+        //         })
+        //         .catch(err => {
+        //             console.log(err)
+        //         })
+        // }
+        // destroyToken();
         // deleteToken();
         // window.location = '/login';
     }

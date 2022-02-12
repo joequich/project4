@@ -1,4 +1,5 @@
 import { createSlice, isAnyOf, SerializedError } from '@reduxjs/toolkit';
+import { getUserToken } from '../../helpers/jwtLocalStorage';
 import { googleSignIn, login, logout, register } from './authAction';
 interface AuthState {
     isSuccess: boolean;
@@ -21,7 +22,7 @@ interface AuthState {
 //     errors?: IErrors[];
 // }
 
-const user = JSON.parse(localStorage.getItem('p4_user') || 'null');
+const user = getUserToken();
 
 const initialState = user
     ? { isChecking: false, isSuccess: true, username: user.username, isError: false, error: { message: ''} }

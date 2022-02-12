@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import API from '../../config/axios';
-import { saveToken, destroyToken } from '../../helpers/jwtLocalStorage';
+import { saveUserToken, destroyUserToken } from '../../helpers/jwtLocalStorage';
 interface ValidationErrors {  
     errorMessage: string;  
     field_errors: Record<string, string>;
@@ -15,14 +15,12 @@ export const login = createAsyncThunk(
     ) => {
         try {
             const response = await API.post('/auth/login',{ email, password });
-            const accessToken = response.data.accessToken as string
-            if(accessToken) {
-                saveToken(accessToken)
+            if(response.data.accessToken) {
+                saveUserToken(response.data)
             }
             return {
                 username: response.data.username as string
             }
-
         } catch (err) {
             if (err instanceof Error) {
                 console.log(err.message)
@@ -58,9 +56,8 @@ export const register = createAsyncThunk(
 export const googleSignIn = createAsyncThunk('auth/google', async({idToken}: {idToken: string}, thunkAPI) =>{
     try {
         const response = await API.post('/auth/google', { idToken });
-        const accessToken = response.data.accessToken as string
-        if(accessToken) {
-            saveToken(accessToken)
+        if(response.data.accessToken) {
+            saveUserToken(response.data)
         }
         return {
             username: response.data.username as string
@@ -74,5 +71,5 @@ export const googleSignIn = createAsyncThunk('auth/google', async({idToken}: {id
 })
 
 export const logout = createAsyncThunk('auth/logout', () => {
-    destroyToken();
+    destroyUserToken();
 });
