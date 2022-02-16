@@ -1,23 +1,22 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import API from '../../config/axios';
 import { validateProductFields } from '../../helpers/validate-fields';
 import { useForm } from '../../hooks/useForm';
 import { IErrorFormAddProduct, IFormAddProduct } from '../../interfaces/Forms';
-// import toast from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 export const ProductsManagePage = () => {
     const handleAddProduct = async() => {
         console.log(formValues)
-        try {
             const data = new FormData();
             formValues['product'] && data.append('name', formValues['product'])
             formValues['description'] && data.append('description', formValues['description'])
             formValues['stock'] && data.append('stock', formValues['stock'])
             formValues['price'] && data.append('price', formValues['price'])
             image && data.append('image', image)
-            // const response = await client.post('/products');
-        } catch (err) {
-            console.log(err);
-        }
+            const response = await API.post('/products');
+            console.log(response)
+            toast.success('Product registered successfully!!');
     };
 
     const handleImage = (e: ChangeEvent<HTMLInputElement>) => {

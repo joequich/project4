@@ -6,7 +6,7 @@ interface IUserToken {
 }
 
 export const getUserToken = (): IUserToken | null => {
-    return JSON.parse(window.localStorage.getItem(P4_STORE_KEY) || '') || null;
+    return JSON.parse(window.localStorage.getItem(P4_STORE_KEY) || 'null');
 };
 
 export const saveUserToken = (loginRes: IUserToken): void => {

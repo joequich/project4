@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse }  from 'axios';
 import { getUserToken, destroyUserToken } from '../helpers/jwtLocalStorage';
+import { history } from '../index';
 
 const API: AxiosInstance = axios.create({
     baseURL: 'http://localhost:3030/api/',
@@ -38,21 +39,9 @@ API.interceptors.response.use(function (response: AxiosResponse) {
     // console.log(originalRequest);
 
     if (error.response?.status === 401) {
-        // console.log('errrrror')
-        // if(!originalRequest._isRetry) {
-        //     originalRequest._isRetry = true;
-        //     return API.post('/auth/refresh-token')
-        //         .then(res => {
-        //             let resData = res.data;
-        //             console.log(resData)
-        //         })
-        //         .catch(err => {
-        //             console.log(err)
-        //         })
-        // }
-        // destroyToken();
-        // deleteToken();
-        // window.location = '/login';
+        destroyUserToken();
+        history.push('/auth/login')
+        return Promise.reject(error);
     }
     if (error.response?.data) {
         console.log('handle error ', error.response.data.message)
