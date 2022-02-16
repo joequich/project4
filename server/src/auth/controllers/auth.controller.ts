@@ -6,7 +6,7 @@ class AuthController {
     constructor(private readonly usersService: IUsersService) {}
     generateJWT(req: Request, res: Response) {
         try {
-            const { accessToken, cookieRefreshToken } = generateJwtKeys({
+            const { accessToken, expiresIn, cookieRefreshToken } = generateJwtKeys({
                 userId: req.body.userId,
                 username: req.body.username,
                 email: req.body.email,
@@ -14,7 +14,7 @@ class AuthController {
             });
 
             req.res?.setHeader('Set-Cookie', [cookieRefreshToken]);
-            return res.status(201).json({ username: req.body.username, accessToken });
+            return res.status(201).json({ username: req.body.username, accessToken, expiresIn  });
         } catch (err) {
             if (err instanceof Error) {
                 return res.status(500).json({ status: 500, message: err.message });

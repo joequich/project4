@@ -7,7 +7,7 @@ const accessTokenDuration = env.JWT.ACCESS_EXPIRATION_TIME || '0';
 const jwtRefreshSecret = env.JWT.REFRESH_SECRET_KEY || '';
 const refreshTokenDuration = env.JWT.REFRESH_EXPIRATION_TIME || '0';
 
-export const generateJwtKeys = (payload: PayloadJwt): {accessToken: string, cookieRefreshToken: string} => {
+export const generateJwtKeys = (payload: PayloadJwt): {accessToken: string, expiresIn: string, cookieRefreshToken: string} => {
     const accessToken = jwt.sign(payload, jwtAccessSecret, {
         expiresIn: `${accessTokenDuration}s`
     });
@@ -20,6 +20,7 @@ export const generateJwtKeys = (payload: PayloadJwt): {accessToken: string, cook
 
     return {
         accessToken,
+        expiresIn: accessTokenDuration,
         cookieRefreshToken
     }
 }

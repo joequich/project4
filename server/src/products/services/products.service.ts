@@ -1,12 +1,14 @@
 import { IProduct, IProductsService, IPostProduct, IPutProduct, IPatchProduct } from "../../interfaces/product.interface";
 import Product from '../models/products.model';
-import { destroyImage, uploadImage } from "../../common/services/cloudinary.service";
+import { IUploadsService } from "../../interfaces/uploads.interface";
 
 export default class ProductsService implements IProductsService {
+    constructor(private readonly uploadsService: IUploadsService) {}
+
     async create (data: IPostProduct): Promise<IProduct> {
         try {
             if(data.image){
-                const image = await uploadImage(data.image);
+                const image = await this.uploadsService.uploadImage(data.image);
                 data.image = image;
             }
             const product = new Product(data);
@@ -56,8 +58,8 @@ export default class ProductsService implements IProductsService {
         try {
             if(data.image){
                 const product = await Product.findById(id);
-                if(product?.image) await destroyImage(product.image);
-                const image = await uploadImage(data.image);
+                if(product?.image) await this.uploadsService.destroyImage(product.image);
+                const image = await this.uploadsService.uploadImage(data.image);
                 data.image = image;
             }
             const productUpdated = await Product.findByIdAndUpdate(id, {$set: data}, {new: true}).setOptions({upsert: true});

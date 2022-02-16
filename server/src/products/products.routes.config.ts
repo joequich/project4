@@ -10,10 +10,12 @@ import ProductsMiddleware from "./middlewares/products.middleware";
 import JwtMiddleware from "../auth/middlewares/jwt.middleware";
 import RolesMiddleware from "../roles/middlewares/roles.middleware";
 import ProductsController from "./controllers/products.controller";
+import UploadsService from "../common/services/uploads.service";
 
 const route = Router();
 const usersService = new UsersService();
-const productsService = new ProductsService();
+const uploadsService = new UploadsService();
+const productsService = new ProductsService(uploadsService);
 const roleService = new RoleService();
 
 const jwtMiddleware = new JwtMiddleware(usersService);
