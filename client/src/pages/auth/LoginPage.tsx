@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/Redux';
 import { useForm } from '../../hooks/useForm';
 import { FullPageLoader } from '../../components/FullPageLoader';
 import { GoogleSignIn } from '../../components/GoogleSignIn';
-import { login } from '../../redux/auth/authAction';
+import { fetchAuthLogin } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
 import toast from 'react-hot-toast';
 
@@ -19,7 +19,7 @@ export const LoginPage = () => {
 
     const handleLogin = function () {
         dispatch(clearState());
-        dispatch(login({ email, password }));
+        dispatch(fetchAuthLogin({ email, password }));
     };
 
     const { values: formValues, handleChange, handleSubmit, errors } = useForm(

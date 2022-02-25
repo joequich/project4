@@ -5,7 +5,7 @@ import { validateRegisterFields } from '../../helpers/validate-fields';
 import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import { useForm } from '../../hooks/useForm';
 import { FullPageLoader } from '../../components/FullPageLoader';
-import { register } from '../../redux/auth/authAction';
+import { fetchAuthRegister } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
 
 export const RegisterPage = () => {
@@ -15,7 +15,7 @@ export const RegisterPage = () => {
     );
 
     const handleRegister = () => {
-        dispatch(register({ username, email, password }));
+        dispatch(fetchAuthRegister({ username, email, password }));
     };
 
     const { values: formValues, handleChange, handleSubmit, errors, } = useForm(

@@ -1,20 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import API from '../../config/axios';
 import { saveUserToken, destroyUserToken } from '../../helpers/jwtLocalStorage';
+import { loginWithGoogle, login, register } from '../../services/auth';
 interface ValidationErrors {  
     errorMessage: string;  
     field_errors: Record<string, string>;
 }
 
-export const login = createAsyncThunk(
+export const fetchAuthLogin = createAsyncThunk(
     'auth/login',
     async (
         { email, password }: { email: string; password: string },
         thunkAPI
     ) => {
         try {
-            const response = await API.post('/auth/login',{ email, password });
+            const response = await login(email, password);
             if(response.data.accessToken) {
                 saveUserToken(response.data)
             }
@@ -33,14 +33,14 @@ export const login = createAsyncThunk(
     }
 );
 
-export const register = createAsyncThunk(
+export const fetchAuthRegister = createAsyncThunk(
     'auth/register',
     async ( 
         { username, email, password }: {username: string; email: string, password: string},
         thunkAPI    
     ) => {
         try {
-            const response = await API.post('/users', { username, email, password});
+            const response = await register(username, email, password);
             return {
                 username: response.data.user.username as string
             }
@@ -53,9 +53,9 @@ export const register = createAsyncThunk(
     }
 )
 
-export const googleSignIn = createAsyncThunk('auth/google', async({idToken}: {idToken: string}, thunkAPI) =>{
+export const fetchAuthGoogleSignIn = createAsyncThunk('auth/google', async({idToken}: {idToken: string}, thunkAPI) =>{
     try {
-        const response = await API.post('/auth/google', { idToken });
+        const response = await loginWithGoogle(idToken);
         if(response.data.accessToken) {
             saveUserToken(response.data)
         }
@@ -70,6 +70,6 @@ export const googleSignIn = createAsyncThunk('auth/google', async({idToken}: {id
     }
 })
 
-export const logout = createAsyncThunk('auth/logout', () => {
+export const authLogout = createAsyncThunk('auth/logout', () => {
     destroyUserToken();
 });

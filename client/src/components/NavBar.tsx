@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/Redux';
-import { logout } from '../redux/auth/authAction';
+import { authLogout } from '../redux/auth/authAction';
 import { FiX as CloseIcon } from 'react-icons/fi';
 import { FiMenu as MenuIcon } from 'react-icons/fi';
 import { FiLogOut as LogoutIcon } from 'react-icons/fi';
@@ -21,7 +21,7 @@ export const NavBar = () => {
     };
 
     const handleLogout = () => {
-        dispatch(logout());
+        dispatch(authLogout());
         history.replace('/auth/login');
     };
 
