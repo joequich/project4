@@ -6,21 +6,18 @@ interface AuthState {
     username: string | null;
     isChecking: boolean;
     isError: boolean;
-    // error: ErrorPayload | SerializedError;
-    error: {
-        message: string 
-    } | SerializedError;
+    error: ErrorPayload | SerializedError;
 }
 
-// interface IErrors {
-//     value: string;
-//     reason: string;
-// }
-// interface ErrorPayload {
-//     status: number;
-//     message: string;
-//     errors?: IErrors[];
-// }
+interface IErrors {
+    value: string;
+    reason: string;
+}
+interface ErrorPayload {
+    status: number;
+    message: string;
+    errors?: IErrors[];
+}
 
 const user = getUser();
 
@@ -52,7 +49,7 @@ const authSlice = createSlice({
             state.isChecking = false;
             state.isError = true;
             if (action.payload) {        
-                state.error.message = action.payload as string
+                state.error = action.payload as ErrorPayload
             } else {        
                 state.error = action.error
             }
@@ -77,7 +74,7 @@ const authSlice = createSlice({
             state.isChecking = false;
             state.isError = true;
             if (action.payload) {        
-                state.error.message = action.payload as string
+                state.error = action.payload as ErrorPayload
             } else {        
                 state.error = action.error
             }

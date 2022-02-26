@@ -21,14 +21,11 @@ export const fetchAuthLogin = createAsyncThunk(
             return {
                 username: response.data.username as string
             }
-        } catch (err) {
-            if (err instanceof Error) {
-                console.log(err.message)
-                return thunkAPI.rejectWithValue(err.message);
-            } else {
-                console.log('aaa', err)
-                return thunkAPI.rejectWithValue('Unknow failure');
-            }
+        } catch (err: any) {
+            let error: AxiosError<ValidationErrors> = err; // cast the error for access    
+            if (!error.response) {      throw err    }
+            // console.log('actions', error.response.data)
+            return thunkAPI.rejectWithValue(err.response.data);
         }
     }
 );
