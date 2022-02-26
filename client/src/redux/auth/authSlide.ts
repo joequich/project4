@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf, SerializedError } from '@reduxjs/toolkit';
-import { getUserToken } from '../../helpers/jwtLocalStorage';
+import { getUser } from '../../helpers/jwtLocalStorage';
 import { fetchAuthGoogleSignIn, fetchAuthLogin, authLogout, fetchAuthRegister } from './authAction';
 interface AuthState {
     isSuccess: boolean;
@@ -22,10 +22,10 @@ interface AuthState {
 //     errors?: IErrors[];
 // }
 
-const user = getUserToken();
+const user = getUser();
 
 const initialState = user
-    ? { isChecking: false, isSuccess: true, username: user.username, isError: false, error: { message: ''} }
+    ? { isChecking: false, isSuccess: true, username: user, isError: false, error: { message: ''} }
     : { isChecking: false, isSuccess: false, username: null, isError: false, error: { message: ''} };
 
 const authSlice = createSlice({

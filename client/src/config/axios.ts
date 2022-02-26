@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse }  from 'axios';
-import { getUserToken, destroyUserToken } from '../helpers/jwtLocalStorage';
-import { history } from '../index';
+import { destroyUserToken, updateToken, getToken } from '../helpers/jwtLocalStorage';
+import { refreshToken } from '../services/auth';
 
 const API: AxiosInstance = axios.create({
     baseURL: 'http://localhost:3030/api/',
@@ -9,43 +9,34 @@ const API: AxiosInstance = axios.create({
     headers: { 'X-Requested-With': 'XMLHttpRequest' }
 });
 
-// API.defaults.withCredentials = true;
 API.interceptors.request.use(function (config: AxiosRequestConfig) {
-    // Do something before request is sent
-    const userData = getUserToken();
-    if (userData) {
-        config.headers.authorization = `Bearer ${userData.accessToken}`;
+    const accessToken = getToken();
+    if (accessToken) {
+        config.headers.authorization = `Bearer ${accessToken}`;
     }
     return config;
 }, function (error: AxiosError) {
-    // Do something with request error
     return Promise.reject(error);
 });
 
-interface AxiosConfig extends AxiosRequestConfig{
-    _isRetry: boolean;
-}
-
-// Add a response interceptor
 API.interceptors.response.use(function (response: AxiosResponse) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
     return response;
-}, function (error: AxiosError) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    // let originalRequest = error.config as AxiosConfig
-    // originalRequest._isRetry = false;
-    // console.log(originalRequest);
-
-    if (error.response?.status === 401) {
-        destroyUserToken();
-        history.push('/auth/login')
-        return Promise.reject(error);
-    }
-    if (error.response?.data) {
-        console.log('handle error ', error.response.data.message)
-        throw new Error(error.response.data.message);
+},async (error: AxiosError) => {
+    const originalRequest = error.config;
+    const status = error.response ? error.response.status : null;
+    if (status === 401 && error.config.url !== '/auth/refresh-token') {
+        console.log('refresh token')
+        return refreshToken()
+            .then(response => {
+                console.log('new token received')
+                updateToken(response.data.accessToken)
+                return API(originalRequest);
+            })
+            .catch(err => {
+                console.log('err refresh',err)
+                destroyUserToken();
+                window.location.replace('/auth/login')
+            });
     }
     return Promise.reject(error);
 });

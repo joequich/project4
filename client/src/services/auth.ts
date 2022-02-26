@@ -12,3 +12,7 @@ export const register = (username: string, email: string, password: string) => {
     return API.post('/users', { username, email, password});
 }
 
+export const refreshToken = () => {
+    return API.post('/auth/refresh-token');
+}
+
