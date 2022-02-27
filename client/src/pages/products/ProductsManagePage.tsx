@@ -4,8 +4,10 @@ import { validateProductFields } from '../../helpers/validate-fields';
 import { useForm } from '../../hooks/useForm';
 import { IErrorFormAddProduct, IFormAddProduct } from '../../interfaces/Forms';
 import toast from 'react-hot-toast';
+import { useHistory } from 'react-router-dom';
 
 export const ProductsManagePage = () => {
+    const history = useHistory();
     const handleAddProduct = async() => {
         console.log(formValues)
             const data = new FormData();
@@ -14,9 +16,16 @@ export const ProductsManagePage = () => {
             formValues['stock'] && data.append('stock', formValues['stock'])
             formValues['price'] && data.append('price', formValues['price'])
             image && data.append('image', image)
-            const response = await API.post('/products');
-            console.log(response)
-            toast.success('Product registered successfully!!');
+            await API.post('/products', data)
+                .then(resp => {
+                    console.log(resp)
+                    history.push('/products')
+                    toast.success('Product registered successfully!!');
+                })
+                .catch(err => {
+                    console.log(err)
+                    toast.error('An error occurred!!');
+                });
     };
 
     const handleImage = (e: ChangeEvent<HTMLInputElement>) => {

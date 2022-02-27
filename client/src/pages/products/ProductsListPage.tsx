@@ -2,12 +2,24 @@ import { Link, useHistory } from 'react-router-dom';
 import { FiEdit as EditIcon } from 'react-icons/fi';
 import { FiTrash2 as RemoveIcon } from 'react-icons/fi';
 import { FiPlus as PlusIcon } from 'react-icons/fi';
-import imagen from '../../assets/keyboard_keychron.jpg';
+import noImage from '../../assets/no-image.jpg';
+import { useEffect, useState } from 'react';
+import API from '../../config/axios';
+import { IProduct } from '../../interfaces/Products';
 
 export const ProductsListPage = () => {
     const history = useHistory();
 
-    let arr = [...Array(10)];
+    const [products, setProducts] = useState<IProduct[]>([]);
+
+    useEffect(() => {
+        API.get('/products')
+        .then(resp => {
+            console.log(resp.data)
+            setProducts(resp.data.products);
+        })
+        .catch(err => console.log(err));
+    }, [])
 
     const handleNew = () => {
         history.replace('/products/add');
@@ -25,7 +37,7 @@ export const ProductsListPage = () => {
             </div>
             <div className="items-list">
                 {
-                    arr.map( (val, idx) => (
+                    products.map( (product, idx) => (
                         <div key={idx} className="item-card">
                             <div className="item-card__options">
                                 <Link className="opt" to="">
@@ -36,12 +48,12 @@ export const ProductsListPage = () => {
                                 </Link>
                             </div>
                             <figure className="item-card__figure">
-                                <img src={imagen} alt="camera" />
+                                <img src={product.image ? product.image : noImage} alt={product.name} />
                             </figure>
                             <div className="item-card__content">
-                                <h2 className="item-card__title">Keyboard Wireless</h2>
-                                <p>USD $60</p>
-                                <p>160 availables</p>
+                                <h2 className="item-card__title">{product.name}</h2>
+                                <p>USD ${product.price}</p>
+                                <p>{product.stock} availables</p>
                             </div>
                         </div>
                     )) 
