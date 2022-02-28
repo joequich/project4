@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { IProductsService } from '../../interfaces/product.interface';
 
 export default class ProductsController {
-    constructor(private readonly productsService: IProductsService) {}
+    constructor(private readonly productsService: IProductsService) { }
 
     createProduct = async (req: Request, res: Response) => {
         try {
@@ -10,21 +10,13 @@ export default class ProductsController {
             if (req.file?.path) req.body.image = req.file.path;
             req.body.user = userId;
             const product = await this.productsService.create(req.body);
-            return res.status(201).json({
-                status: 201,
-                product,
-                message: 'Succesfully Product Saved',
-            });
+            return res.status(201).json(product);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(409)
-                    .json({ status: 409, message: err.message });
+                return res.status(409).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -36,21 +28,13 @@ export default class ProductsController {
         try {
             const products = await this.productsService.list(page, limit);
 
-            return res.status(200).json({
-                status: 200,
-                products,
-                message: 'Succesfully Products List',
-            });
+            return res.status(200).json(products);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -59,21 +43,13 @@ export default class ProductsController {
         const id = req.params.id;
         try {
             const product = await this.productsService.readById(id);
-            return res.status(200).json({
-                status: 200,
-                product,
-                message: 'Succesfully Product List',
-            });
+            return res.status(200).json(product);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -85,21 +61,13 @@ export default class ProductsController {
         req.body.user = userId;
         try {
             const product = await this.productsService.updateById(id, req.body);
-            return res.status(200).json({
-                status: 200,
-                product,
-                message: 'Succesfully Product Updated',
-            });
+            return res.status(200).json(product);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -111,21 +79,13 @@ export default class ProductsController {
         req.body.user = userId;
         try {
             const product = await this.productsService.updateById(id, req.body);
-            return res.status(200).json({
-                status: 200,
-                product,
-                message: 'Succesfully Product Updated',
-            });
+            return res.status(200).json(product);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -134,21 +94,13 @@ export default class ProductsController {
         const { id } = req.params;
         try {
             await this.productsService.deleteById(id);
-            return res.status(200).json({
-                status: 200,
-                product: id,
-                message: 'Succesfully Product Deleted',
-            });
+            return res.status(200).json({ product: id, });
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };

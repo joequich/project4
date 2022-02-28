@@ -7,21 +7,13 @@ export default class RolesController {
     createRole = async (req: Request, res: Response) => {
         try {
             const role = await this.roleService.create({ role: req.body.role });
-            return res.status(200).json({
-                status: 200,
-                role,
-                message: 'Succesfully Role Saved',
-            });
+            return res.status(200).json(role);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };

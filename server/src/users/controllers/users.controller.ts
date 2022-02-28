@@ -11,23 +11,13 @@ export default class UsersController {
 
         try {
             const users = await this.userService.list(page, limit);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    users,
-                    message: 'Succesfully Users List',
-                });
+            return res.status(200).json(users);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -36,23 +26,13 @@ export default class UsersController {
         const id = req.params.id;
         try {
             const user = await this.userService.readById(id);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    user,
-                    message: 'Succesfully User List',
-                });
+            return res.status(200).json(user);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -62,23 +42,13 @@ export default class UsersController {
         req.body.password = hashSync(req.body.password, salt);
         try {
             const user = await this.userService.create(req.body);
-            return res
-                .status(201)
-                .json({
-                    status: 201,
-                    user,
-                    message: 'Succesfully User Saved',
-                });
+            return res.status(201).json(user);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(409)
-                    .json({ status: 409, message: err.message });
+                return res.status(409).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -92,23 +62,13 @@ export default class UsersController {
         const { _id, google, ...resto } = req.body;
         try {
             const user = await this.userService.updateById(id, resto);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    user,
-                    message: 'Succesfully User Updated',
-                });
+            return res.status(200).json(user);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -120,23 +80,13 @@ export default class UsersController {
         const { _id, google, ...resto } = req.body;
         try {
             const user = await this.userService.updateById(id, resto);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    user,
-                    message: 'Succesfully User Updated',
-                });
+            return res.status(200).json(user);
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
@@ -145,23 +95,13 @@ export default class UsersController {
         const { id } = req.params;
         try {
             await this.userService.deleteById(id);
-            return res
-                .status(200)
-                .json({
-                    status: 200,
-                    user: id,
-                    message: 'Succesfully User Deleted',
-                });
+            return res.status(200).json({ user: id });
         } catch (err) {
             if (err instanceof Error) {
-                return res
-                    .status(400)
-                    .json({ status: 400, message: err.message });
+                return res.status(400).json({ message: err.message });
             } else {
                 console.log(err);
-                return res
-                    .status(500)
-                    .json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     };
