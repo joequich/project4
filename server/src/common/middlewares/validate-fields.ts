@@ -8,12 +8,10 @@ const errorFormatter = ({ msg, value }: ValidationError) => {
 export const validateFields = ( req: Request, res: Response, next: NextFunction ) => {
     const errors = validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
-        return res
-            .status(400)
-            .json({
-                status: 400,
-                message: 'Invalid fields', errors: errors.array()
-            });
+        return res.status(400).json({
+            message: 'Invalid fields', 
+            errors: errors.array()
+        });
     }
     next();
 };

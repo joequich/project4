@@ -30,11 +30,9 @@ class AuthMiddleWare {
                 };
                 return next();
             } else {
-                return res
-                    .status(400)
-                    .json({
-                        message: 'Invalid email and/or password'
-                    });
+                return res .status(400).json({
+                    message: 'Invalid email and/or password'
+                });
             }
         }
         return res.status(400).json({

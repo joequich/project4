@@ -7,12 +7,9 @@ export default class UsersMiddleware {
         const email: string = req.body.email;
         const existEmail = await this.userService.getUserByEmail(email);
         if (existEmail) {
-            return res
-                .status(400)
-                .json({
-                    status: 400,
-                    message: `User email ${email} already exists`
-                });
+            return res.status(400).json({
+                message: `User email ${email} already exists`
+            });
         } else {
             return next();
         }
@@ -21,9 +18,9 @@ export default class UsersMiddleware {
     validateIfEmailBelongToUser = async ( req: Request, res: Response, next: NextFunction ) => {
         const user = await this.userService.getUserByEmail(req.body.email);
         if (user && user._id === req.params.id) {
-            return res
-                .status(400)
-                .json({ status: 400, message: 'Invalid Email' });
+            return res.status(400).json({ 
+                message: 'Invalid Email' 
+            });
         } else {
             return next();
         }
@@ -45,23 +42,17 @@ export default class UsersMiddleware {
             // console.log(res.locals.user);
             return next();
         } else {
-            return res
-                .status(404)
-                .json({
-                    status: 404,
-                    message: `User ${req.params.userId} not found`
-                });
+            return res.status(404).json({
+                message: `User ${req.params.userId} not found`
+            });
         }
     };
 
     userCannotChangeRole = ( req: Request, res: Response, next: NextFunction ) => {
         if ('role' in req.body && req.body.role !== res.locals.user.role) {
-            return res
-                .status(400)
-                .json({
-                    status: 400,
-                    message: 'User cannot change role'
-                });
+            return res.status(400).json({
+                message: 'User cannot change role'
+            });
         } else {
             return next();
         }

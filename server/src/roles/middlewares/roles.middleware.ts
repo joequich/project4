@@ -11,9 +11,7 @@ export default class RolesMiddleware {
             next();
         } else {
             res.status(400).json({
-                status: 400,
-                message: 'Invalid Role',
-                errors: [{ value: role, reason: 'Not registered' }]
+                message: `Invalid Role: Role ${role} not registered`,
             });
         }
     };
@@ -26,14 +24,7 @@ export default class RolesMiddleware {
                     return next();
                 } else {
                     return res.status(403).json({
-                        status: 403,
-                        message: 'Invalid Role',
-                        errors: [
-                            {
-                                value: `${userRole}`,
-                                reason: `The service requires one of these roles ${roles}`,
-                            },
-                        ],
+                        message: `Invalid Role: The service requires one of these roles ${roles}`,
                     });
                 }
             } catch (error) {
@@ -44,19 +35,14 @@ export default class RolesMiddleware {
 
     onlySameUserOrAdmin(req: Request, res: Response, next: NextFunction) {
         const userRole: Roles = res.locals.jwt.role;
-        if (
-            req.params &&
-            req.params.id &&
-            req.params.id === res.locals.jwt.userId
-        ) {
+        if ( req.params && req.params.id && req.params.id === res.locals.jwt.userId ) {
             return next();
         } else {
             if (userRole === Roles.ADMIN) {
                 return next();
             } else {
                 return res.status(403).json({
-                    status: 403,
-                message: 'You need permissions, cannot do this',
+                    message: 'You need permissions, cannot do this',
                 });
             }
         }

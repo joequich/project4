@@ -6,7 +6,7 @@ class AuthController {
     constructor(private readonly usersService: IUsersService) {}
     generateJWT(req: Request, res: Response) {
         try {
-            const { accessToken, expiresIn, cookieRefreshToken } = generateJwtKeys({
+            const { accessToken, cookieRefreshToken } = generateJwtKeys({
                 userId: req.body.userId,
                 username: req.body.username,
                 email: req.body.email,
@@ -14,12 +14,12 @@ class AuthController {
             });
 
             req.res?.setHeader('Set-Cookie', [cookieRefreshToken]);
-            return res.status(201).json({ username: req.body.username, accessToken, expiresIn  });
+            return res.status(201).json({ username: req.body.username, accessToken });
         } catch (err) {
             if (err instanceof Error) {
-                return res.status(500).json({ status: 500, message: err.message });
+                return res.status(500).json({ message: err.message });
             } else {
-                return res.status(500).json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     }
@@ -51,9 +51,9 @@ class AuthController {
             return res.status(201).json({ username: req.body.username, accessToken });
         } catch (err) {
             if (err instanceof Error) {
-                return res.status(500).json({ status: 500, message: err.message });
+                return res.status(500).json({ message: err.message });
             } else {
-                return res.status(500).json({ status: 500, message: 'Unknow failure' });
+                return res.status(500).json({ message: 'Unknow failure' });
             }
         }
     }

@@ -15,12 +15,9 @@ export default class ProductsMiddleware {
         if (product) {
             return next();
         } else {
-            return res
-                .status(404)
-                .json({
-                    status: 404,
-                    message: `Product ${id} not found`
-                });
+            return res.status(404).json({
+                message: `Product ${id} not found`
+            });
         }
     };
 }
