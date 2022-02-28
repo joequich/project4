@@ -1,27 +1,12 @@
-import { createSlice, isAnyOf, SerializedError } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { IAuthState } from '../../interfaces/Auth';
+import { IErrorPayload } from '../../interfaces/Errors';
 import { getUser } from '../../helpers/jwtLocalStorage';
-import { fetchAuthGoogleSignIn, fetchAuthLogin, authLogout, fetchAuthRegister } from './authAction';
-interface AuthState {
-    isSuccess: boolean;
-    username: string | null;
-    isChecking: boolean;
-    isError: boolean;
-    error: ErrorPayload | SerializedError;
-}
-
-interface IErrors {
-    value: string;
-    reason: string;
-}
-interface ErrorPayload {
-    status: number;
-    message: string;
-    errors?: IErrors[];
-}
+import { googleSignIn, login, logout, register } from './authAction';
 
 const user = getUser();
 
-const initialState = user
+const initialState: IAuthState = user
     ? { isChecking: false, isSuccess: true, username: user, isError: false, error: { message: ''} }
     : { isChecking: false, isSuccess: false, username: null, isError: false, error: { message: ''} };
 
@@ -38,43 +23,43 @@ const authSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(fetchAuthRegister.pending, (state: AuthState) => {
+        builder.addCase(register.pending, (state) => {
             state.isChecking = true;
         });
-        builder.addCase(fetchAuthRegister.fulfilled, (state: AuthState) => {
+        builder.addCase(register.fulfilled, (state) => {
             state.isChecking = false;
             state.isSuccess = true;
         });
-        builder.addCase(fetchAuthRegister.rejected, (state: AuthState, action) => {
+        builder.addCase(register.rejected, (state, action) => {
             state.isChecking = false;
             state.isError = true;
             if (action.payload) {        
-                state.error = action.payload as ErrorPayload
+                state.error = action.payload as IErrorPayload
             } else {        
                 state.error = action.error
             }
         });
-        builder.addCase(authLogout.pending, (state: AuthState) => {
+        builder.addCase(logout.pending, (state) => {
             state.isChecking = true;
         });
-        builder.addCase(authLogout.fulfilled, (state: AuthState) => {
+        builder.addCase(logout.fulfilled, (state) => {
             state.isChecking = false;
             state.isSuccess = false;
             state.username = null;
         });
-        builder.addMatcher(isAnyOf(fetchAuthLogin.pending, fetchAuthGoogleSignIn.pending), (state: AuthState) => {
+        builder.addMatcher(isAnyOf(login.pending, googleSignIn.pending), (state) => {
             state.isChecking = true;
         });
-        builder.addMatcher(isAnyOf(fetchAuthLogin.fulfilled, fetchAuthGoogleSignIn.fulfilled), (state: AuthState, action) => {
+        builder.addMatcher(isAnyOf(login.fulfilled, googleSignIn.fulfilled), (state, action) => {
             state.username = action.payload.username;
             state.isChecking = false;
             state.isSuccess = true;
         });
-        builder.addMatcher(isAnyOf(fetchAuthLogin.rejected, fetchAuthGoogleSignIn.rejected), (state: AuthState, action) => {
+        builder.addMatcher(isAnyOf(login.rejected, googleSignIn.rejected), (state, action) => {
             state.isChecking = false;
             state.isError = true;
             if (action.payload) {        
-                state.error = action.payload as ErrorPayload
+                state.error = action.payload as IErrorPayload
             } else {        
                 state.error = action.error
             }

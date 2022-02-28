@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import API from '../../config/axios';
+import { IErrorFormAddProduct, IFormAddProduct } from '../../interfaces/Forms';
 import { validateProductFields } from '../../helpers/validate-fields';
 import { useForm } from '../../hooks/useForm';
-import { IErrorFormAddProduct, IFormAddProduct } from '../../interfaces/Forms';
-import toast from 'react-hot-toast';
-import { useHistory } from 'react-router-dom';
 
 export const ProductsManagePage = () => {
     const history = useHistory();

@@ -1,10 +1,7 @@
+import { IAuthResponse } from "../interfaces/Auth";
+
 const P4_TOKEN_KEY = "p4_token";
 const P4_USER_KEY = "p4_user";
-
-interface IUserToken {
-    username: string;
-    accessToken: string;
-}
 
 export const getUser = (): string | null => {
     return JSON.parse(window.localStorage.getItem(P4_USER_KEY) || 'null');
@@ -14,7 +11,7 @@ export const getToken = (): string | null => {
     return JSON.parse(window.localStorage.getItem(P4_TOKEN_KEY) || 'null');
 };
 
-export const saveUserToken = (loginRes: IUserToken): void => {
+export const saveUserToken = (loginRes: IAuthResponse): void => {
     window.localStorage.setItem(P4_TOKEN_KEY, JSON.stringify(loginRes.accessToken));
     window.localStorage.setItem(P4_USER_KEY, JSON.stringify(loginRes.username));
 };

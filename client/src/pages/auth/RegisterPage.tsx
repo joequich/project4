@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { IErrorFormRegister, IFormRegister } from '../../interfaces/Forms';
 import { validateRegisterFields } from '../../helpers/validate-fields';
-import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import { useForm } from '../../hooks/useForm';
-import { FullPageLoader } from '../../components/FullPageLoader';
-import { fetchAuthRegister } from '../../redux/auth/authAction';
+import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
+import { register } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
+import { FullPageLoader } from '../../components/FullPageLoader';
 
 export const RegisterPage = () => {
     const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ export const RegisterPage = () => {
     );
 
     const handleRegister = () => {
-        dispatch(fetchAuthRegister({ username, email, password }));
+        dispatch(register({ username, email, password }));
     };
 
     const { values: formValues, handleChange, handleSubmit, errors, } = useForm(
@@ -38,7 +38,7 @@ export const RegisterPage = () => {
         }
 
         if (isError) {
-            toast.error(error.message);
+            if (error.message) toast.error(error.message);
             dispatch(clearState());
         }
     }, [dispatch, error, isError, isSuccess]);

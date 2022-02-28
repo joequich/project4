@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse }  from 'axios';
 import { destroyUserToken, updateToken, getToken } from '../helpers/jwtLocalStorage';
-import { refreshToken } from '../services/auth';
+import AuthService from '../services/auth';
 
 const API: AxiosInstance = axios.create({
     baseURL: 'http://localhost:3030/api/',
@@ -26,10 +26,10 @@ API.interceptors.response.use(function (response: AxiosResponse) {
     const status = error.response ? error.response.status : null;
     if (status === 401 && error.config.url !== '/auth/refresh-token') {
         console.log('refresh token')
-        return refreshToken()
-            .then(response => {
+        return AuthService.refreshToken()
+            .then(data => {
                 console.log('new token received')
-                updateToken(response.data.accessToken)
+                updateToken(data.accessToken)
                 return API(originalRequest);
             })
             .catch(err => {

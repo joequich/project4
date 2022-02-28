@@ -1,13 +1,12 @@
-import React from 'react';
 import { useState } from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks/Redux';
-import { authLogout } from '../redux/auth/authAction';
 import { FiX as CloseIcon } from 'react-icons/fi';
 import { FiMenu as MenuIcon } from 'react-icons/fi';
 import { FiLogOut as LogoutIcon } from 'react-icons/fi';
 import { FaUserAstronaut as UserIcon } from 'react-icons/fa';
 import logo from '../assets/logo.svg';
+import { useAppDispatch, useAppSelector } from '../hooks/Redux';
+import { logout } from '../redux/auth/authAction';
 
 export const NavBar = () => {
     const history = useHistory();
@@ -21,7 +20,7 @@ export const NavBar = () => {
     };
 
     const handleLogout = () => {
-        dispatch(authLogout());
+        dispatch(logout());
         history.replace('/auth/login');
     };
 

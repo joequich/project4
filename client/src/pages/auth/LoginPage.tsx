@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router';
+import toast from 'react-hot-toast';
 import { IErrorFormLogin, IFormLogin } from '../../interfaces/Forms';
 import { validateLoginFields } from '../../helpers/validate-fields';
-import { useAppSelector, useAppDispatch } from '../../hooks/Redux';
 import { useForm } from '../../hooks/useForm';
+import { useAppSelector, useAppDispatch } from '../../hooks/Redux';
+import { login } from '../../redux/auth/authAction';
+import { clearState } from '../../redux/auth/authSlide';
 import { FullPageLoader } from '../../components/FullPageLoader';
 import { GoogleSignIn } from '../../components/GoogleSignIn';
-import { fetchAuthLogin } from '../../redux/auth/authAction';
-import { clearState } from '../../redux/auth/authSlide';
-import toast from 'react-hot-toast';
 
 export const LoginPage = () => {
     const history = useHistory();
@@ -19,7 +19,7 @@ export const LoginPage = () => {
 
     const handleLogin = function () {
         dispatch(clearState());
-        dispatch(fetchAuthLogin({ email, password }));
+        dispatch(login({ email, password }));
     };
 
     const { values: formValues, handleChange, handleSubmit, errors } = useForm(
@@ -42,7 +42,7 @@ export const LoginPage = () => {
         }
 
         if (isError) {
-            toast.error(error.message);
+            if (error.message) toast.error(error.message);
             dispatch(clearState());
         }
     }, [isSuccess, dispatch, history, isError, error]);

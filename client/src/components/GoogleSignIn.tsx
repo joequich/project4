@@ -1,9 +1,9 @@
-import React, {useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks/Redux';
-import { fetchAuthGoogleSignIn } from '../redux/auth/authAction';
+import { googleSignIn } from '../redux/auth/authAction';
 import { clearState } from '../redux/auth/authSlide';
 
-export const GoogleSignIn = React.memo(() => {
+export const GoogleSignIn = memo(() => {
     console.log('googlesignin render');
     const dispatch = useAppDispatch();
     const [isMounted, setIsMounted] = useState(false);
@@ -14,7 +14,7 @@ export const GoogleSignIn = React.memo(() => {
         const handleCredentialResponse = (resp: CredentialResponse) => {
             if (!resp.clientId || !resp.credential) return;
             dispatch(clearState());
-            dispatch(fetchAuthGoogleSignIn({ idToken: resp.credential }));
+            dispatch(googleSignIn({ idToken: resp.credential }));
         };
         
         const initGsiButton = () => {

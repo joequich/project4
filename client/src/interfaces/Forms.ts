@@ -1,10 +1,8 @@
 import { ChangeEvent, FormEvent } from "react";
 
-
 export type FieldValues = Record<string, any>;
 
 export type IFormsReturn = [values: FieldValues, handleChange: ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, resetValues: () => void, handleSubmit:(e: FormEvent<HTMLFormElement>) => void, errors: {}]
-
 
 export interface IFormLogin {
     email: string;
@@ -31,7 +29,6 @@ export interface IFormAddProduct {
     stock: string;
     price: string;
 }
-
 
 export interface IErrorFormAddProduct {
     fields: IFormAddProduct;

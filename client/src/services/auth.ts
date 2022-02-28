@@ -1,18 +1,23 @@
 import API from "../config/axios";
+import { IAuthService } from "../interfaces/Auth";
 
-export const login = (email: string, password: string) => {
-    return API.post('/auth/login',{ email, password });
+const AuthService: IAuthService = {
+    login: async(email: string, password: string) => {
+        return API.post('/auth/login',{ email, password })
+            .then(response => response.data);
+    },
+    loginWithGoogle: async(token: string) => {
+        return API.post('/auth/google',{ idToken: token })
+            .then(response => response.data);
+    },
+    register: async(username: string, email: string, password: string) => {
+        return API.post('/users', { username, email, password})
+        .then(response => response.data);
+    },
+    refreshToken: async() => {
+        return API.post('/auth/refresh-token')
+        .then(response => response.data);
+    }
 }
 
-export const loginWithGoogle = (token: string) => {
-    return API.post('/auth/google',{ idToken: token });
-}
-
-export const register = (username: string, email: string, password: string) => {
-    return API.post('/users', { username, email, password});
-}
-
-export const refreshToken = () => {
-    return API.post('/auth/refresh-token');
-}
-
+export default AuthService;
