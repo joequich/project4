@@ -40,7 +40,7 @@ export const ProductsListPage = () => {
                     products.map( (product, idx) => (
                         <div key={idx} className="item-card">
                             <div className="item-card__options">
-                                <Link className="opt" to="">
+                                <Link className="opt" to={`/products/${product._id}/edit`}>
                                     <EditIcon />
                                 </Link>
                                 <Link className="opt" to="">

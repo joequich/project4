@@ -40,8 +40,8 @@ export const validateRegisterFields = (values: IFormRegister) => {
 export const validateProductFields = (values: IFormAddProduct) => {
     let errors = {} as IFormAddProduct;
 
-    if (!values.product.trim()) {
-        errors.product = 'Product name required';
+    if (!values.name.trim()) {
+        errors.name = 'Product name required';
     }
 
     if (!values.description.trim()) {

@@ -5,7 +5,7 @@ interface IErrors {
     fields?: Record<string,any>
 }
 export const useForm: (initFieldValues:FieldValues, callback: Function, validate: Function) => 
-{values: FieldValues, handleChange: ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, resetValues: () => void, handleSubmit:(e: FormEvent<HTMLFormElement>) => void, errors: {}} = (initFieldValues:FieldValues, callback: Function, validate: Function) => {
+{values: FieldValues, handleChange: ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, resetValues: (values?: FieldValues) => void, handleSubmit:(e: FormEvent<HTMLFormElement>) => void, errors: {}} = (initFieldValues:FieldValues, callback: Function, validate: Function) => {
     const [values, setValues] = useState(initFieldValues);
     const [errors, setErrors] = useState<IErrors>({fields: {}});
     const [isSubmited, setIsSubmited] = useState(false)
@@ -23,8 +23,8 @@ export const useForm: (initFieldValues:FieldValues, callback: Function, validate
         setIsSubmited(true);
     };
 
-    const resetValues = () => {
-        setValues(initFieldValues);
+    const resetValues = (values = initFieldValues) => {
+        setValues(values);
     }
 
     useEffect(() => {

@@ -24,7 +24,7 @@ export interface IErrorFormRegister {
 }
 
 export interface IFormAddProduct {
-    product: string;
+    name: string;
     description: string
     stock: string;
     price: string;
