@@ -38,6 +38,10 @@ const ProductsRoute = (app: Router) => {
     // get all products - public
     route.get('/', productsController.listProducts);
 
+    // get all products - public
+    route.get('/:id', [
+        jwtMiddleware.validateJWT,
+    ], productsController.getProductById);
 
     // update - private - anyone with a valid token
     route.put('/:id', [
