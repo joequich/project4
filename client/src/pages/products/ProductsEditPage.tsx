@@ -57,6 +57,7 @@ export const ProductsEditPage = () => {
         const response = await API.get(`/products/${id}`);
         console.log('fetch product', response);
         setProduct(response.data);
+        setCloudImage(response.data.image)
         console.log(product)
         resetValues({
             name: response.data.name,
@@ -73,8 +74,9 @@ export const ProductsEditPage = () => {
     );
 
     const [image, setImage] = useState<File>();
+    const [cloudImage, setCloudImage] = useState('');
 
-    const { name, description, stock, price, } = formValues as IFormAddProduct;
+    const { name, description, stock, price } = formValues as IFormAddProduct;
     const errorsForm = errors as IErrorFormAddProduct;
 
     useEffect(() => {
@@ -84,7 +86,7 @@ export const ProductsEditPage = () => {
     return (
         <div className="products-container">
             <div className="products-header mt-md m">
-                <span className="products-header__title">Edit Product {name}</span>
+                <span className="products-header__title">Edit Product</span>
                 <hr />
             </div>
             <form onSubmit={handleSubmit} className="forms-group mt-md">
@@ -95,7 +97,7 @@ export const ProductsEditPage = () => {
                             <label htmlFor="email">Product: </label>
                             <input
                                 type="text"
-                                name="product"
+                                name="name"
                                 className="input-field"
                                 placeholder="Product name"
                                 aria-placeholder="Your product name"
@@ -165,8 +167,26 @@ export const ProductsEditPage = () => {
                                 </p>
                             ) : null}
                         </div>
+                    </div>
+                    <div className="col-50">
+                        {
+                            cloudImage
+                            ?
+                            (
+                                <div className="input-wrapper mb-sm">
+                                    <figure>
+                                        <img width="200" src={cloudImage} alt={name} />
+                                        <figcaption>Current picture</figcaption>
+                                    </figure>
+                                </div>
+                            )
+                            :
+                            null
+                        }
+                    </div>
+                    <div className="col-50">
                         <div className="input-wrapper mb-sm">
-                            <label htmlFor="image">Choose a product picture:</label>
+                            <label htmlFor="image">Change product picture:</label>
                             <input 
                                 type="file" 
                                 id="image" 
@@ -176,11 +196,9 @@ export const ProductsEditPage = () => {
                             />
                         </div>
                     </div>
-                    <div className="col-50">
-                    </div>
                 </div>
                 <div className="products-btn mt-sm mb-md">
-                    <button type="submit" className="btn btn-cancel mt-sm">
+                    <button type="button" onClick={() => history.push('/products')} className="btn btn-cancel mt-sm">
                         Cancel
                     </button>
                     <button type="submit" className="btn btn-save ml-sm mt-sm">

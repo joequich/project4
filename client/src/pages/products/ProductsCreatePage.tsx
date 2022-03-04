@@ -62,7 +62,7 @@ export const ProductsCreatePage = () => {
                             <label htmlFor="email">Product: </label>
                             <input
                                 type="text"
-                                name="product"
+                                name="name"
                                 className="input-field"
                                 placeholder="Product name"
                                 aria-placeholder="Your product name"
@@ -147,7 +147,7 @@ export const ProductsCreatePage = () => {
                     </div>
                 </div>
                 <div className="products-btn mt-sm mb-md">
-                    <button type="submit" className="btn btn-cancel mt-sm">
+                    <button type="button" onClick={() => history.push('/products')} className="btn btn-cancel mt-sm">
                         Cancel
                     </button>
                     <button type="submit" className="btn btn-save ml-sm mt-sm">
