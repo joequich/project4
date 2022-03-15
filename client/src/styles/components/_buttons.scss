@@ -2,7 +2,6 @@
     background-color: transparent;
     border: none;
     color: #fff;
-    font-size: 12px;
     cursor: pointer;
 }
 
@@ -17,19 +16,15 @@
 
 .btn-navbar {
     display: flex;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid white;
-    margin-bottom: 1rem;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 8px 10px;
+    font-weight: 600;
+    padding: 8px 19px;
     text-decoration: none;
     cursor: pointer;
     justify-content: center;
 
     @media (min-width: $breakpoint-tablet) {
-        margin-right: 0.5rem;
-        margin-bottom: 0px;
         justify-content: initial;
     }
 }
@@ -40,8 +35,8 @@
 }
 
 .btn-signup {
-    background-color: $accents-1;
-    border: 1px solid $accents-1;
+    background-color: $accents-2;
+    border: 1px solid $accents-2;
     color: black;
     white-space: nowrap;
 }
@@ -51,8 +46,11 @@
     border: none;
     white-space: nowrap;
     align-self: flex-end;
+    align-items: center;
+    padding: 0 16px;
     @media (min-width: $breakpoint-tablet) {
         align-self: initial;
+        padding: 8px 0px 8px 19px;
     }
     svg {
         color: $accents-1;

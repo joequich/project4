@@ -9,14 +9,14 @@
         align-items: center;
         flex-direction: column;
         width: 100%;
-        height: 250px;
+        // height: 250px;
         position: absolute;
         top: $header-height;
         right: -100%;
         opacity: 1;
         transition: all 0.5s ease;
-        border-radius: 0px 0px 25px 25px;
-        padding: 1rem;
+        border-radius: 0px 0px 16px 16px;
+        padding: 1.5rem;
 
         @media (min-width: $breakpoint-tablet) {
             display: flex;
@@ -44,7 +44,7 @@
     &__menu-icon {
         display: flex;
         align-self: center;
-        padding-left: 16px;
+        // padding-left: 16px;
         @media (min-width: $breakpoint-tablet) {
             display: none;
         }
@@ -82,7 +82,7 @@
             align-items: center;
             flex-direction: row;
             min-width: 50%;
-            padding-right: 48px;
+            padding-right: 42px;
             height: 100%;
             width: initial;
         }
@@ -92,7 +92,7 @@
             height: 100%;
             text-decoration: none;
             color: $grey-light-2;
-            padding: 0.5rem 1rem;
+            padding: 8px;
             border-bottom: 1px solid #dadce0;
 
             &:hover {
@@ -105,7 +105,8 @@
                 margin: 0;
                 display: flex;
                 align-items: center;
-                padding: 0 16px;
+                justify-content: center;
+                padding: 20px 8px;
                 border-bottom: none;
             }
         }
@@ -118,7 +119,6 @@
     &__auth {
         width: 100%;
         margin-top: 2rem;
-        padding: 0 16px;
         display: flex;
         flex-direction: column;
         // Tablet
@@ -132,6 +132,15 @@
             padding: 0;
         }
 
+        // buttons of authentication
+        button:nth-child(1){
+            margin-bottom: 16px;
+            @media (min-width: $breakpoint-tablet) {
+                margin-right: 1.25rem;
+                margin-bottom: 0;
+            }
+        }
+
         &--user {
             display: none;
         }
@@ -139,8 +148,9 @@
         &--user.logged {
             display: flex;
             align-self: flex-end;
+            align-items: center;
             margin-bottom: 1rem;
-            margin-right: 1rem;
+            margin-right: 1.25rem;
 
             span {
                 white-space: nowrap;

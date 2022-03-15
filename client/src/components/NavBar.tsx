@@ -40,7 +40,7 @@ export const NavBar = () => {
                         <img src={logo} alt="logo" />
                     </Link>
                 </div>
-                <nav className="navbar">
+                <nav className="navbar text-base">
                     <div className="navbar__menu-icon" onClick={handleMenu}>
                         {clicked ? <CloseIcon /> : <MenuIcon />}
                     </div>
@@ -88,13 +88,13 @@ export const NavBar = () => {
                         ) : (
                             <div className="navbar__auth">
                                 <button
-                                    className="btn-navbar btn btn-signin"
+                                    className="btn-navbar btn btn-signin text-sm"
                                     onClick={handleLogin}
                                 >
                                     Sign In
                                 </button>
                                 <button
-                                    className="btn-navbar btn btn-signup"
+                                    className="btn-navbar btn btn-signup text-sm"
                                     onClick={handleRegister}
                                 >
                                     Sign Up

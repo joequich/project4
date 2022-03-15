@@ -75,6 +75,21 @@ body {
     color: $primary-2;
 }
 
+.text-sm {
+    font-size: 13.33px;
+    line-height: 16px;
+}
+
+.text-base {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.text-lg {
+    font-size: 19.2px;
+    line-height: 24px;
+}
+
 .content {
     display: flex;
     padding-top: $header-height;
