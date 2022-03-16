@@ -8,25 +8,25 @@ import { PrivateRoute } from './PrivateRoute';
 import { useAppSelector } from '../hooks/Redux';
 import { AlertMessage } from '../components/AlertMessage';
 import { ProductsCreatePage } from '../pages/products/ProductsCreatePage';
+import { Footer } from '../components/Footer';
 
 export const AppRouter = () => {
     const { username } = useAppSelector(state => state.auth);
     return (
         <Router>
-            <div>
-                <NavBar />
-                    <div className="content">
-                        <AlertMessage />
-                        <Switch>
-                            <Route path="/auth" component={AuthRouter} />
-                            <Route exact path="/" component={HomePage} />
-                            <PrivateRoute exact isAuthenticated={!!username} path="/products" component={ProductsListPage} />
-                            <PrivateRoute exact isAuthenticated={!!username} path="/products/add" component={ProductsCreatePage} />
-                            <PrivateRoute exact isAuthenticated={!!username} path="/products/:id/edit" component={ProductsEditPage} />
-                            <Redirect to="/auth/login"/>
-                        </Switch>
-                    </div>
+            <NavBar />
+            <div className="content">
+                <AlertMessage />
+                <Switch>
+                    <Route path="/auth" component={AuthRouter} />
+                    <Route exact path="/" component={HomePage} />
+                    <PrivateRoute exact isAuthenticated={!!username} path="/products" component={ProductsListPage} />
+                    <PrivateRoute exact isAuthenticated={!!username} path="/products/add" component={ProductsCreatePage} />
+                    <PrivateRoute exact isAuthenticated={!!username} path="/products/:id/edit" component={ProductsEditPage} />
+                    <Redirect to="/auth/login"/>
+                </Switch>
             </div>
+            <Footer />
         </Router>
     );
 };
