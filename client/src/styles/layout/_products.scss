@@ -60,17 +60,22 @@
 }
 
 .products-container {
-    max-width: 1030px;
+    // max-width: 1030px;
+    max-width: 1076px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     flex-direction: column;
-    padding: 0 16px;
-    // box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
+    padding: 0 8px;
     @media (min-width: 768px) {
-        padding: 0 32px;
+        padding: 0 16px;
     }
+    // padding: 0 16px;
+    // box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
+    // @media (min-width: 768px) {
+    //     padding: 0 32px;
+    // }
 }
 
 .products-btn {
@@ -82,81 +87,98 @@
 .products-header {
     display: flex;
     flex-direction: column;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+
+    @media (min-width: 768px) {
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
 
     &__title {
-        font-size: 18px;
+        margin-bottom: 16px;
+        font-size: 23.04px;
+        line-height: 24px;
+        font-weight: 500;
+
         @media (min-width: 768px) {
-            font-size: 16px;
+            margin-bottom: 32px;
+            font-size: 27.65px;
+            line-height: 32px;
         }
     }
 
     &__add-btn {
-        font-size: 16px;
-        padding: 12px 16px;
-        background-color: $accents-2;
-        color: black;
+        font-size: 13.33px;
+        line-height: 16px;
+        padding: 8px 10px;
+        background-color: $primary-3;
+        color: #FFF;
         display: inline-flex;
         margin-left: auto;
         align-items: center;
         border: none;
         box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
-        border-radius: 3px;
+        border-radius: 4px;
         cursor: pointer;
-        margin-bottom: 20px;
 
         &:active {
             background-color: $accents-3;
         }
 
-        @media (min-width: 768px) {
-            font-size: 14px;
-            padding: 8px 10px;
-        }
+        // @media (min-width: 768px) {
+        //     font-size: 14px;
+        //     padding: 8px 10px;
+        //     font-size: 13.33px;
+        //     line-height: 16px;
+        // }
 
         svg {
-            width: 32px;
-            height: 32px;
-            margin-right: 0.35rem;
-            @media (min-width: 768px) {
-                width: 24px;
-                height: 24px;
-            }
+            width: 24px;
+            height: 24px;
+            margin-right: 0.25rem;
+            // @media (min-width: 768px) {
+            //     width: 24px;
+            //     height: 24px;
+            // }
         }
     }
 }
 
 .items-list {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(auto, 192px));
     gap: 16px;
-    padding: 8px;
-    justify-items: center;
+    justify-content: space-around;
 
-    @media (min-width: 640px) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    // @media (min-width: 640px) {
+    //     grid-template-columns: repeat(2, minmax(0, 1fr));
+    // }
 
-    @media (min-width: 768px) {
-        gap: 30px;
-        padding: 16px;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    // @media (min-width: 768px) {
+    //     gap: 30px;
+    //     padding: 16px;
+    //     grid-template-columns: repeat(3, minmax(0, 1fr));
+    // }
 
-    @media (min-width: 1024px) {
-        gap: 30px;
-        padding: 16px;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
+    // @media (min-width: 1024px) {
+    //     gap: 30px;
+    //     padding: 16px;
+    //     grid-template-columns: repeat(4, minmax(0, 192px));
+    // }
 }
 
 .item-card {
     display: flex;
     flex-direction: column;
-    background-color: #fffdfd;
-    border-radius: 9px;
+    background-color: $primary-1;
+    border-radius: 16px;
     box-shadow: 0px 0px 0px 1px rgba(16, 11, 0, 0.07);
-    padding: 16px 0;
     width: 100%;
+    padding: 8px;
+    @media (min-width: 768px) {
+        padding: 16px;
+    }
     // height: 200px;
 
     &__figure {
@@ -164,8 +186,9 @@
         display: flex;
         justify-content: center;
         overflow: hidden;
-        padding: 0 8px 16px;
-        margin-bottom: 20px;
+        // padding: 0 8px 16px;
+        padding: 0;
+        margin-bottom: 24px;
 
         img {
             height: 35vw;
@@ -174,26 +197,29 @@
             object-fit: cover;
 
             @media (min-width: 640px) {
-                height: 200px; //260
+                // height: 200px; //260
+                max-height: 160px;
             }
         }
     }
 
     &__options {
         align-self: flex-end;
-        padding-right: 8px; // 16px
+        margin-bottom: 8px;
+        // padding-right: 8px; // 16px
 
         .opt {
             padding-left: 8px; // 16px
         }
 
         svg {
-            width: 24px; //21px
-            height: 24px; //21px
-            @media (min-width: 640px) {
-                width: 21px; //21px
-                height: 21px; //21px
-            }
+            color: black;
+            width: 22px; //21px
+            height: 22px; //21px
+            // @media (min-width: 640px) {
+            //     width: 21px; //21px
+            //     height: 21px; //21px
+            // }
         }
     }
 
@@ -201,36 +227,50 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-        padding: 8px;
+        // padding: 8px;
 
         @media (min-width: 640px) {
             border-left: none;
-            padding: 0 16px;
+            // padding: 0 16px;
         }
     }
 
     &__title {
         font-size: 16px;
+        line-height: 24px;
+        font-weight: 500;
+        margin-bottom: 8px;
 
-        @media (min-width: 450px) {
-            font-size: 18px;
-        }
+        // @media (min-width: 450px) {
+        //     font-size: 18px;
+        // }
     }
 
     &__star-rating {
         > * {
-            font-size: 21px;
-            @media (min-width: 450px) {
-                font-size: 18px;
-            }
+            font-size: 19.2px;
+            line-height: 24px;
+            display: flex;
+            margin-bottom: 8px;
+            // @media (min-width: 450px) {
+            //     font-size: 18px;
+            // }
         }
     }
 
     &__price {
-        font-size: 18px;
+        font-size: 19.2px;
+        line-height: 24px;
+        font-weight: 700;
+        color: $accents-4;
+        // @media (min-width: 450px) {
+        //     font-size: 21px;
+        // }
+    }
 
-        @media (min-width: 450px) {
-            font-size: 21px;
-        }
+    &__stock {
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 8px;
     }
 }

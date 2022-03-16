@@ -67,13 +67,14 @@ export const LoginPage = () => {
                                 }
                                 placeholder="example@example.com"
                                 aria-placeholder="Your email"
+                                aria-describedby="email-validation"
                                 autoComplete="email"
                                 value={email}
                                 onChange={handleChange}
                                 autoFocus
                             />
                             {errorsForm.fields.email ? (
-                                <p className="msg-error ">
+                                <p id="email-validation" aria-live="assertive" className="msg-error ">
                                     {errorsForm.fields.email}
                                 </p>
                             ) : null}

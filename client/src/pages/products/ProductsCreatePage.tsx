@@ -50,11 +50,10 @@ export const ProductsCreatePage = () => {
 
     return (
         <div className="products-container">
-            <div className="products-header mt-md m">
+            <div className="products-header">
                 <span className="products-header__title">Add Products</span>
-                <hr />
             </div>
-            <form onSubmit={handleSubmit} className="forms-group mt-md">
+            <form onSubmit={handleSubmit} className="forms-group text-base">
             
                 <div className="row-grid">
                     <div className="col">
@@ -64,8 +63,8 @@ export const ProductsCreatePage = () => {
                                 type="text"
                                 name="name"
                                 className="input-field"
-                                placeholder="Product name"
-                                aria-placeholder="Your product name"
+                                placeholder="Name of your product"
+                                aria-placeholder="Name of your product"
                                 autoComplete="off"
                                 value={name}
                                 onChange={handleChange}
@@ -82,8 +81,8 @@ export const ProductsCreatePage = () => {
                             <textarea
                                 name="description"
                                 className="input-field"
-                                placeholder="Description..."
-                                aria-placeholder="Your description"
+                                placeholder="Some text description..."
+                                aria-placeholder="Description of your product"
                                 autoComplete="off"
                                 value={description}
                                 onChange={handleChange}
@@ -93,6 +92,16 @@ export const ProductsCreatePage = () => {
                                     {errorsForm.fields.description}
                                 </p>
                             ) : null}
+                        </div>
+                        <div className="input-wrapper mb-sm">
+                            <label htmlFor="image">Choose a product picture:</label>
+                            <input 
+                                type="file" 
+                                id="image" 
+                                name="image" 
+                                accept="image/png, image/jpeg"
+                                onChange={handleImage}
+                            />
                         </div>
                     </div>
                     <div className="col-50">
@@ -132,7 +141,7 @@ export const ProductsCreatePage = () => {
                                 </p>
                             ) : null}
                         </div>
-                        <div className="input-wrapper mb-sm">
+                        {/* <div className="input-wrapper mb-sm">
                             <label htmlFor="image">Choose a product picture:</label>
                             <input 
                                 type="file" 
@@ -141,7 +150,7 @@ export const ProductsCreatePage = () => {
                                 accept="image/png, image/jpeg"
                                 onChange={handleImage}
                             />
-                        </div>
+                        </div> */}
                     </div>
                     <div className="col-50">
                     </div>

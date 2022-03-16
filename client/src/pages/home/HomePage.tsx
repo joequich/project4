@@ -29,11 +29,11 @@ export const HomePage = () => {
                                 <img src={product.image ? product.image : noImage} alt={product.name} />
                             </figure>
                             <div className="item-card__content">
-                                <h2 className="item-card__title">{product.name}</h2>
+                                <div className="item-card__title"><span>{product.name}</span></div>
                                 <div className="item-card__star-rating">
                                     <StarRating />
                                 </div>
-                                <div className="item-card__price">{product.price}</div>
+                                <div className="item-card__price"><span>$.{product.price}</span></div>
                             </div>
                         </div>
                     ))

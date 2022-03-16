@@ -115,6 +115,10 @@
         a.active {
             color: $accents-2;
         }
+
+        a:focus{
+            outline: none;
+           }
     }
 
     &__auth {

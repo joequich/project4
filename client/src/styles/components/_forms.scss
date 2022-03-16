@@ -28,7 +28,11 @@
 }
 
 .input-error {
-    border: 1px solid red;
+    border: 2px solid red;
+    // outline-style: solid;
+    // outline-color: transparent;
+    // box-shadow: 0 0 0 2px white,
+    //             0 0 0 5px rgb(240, 26, 26)
 }
 .msg-error {
     margin-top: 0.25rem;

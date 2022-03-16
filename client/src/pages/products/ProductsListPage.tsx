@@ -27,12 +27,11 @@ export const ProductsListPage = () => {
 
     return (
         <div className="products-container">
-            <div className="products-header mt-md">
+            <div className="products-header">
                 <span className="products-header__title">All Products</span>
-                <hr />
                 <button onClick={handleNew} className="products-header__add-btn">
                     <PlusIcon />
-                    New product
+                    <span>New product</span>
                 </button>
             </div>
             <div className="items-list">
@@ -51,9 +50,9 @@ export const ProductsListPage = () => {
                                 <img src={product.image ? product.image : noImage} alt={product.name} />
                             </figure>
                             <div className="item-card__content">
-                                <h2 className="item-card__title">{product.name}</h2>
-                                <p>USD ${product.price}</p>
-                                <p>{product.stock} availables</p>
+                                <div className="item-card__title"><span>{product.name}</span></div>
+                                <div className="item-card__price"><span>$.{product.price}</span></div>
+                                <div className="item-card__stock"><span>{product.stock} availables</span></div>
                             </div>
                         </div>
                     )) 
