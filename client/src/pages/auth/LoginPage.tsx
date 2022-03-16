@@ -9,6 +9,7 @@ import { login } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
 import { FullPageLoader } from '../../components/FullPageLoader';
 import { GoogleSignIn } from '../../components/GoogleSignIn';
+import { Link } from 'react-router-dom';
 
 export const LoginPage = () => {
     const history = useHistory();
@@ -53,9 +54,8 @@ export const LoginPage = () => {
             <div className="auth-container">
                 <div className="auth-wrapper">
                     <form onSubmit={handleSubmit}>
-                        <h1 className="headling text-center">SIGN IN</h1>
-                        <br />
-                        <div className="input-wrapper mb-sm">
+                        <h3 className="auth-title text-center">SIGN IN</h3>
+                        <div className="input-wrapper text-base mb-sm">
                             <label htmlFor="email">Email</label>
                             <input
                                 type="text"
@@ -101,12 +101,15 @@ export const LoginPage = () => {
                                 </p>
                             ) : null}
                         </div>
-                        <button type="submit" className="btn btn-login mb-sm">
+                        <button type="submit" className="btn btn-login">
                             Sign In
                         </button>
                     </form>
                     <hr className="hr-break" data-break="or" />
                     <GoogleSignIn />
+                    <div className="auth-footer">
+                        <span className="text-sm">Don't have an account yet? <Link to={'/auth/register'}>Sign up</Link></span>
+                    </div>
                 </div>
             </div>
         </>

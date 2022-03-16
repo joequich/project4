@@ -46,11 +46,7 @@ export const NavBar = () => {
                     </div>
                     <div
                         onClick={handleMenu}
-                        className={
-                            clicked
-                                ? 'navbar__overlay active'
-                                : 'navbar__overlay'
-                        }
+                        className='navbar__overlay'
                     ></div>
                     <div
                         className={

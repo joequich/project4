@@ -55,5 +55,5 @@ export const GoogleSignIn = memo(() => {
             };
         }, [isMounted, dispatch]);
 
-    return <button id="btn-google" className={'btn g_id_signin'} />;
+    return <button id="btn-google" className={'btn btn-signin--google g_id_signin'} />;
 });

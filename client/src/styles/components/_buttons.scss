@@ -1,4 +1,5 @@
 .btn {
+    font-family: inherit;
     background-color: transparent;
     border: none;
     color: #fff;
@@ -7,11 +8,12 @@
 
 .btn-login {
     background: $primary-2;
-    padding: 0.65rem 3rem;
+    padding: 0.75rem 0;
     width: 100%;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 4px;
+    font-size: 23.04px;
+    font-weight: 700;
+    line-height: 24px;
+    border-radius: 6px;
 }
 
 .btn-navbar {
@@ -27,6 +29,12 @@
     @media (min-width: $breakpoint-tablet) {
         justify-content: initial;
     }
+}
+
+.btn-signin--google {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .btn-signin {

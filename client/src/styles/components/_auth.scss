@@ -14,13 +14,22 @@
     max-width: 400px;
     background-color: $primary-1;
     overflow: hidden;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
     box-shadow: $shadow-auth;
     border-radius: 8px;
     padding: 1.5rem;
-    @media (min-width: $breakpoint-tablet) {
-        padding: 3rem;
+    padding: 2.5rem 2rem;
+}
+
+.auth-title {
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+}
+
+.auth-footer {
+    margin-top: 24px;
+    float: right;
+    a {
+        font-weight: 500;
     }
 }
 

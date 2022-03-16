@@ -110,9 +110,16 @@ input[type='password'] {
     letter-spacing: 0.12em;
 }
 
-.headling {
-    font-size: 32px;
-    line-height: 48px;
+h3 {
+    font-size: 33.18px;
+    line-height: 40px;
+    font-weight: 500;
+}
+
+h6 {
+    font-size: 23.04px;
+    line-height: 24px;
+    font-weight: 500;
 }
 
 .text-center {
@@ -147,7 +154,7 @@ hr {
     border-color: hsl(210, 23%, 95%);
     border-style: solid none;
     border-width: 1px 0;
-    margin: 18px 0;
+    margin: 25px 0 21px 0;
 }
 .hr-break {
     border: none;
@@ -155,11 +162,12 @@ hr {
     color: $primary-2;
     overflow: visible;
     text-align: center;
-    height: 5px;
+    height: 6px;
 }
 .hr-break:after {
-    font-size: 14px;
-    background: #fff;
+    font-size: 16px;
+    line-height: 20px;
+    background: $background-base;
     content: attr(data-break);
     padding: 0 8px;
     position: relative;

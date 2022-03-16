@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import { register } from '../../redux/auth/authAction';
 import { clearState } from '../../redux/auth/authSlide';
 import { FullPageLoader } from '../../components/FullPageLoader';
+import { Link } from 'react-router-dom';
 
 export const RegisterPage = () => {
     const dispatch = useAppDispatch();
@@ -49,8 +50,7 @@ export const RegisterPage = () => {
             <div className="auth-container">
                 <div className="auth-wrapper">
                     <form onSubmit={handleSubmit}>
-                        <h1 className="headling text-center">SIGN UP</h1>
-                        <br />
+                        <h3 className="auth-title text-center">SIGN UP</h3>
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="username">Username</label>
                             <input
@@ -118,9 +118,12 @@ export const RegisterPage = () => {
                                 </p>
                             ) : null}
                         </div>
-                        <button type="submit" className="btn btn-login mt-sm">
+                        <button type="submit" className="btn btn-login">
                             Create account
                         </button>
+                        <div className="auth-footer">
+                            <span className="text-sm">Already have an account? <Link to={'/auth/login'}>Sign in</Link></span>
+                        </div>
                     </form>
                 </div>
             </div>
