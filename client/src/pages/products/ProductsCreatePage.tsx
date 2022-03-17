@@ -55,8 +55,8 @@ export const ProductsCreatePage = () => {
             </div>
             <form onSubmit={handleSubmit} className="forms-group text-base">
             
-                <div className="row-grid">
-                    <div className="col">
+                <div className="row">
+                    <div className="col-resp">
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="email">Product: </label>
                             <input
@@ -93,6 +93,8 @@ export const ProductsCreatePage = () => {
                                 </p>
                             ) : null}
                         </div>
+                    </div>
+                    <div className="col-resp">
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="image">Choose a product picture:</label>
                             <input 
@@ -101,65 +103,61 @@ export const ProductsCreatePage = () => {
                                 name="image" 
                                 accept="image/png, image/jpeg"
                                 onChange={handleImage}
+                                className="browse"
                             />
                         </div>
-                    </div>
-                    <div className="col-50">
-                        <div className="input-wrapper mb-sm">
-                            <label htmlFor="stock">Stock: </label>
-                            <input
-                                type="text"
-                                name="stock"
-                                className="input-field"
-                                placeholder="Stock"
-                                aria-placeholder="Product Stock"
-                                autoComplete="off"
-                                value={stock}
-                                onChange={handleChange}
-                            />
-                            {errorsForm.fields.stock ? (
-                                <p className="msg-error ">
-                                    {errorsForm.fields.stock}
-                                </p>
-                            ) : null}
+                        <div className="row">
+                            <div className="col-half">
+                                <div className="input-wrapper mb-sm">
+                                    <label htmlFor="stock">Stock: </label>
+                                    <input
+                                        type="text"
+                                        name="stock"
+                                        className="input-field"
+                                        placeholder="Stock"
+                                        aria-placeholder="Product Stock"
+                                        autoComplete="off"
+                                        value={stock}
+                                        onChange={handleChange}
+                                        style={{ width: '80px' }}
+                                    />
+                                    {errorsForm.fields.stock ? (
+                                        <p className="msg-error ">
+                                            {errorsForm.fields.stock}
+                                        </p>
+                                    ) : null}
+                                </div>
+                            </div>
+                            <div className="col-half">
+                                <div className="input-wrapper mb-sm">
+                                    <label htmlFor="password">Price: </label>
+                                    <input
+                                        type="text"
+                                        name="price"
+                                        className="input-field"
+                                        placeholder="Price"
+                                        aria-placeholder="Product Price"
+                                        autoComplete="off"
+                                        value={price}
+                                        onChange={handleChange}
+                                        style={{ width: '80px' }}
+                                    />
+                                    {errorsForm.fields.price ? (
+                                        <p className="msg-error ">
+                                            {errorsForm.fields.price}
+                                        </p>
+                                    ) : null}
+                                </div>
+                            </div>
+
                         </div>
-                        <div className="input-wrapper mb-sm">
-                            <label htmlFor="password">Price: </label>
-                            <input
-                                type="text"
-                                name="price"
-                                className="input-field"
-                                placeholder="Price"
-                                aria-placeholder="Product Price"
-                                autoComplete="off"
-                                value={price}
-                                onChange={handleChange}
-                            />
-                            {errorsForm.fields.price ? (
-                                <p className="msg-error ">
-                                    {errorsForm.fields.price}
-                                </p>
-                            ) : null}
-                        </div>
-                        {/* <div className="input-wrapper mb-sm">
-                            <label htmlFor="image">Choose a product picture:</label>
-                            <input 
-                                type="file" 
-                                id="image" 
-                                name="image" 
-                                accept="image/png, image/jpeg"
-                                onChange={handleImage}
-                            />
-                        </div> */}
-                    </div>
-                    <div className="col-50">
                     </div>
                 </div>
                 <div className="products-btn mt-sm mb-md">
-                    <button type="button" onClick={() => history.push('/products')} className="btn btn-cancel mt-sm">
+                    <button type="button" onClick={() => history.push('/products')} className="btn btn-primary--outline btn-primary--outline__lg mt-sm">
                         Cancel
                     </button>
-                    <button type="submit" className="btn btn-save ml-sm mt-sm">
+                    <button type="submit" className="btn btn-primary btn-primary__lg ml-sm mt-sm">
                         Save
                     </button>
                 </div>

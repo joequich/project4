@@ -13,24 +13,23 @@ export const ProductsEditPage = () => {
     const history = useHistory();
     const { id } = useParams<Params>();
 
-    const handleAddProduct = async() => {
-        console.log(formValues)
-            const data = new FormData();
-            formValues['name'] && data.append('name', formValues['name'])
-            formValues['description'] && data.append('description', formValues['description'])
-            formValues['stock'] && data.append('stock', formValues['stock'])
-            formValues['price'] && data.append('price', formValues['price'])
-            image && data.append('image', image)
-            await API.post('/products', data)
-                .then(resp => {
-                    console.log(resp)
-                    history.push('/products')
-                    toast.success('Product registered successfully!!');
-                })
-                .catch(err => {
-                    console.log(err)
-                    toast.error('An error occurred!!');
-                });
+    const handleEditProduct = async() => {
+        const data = new FormData();
+        formValues['name'] && data.append('name', formValues['name'])
+        formValues['description'] && data.append('description', formValues['description'])
+        formValues['stock'] && data.append('stock', formValues['stock'])
+        formValues['price'] && data.append('price', formValues['price'])
+        image && data.append('image', image)
+        await API.patch(`/products/${id}`, data)
+            .then(resp => {
+                console.log(resp)
+                history.push('/products')
+                toast.success('Product updated successfully!!');
+            })
+            .catch(err => {
+                console.log(err)
+                toast.error('An error occurred!!');
+            });
     };
 
     const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,28 +47,27 @@ export const ProductsEditPage = () => {
         price: '0',
     }
 
-    const [product, setProduct] = useState<IProduct>({
-        ...initialProduct,
-        user: '',
-    })
+    // const [product, setProduct] = useState<IProduct>({
+    //     ...initialProduct,
+    //     user: '',
+    // })
 
     const fetchProduct = async() => {
         const response = await API.get(`/products/${id}`);
-        console.log('fetch product', response);
-        setProduct(response.data);
+        // setProduct(response.data);
         setCloudImage(response.data.image)
-        console.log(product)
         resetValues({
-            name: response.data.name,
-            description: response.data.description,
-            stock: response.data.stock,
-            price: response.data.price,
+            name: response.data.name || '',
+            description: response.data.description || '',
+            stock: response.data.stock || '0',
+            price: response.data.price || '0',
         })
+        // console.log(product)
     }
 
     const { values: formValues, handleChange, handleSubmit, errors, resetValues } = useForm(
         initialProduct,
-        handleAddProduct,
+        handleEditProduct,
         validateProductFields
     );
 
@@ -85,22 +83,36 @@ export const ProductsEditPage = () => {
 
     return (
         <div className="products-container">
-            <div className="products-header mt-md m">
+            <div className="products-header">
                 <span className="products-header__title">Edit Product</span>
-                <hr />
             </div>
-            <form onSubmit={handleSubmit} className="forms-group mt-md">
-            
-                <div className="row-grid">
-                    <div className="col">
+            <form onSubmit={handleSubmit} className="forms-group text-base">
+                <div className="row">
+                    <div className="col-all row">
+                        {
+                            cloudImage
+                            ?
+                            (
+                                <div className="picture-area mb-sm">
+                                    <figure>
+                                        <img className="picture-img" src={cloudImage} alt={name} />
+                                        <figcaption className="text-sm text-center mt-sm mb-sm">Current picture</figcaption>
+                                    </figure>
+                                </div>
+                            )
+                            :
+                            null
+                        }
+                    </div>
+                    <div className="col-resp">
                         <div className="input-wrapper mb-sm">
                             <label htmlFor="email">Product: </label>
                             <input
                                 type="text"
                                 name="name"
                                 className="input-field"
-                                placeholder="Product name"
-                                aria-placeholder="Your product name"
+                                placeholder="Name of your product"
+                                aria-placeholder="Name of your product"
                                 autoComplete="off"
                                 value={name}
                                 onChange={handleChange}
@@ -117,8 +129,8 @@ export const ProductsEditPage = () => {
                             <textarea
                                 name="description"
                                 className="input-field"
-                                placeholder="Description..."
-                                aria-placeholder="Your description"
+                                placeholder="Some text description..."
+                                aria-placeholder="Description of your product"
                                 autoComplete="off"
                                 value={description}
                                 onChange={handleChange}
@@ -130,78 +142,70 @@ export const ProductsEditPage = () => {
                             ) : null}
                         </div>
                     </div>
-                    <div className="col-50">
+                    <div className="col-resp">
                         <div className="input-wrapper mb-sm">
-                            <label htmlFor="stock">Stock: </label>
-                            <input
-                                type="text"
-                                name="stock"
-                                className="input-field"
-                                placeholder="Stock"
-                                aria-placeholder="Product Stock"
-                                autoComplete="off"
-                                value={stock}
-                                onChange={handleChange}
-                            />
-                            {errorsForm.fields.stock ? (
-                                <p className="msg-error ">
-                                    {errorsForm.fields.stock}
-                                </p>
-                            ) : null}
-                        </div>
-                        <div className="input-wrapper mb-sm">
-                            <label htmlFor="password">Price: </label>
-                            <input
-                                type="text"
-                                name="price"
-                                className="input-field"
-                                placeholder="Price"
-                                aria-placeholder="Product Price"
-                                autoComplete="off"
-                                value={price}
-                                onChange={handleChange}
-                            />
-                            {errorsForm.fields.price ? (
-                                <p className="msg-error ">
-                                    {errorsForm.fields.price}
-                                </p>
-                            ) : null}
-                        </div>
-                    </div>
-                    <div className="col-50">
-                        {
-                            cloudImage
-                            ?
-                            (
-                                <div className="input-wrapper mb-sm">
-                                    <figure>
-                                        <img width="200" src={cloudImage} alt={name} />
-                                        <figcaption>Current picture</figcaption>
-                                    </figure>
-                                </div>
-                            )
-                            :
-                            null
-                        }
-                    </div>
-                    <div className="col-50">
-                        <div className="input-wrapper mb-sm">
-                            <label htmlFor="image">Change product picture:</label>
+                            <label htmlFor="image">Choose a product picture:</label>
                             <input 
                                 type="file" 
                                 id="image" 
                                 name="image" 
                                 accept="image/png, image/jpeg"
                                 onChange={handleImage}
+                                className="browse"
                             />
+                        </div>
+                        <div className="row">
+
+                            <div className="col-half">
+                                <div className="input-wrapper mb-sm">
+                                    <label htmlFor="stock">Stock: </label>
+                                    <input
+                                        type="text"
+                                        name="stock"
+                                        className="input-field"
+                                        placeholder="Stock"
+                                        aria-placeholder="Product Stock"
+                                        autoComplete="off"
+                                        value={stock}
+                                        onChange={handleChange}
+                                        style={{ width: '80px' }}
+                                    />
+                                    {errorsForm.fields.stock ? (
+                                        <p className="msg-error ">
+                                            {errorsForm.fields.stock}
+                                        </p>
+                                    ) : null}
+                                </div>
+                            </div>
+                            <div className="col-half">
+                                <div className="input-wrapper mb-sm">
+                                    <label htmlFor="password">Price: </label>
+                                    <input
+                                        type="text"
+                                        name="price"
+                                        className="input-field"
+                                        placeholder="Price"
+                                        aria-placeholder="Product Price"
+                                        autoComplete="off"
+                                        value={price}
+                                        onChange={handleChange}
+                                        style={{ width: '80px' }}
+                                    />
+                                    {errorsForm.fields.price ? (
+                                        <p className="msg-error ">
+                                            {errorsForm.fields.price}
+                                        </p>
+                                    ) : null}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="products-btn mt-sm mb-md">
-                    <button type="button" onClick={() => history.push('/products')} className="btn btn-cancel mt-sm">
+                    <button type="button" onClick={() => history.push('/products')} className="btn btn-primary--outline btn-primary--outline__lg mt-sm">
                         Cancel
                     </button>
-                    <button type="submit" className="btn btn-save ml-sm mt-sm">
+                    <button type="submit" className="btn btn-primary btn-primary__lg ml-sm mt-sm">
                         Save
                     </button>
                 </div>

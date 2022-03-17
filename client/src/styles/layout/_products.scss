@@ -1,66 +1,70 @@
-// dropzone drag and drop - upload
-.dropzone-area {
-    border: 2px dashed #38048d;
-    height: 300px;
-    max-width: 500px;
-    width: 100%;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    align-self: center;
+// upload
+.picture-area {
+    border-radius: 4px;
+    padding: 8px;
+    border: 1px solid #ccd3eb;
+    margin: 0 auto 2.5rem auto;
 }
 
-.dropzone-area.active {
-    border: 2px solid #38048d;
-    border-radius: 2px;
-    padding: 4px;
-}
-
-.dropzone-area svg {
-    color: $primary-3;
-}
-
-.dropzone-area header {
-    font-size: 24px;
-    font-weight: 500;
-    color: $primary-3;
-}
-.dropzone-area span {
-    font-size: 20px;
-    font-weight: 500;
-    margin: 10px 0 15px 0;
-    color: $primary-3;
-}
-
-.dropzone-img {
+.picture-img {
     display: block;
-    width: auto;
+    width: 192px;
     height: 100%;
-    object-fit: cover;
+    max-height: 400px;
+    max-width: 400px;
+    object-fit: contain;
+    @media (min-width: 768) {
+        width: 100%;
+        height: 192px;
+    }
+}
+
+.browse::file-selector-button {
+    font-size: 13.32px;
+    line-height: 16px;
+    padding: 8px 10px;
+    background-color: $primary-3;
+    border: 1px solid $primary-3;
+    color: #FFF;
+    border-radius: 4px;
+    font-family: inherit;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 
 // two columns forms
-.row-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    @media (min-width: 768px) {
-        font-size: 16px;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2.5rem;
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-all {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0 16px;
+}
+
+.col-half {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.col-resp {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0 16px;
+    @media (min-width: 480px) {
+        flex: 0 0 50%;
+        max-width: 50%;
     }
-}
-.col-50 {
-    width: 50%;
-}
-.col {
-    width: 100%;
 }
 
 .products-container {
-    // max-width: 1030px;
     max-width: 1076px;
     width: 100%;
     margin-left: auto;
@@ -71,11 +75,6 @@
     @media (min-width: 768px) {
         padding: 0px 16px 48px 16px;
     }
-    // padding: 0 16px;
-    // box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
-    // @media (min-width: 768px) {
-    //     padding: 0 32px;
-    // }
 }
 
 .products-btn {
@@ -88,11 +87,9 @@
     display: flex;
     flex-direction: column;
     margin-top: 1.5rem;
-    margin-bottom: 1rem;
 
     @media (min-width: 768px) {
         margin-top: 2.5rem;
-        margin-bottom: 1.5rem;
     }
 
     &__title {
@@ -102,45 +99,29 @@
         font-weight: 500;
 
         @media (min-width: 768px) {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             font-size: 27.65px;
             line-height: 32px;
         }
     }
 
-    &__add-btn {
-        font-size: 13.33px;
-        line-height: 16px;
-        padding: 8px 10px;
-        background-color: $primary-3;
-        color: #FFF;
-        display: inline-flex;
-        margin-left: auto;
-        align-items: center;
-        border: none;
-        box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
-        border-radius: 4px;
-        cursor: pointer;
+    &__actions {
+        display: flex;
+        justify-content: end;
+        margin-bottom: 1rem;
 
-        &:active {
-            background-color: $accents-3;
+        @media (min-width: 768px) {
+            margin-bottom: 1.5rem;
         }
 
-        // @media (min-width: 768px) {
-        //     font-size: 14px;
-        //     padding: 8px 10px;
-        //     font-size: 13.33px;
-        //     line-height: 16px;
-        // }
-
-        svg {
-            width: 24px;
-            height: 24px;
-            margin-right: 0.25rem;
-            // @media (min-width: 768px) {
-            //     width: 24px;
-            //     height: 24px;
-            // }
+        button {
+            display: inline-flex;
+            align-items: center;
+            svg {
+                width: 24px;
+                height: 24px;
+                margin-right: 0.25rem;
+            }
         }
     }
 }
@@ -150,22 +131,6 @@
     grid-template-columns: repeat(auto-fill, minmax(auto, 192px));
     gap: 16px;
     justify-content: space-around;
-
-    // @media (min-width: 640px) {
-    //     grid-template-columns: repeat(2, minmax(0, 1fr));
-    // }
-
-    // @media (min-width: 768px) {
-    //     gap: 30px;
-    //     padding: 16px;
-    //     grid-template-columns: repeat(3, minmax(0, 1fr));
-    // }
-
-    // @media (min-width: 1024px) {
-    //     gap: 30px;
-    //     padding: 16px;
-    //     grid-template-columns: repeat(4, minmax(0, 192px));
-    // }
 }
 
 .item-card {
@@ -179,14 +144,12 @@
     @media (min-width: 768px) {
         padding: 16px;
     }
-    // height: 200px;
 
     &__figure {
         align-items: center;
         display: flex;
         justify-content: center;
         overflow: hidden;
-        // padding: 0 8px 16px;
         padding: 0;
         margin-bottom: 24px;
 
@@ -197,7 +160,6 @@
             object-fit: cover;
 
             @media (min-width: 640px) {
-                // height: 200px; //260
                 max-height: 160px;
             }
         }
@@ -206,7 +168,6 @@
     &__options {
         align-self: flex-end;
         margin-bottom: 8px;
-        // padding-right: 8px; // 16px
 
         .opt {
             padding-left: 8px; // 16px
@@ -216,10 +177,6 @@
             color: black;
             width: 22px; //21px
             height: 22px; //21px
-            // @media (min-width: 640px) {
-            //     width: 21px; //21px
-            //     height: 21px; //21px
-            // }
         }
     }
 
@@ -227,11 +184,9 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-        // padding: 8px;
 
         @media (min-width: 640px) {
             border-left: none;
-            // padding: 0 16px;
         }
     }
 
@@ -240,10 +195,6 @@
         line-height: 24px;
         font-weight: 500;
         margin-bottom: 8px;
-
-        // @media (min-width: 450px) {
-        //     font-size: 18px;
-        // }
     }
 
     &__star-rating {
@@ -252,9 +203,6 @@
             line-height: 24px;
             display: flex;
             margin-bottom: 8px;
-            // @media (min-width: 450px) {
-            //     font-size: 18px;
-            // }
         }
     }
 
@@ -263,9 +211,6 @@
         line-height: 24px;
         font-weight: 700;
         color: $accents-4;
-        // @media (min-width: 450px) {
-        //     font-size: 21px;
-        // }
     }
 
     &__stock {

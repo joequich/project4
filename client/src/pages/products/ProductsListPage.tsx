@@ -29,10 +29,12 @@ export const ProductsListPage = () => {
         <div className="products-container">
             <div className="products-header">
                 <span className="products-header__title">All Products</span>
-                <button onClick={handleNew} className="products-header__add-btn">
-                    <PlusIcon />
-                    <span>New product</span>
-                </button>
+                <div className="products-header__actions">
+                    <button onClick={handleNew} className="btn btn-primary btn-primary">
+                        <PlusIcon />
+                        <span className="text-sm">New product</span>
+                    </button>
+                </div>
             </div>
             <div className="items-list">
                 {

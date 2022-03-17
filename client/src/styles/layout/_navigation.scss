@@ -45,7 +45,8 @@
     &__menu-icon {
         display: flex;
         align-self: center;
-        // padding-left: 16px;
+        cursor: pointer;
+        
         @media (min-width: $breakpoint-tablet) {
             display: none;
         }

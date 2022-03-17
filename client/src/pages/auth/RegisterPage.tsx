@@ -48,7 +48,7 @@ export const RegisterPage = () => {
         <>
             {isChecking && <FullPageLoader />}
             <div className="auth-container">
-                <div className="auth-wrapper">
+                <div className="auth-wrapper text-base">
                     <form onSubmit={handleSubmit}>
                         <h3 className="auth-title text-center">SIGN UP</h3>
                         <div className="input-wrapper mb-sm">

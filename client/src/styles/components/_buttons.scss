@@ -6,11 +6,45 @@
     cursor: pointer;
 }
 
+.btn-primary {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 8px 10px;
+    background-color: $primary-3;
+    border: 1px solid $primary-3;
+    border-radius: 4px;
+
+    &__lg {
+        padding: 0.625rem 3rem;
+        font-weight: 500;
+    }
+
+    &:active {
+        background-color: $accents-3;
+    }
+}
+
+.btn-primary--outline {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    border-radius: 4px;
+    border: 1px solid $primary-3;
+    background-color: transparent;
+    white-space: nowrap;
+    color: black;
+
+    &__lg {
+        padding: 0.625rem 3rem;
+        font-weight: 500;
+    }
+}
+
 .btn-login {
     background: $primary-2;
     padding: 0.75rem 0;
     width: 100%;
-    font-size: 23.04px;
+    font-size: 19.2px;
     font-weight: 700;
     line-height: 24px;
     border-radius: 6px;
@@ -77,23 +111,4 @@
     background-color: transparent;
     white-space: nowrap;
     color: black;
-}
-
-.btn-save {
-    background: $secondary;
-    padding: 0.65rem 3rem;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 4px;
-    border: 1px solid $secondary;
-}
-
-
-.btn-upload {
-    background: $primary-3;
-    padding: 0.65rem 3rem;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 4px;
-    border: 1px solid $primary-3;
 }

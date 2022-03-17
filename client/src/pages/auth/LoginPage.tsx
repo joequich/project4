@@ -52,10 +52,10 @@ export const LoginPage = () => {
         <>
             {isChecking && <FullPageLoader />}
             <div className="auth-container">
-                <div className="auth-wrapper">
+                <div className="auth-wrapper text-base">
                     <form onSubmit={handleSubmit}>
                         <h3 className="auth-title text-center">SIGN IN</h3>
-                        <div className="input-wrapper text-base mb-sm">
+                        <div className="input-wrapper mb-sm">
                             <label htmlFor="email">Email</label>
                             <input
                                 type="text"
