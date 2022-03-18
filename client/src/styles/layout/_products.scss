@@ -1,8 +1,7 @@
 // upload
 .picture-area {
     border-radius: 4px;
-    padding: 8px;
-    border: 1px solid #ccd3eb;
+    border: 4px solid #ccd3eb;
     margin: 0 auto 2.5rem auto;
 }
 
@@ -35,9 +34,7 @@
     margin-bottom: 0.5rem;
 }
 
-
 // two columns forms
-
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -137,13 +134,9 @@
     display: flex;
     flex-direction: column;
     background-color: $primary-1;
-    border-radius: 16px;
+    border-radius: 0 0 4px 4px;
     box-shadow: 0px 0px 0px 1px rgba(16, 11, 0, 0.07);
     width: 100%;
-    padding: 8px;
-    @media (min-width: 768px) {
-        padding: 16px;
-    }
 
     &__figure {
         align-items: center;
@@ -151,7 +144,6 @@
         justify-content: center;
         overflow: hidden;
         padding: 0;
-        margin-bottom: 24px;
 
         img {
             height: 35vw;
@@ -167,7 +159,7 @@
 
     &__options {
         align-self: flex-end;
-        margin-bottom: 8px;
+        margin: 8px;
 
         .opt {
             padding-left: 8px; // 16px
@@ -184,9 +176,11 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column;
+        padding: 8px;
 
         @media (min-width: 640px) {
             border-left: none;
+            padding: 16px;
         }
     }
 
