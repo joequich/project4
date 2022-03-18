@@ -6,11 +6,13 @@ import noImage from '../../assets/no-image.jpg';
 import { useEffect, useState } from 'react';
 import API from '../../config/axios';
 import { IProduct } from '../../interfaces/Products';
+import { Modal } from '../../components/Modal';
 
 export const ProductsListPage = () => {
     const history = useHistory();
 
     const [products, setProducts] = useState<IProduct[]>([]);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         API.get('/products')
@@ -20,6 +22,12 @@ export const ProductsListPage = () => {
         })
         .catch(err => console.log(err));
     }, [])
+
+    useEffect(() => {
+        const body = document.querySelector('body');
+        if(body)
+            body.style.overflow = isOpen ? 'hidden' : 'auto';
+      }, [isOpen])
 
     const handleNew = () => {
         history.replace('/products/add');
@@ -44,9 +52,13 @@ export const ProductsListPage = () => {
                                 <Link className="opt" to={`/products/${product._id}/edit`}>
                                     <EditIcon />
                                 </Link>
-                                <Link className="opt" to="">
+                                {/* <Link className="opt" to="">
                                     <RemoveIcon />
-                                </Link>
+                                </Link> */}
+                                <button className="opt" onClick={() => setIsOpen(!isOpen)}>
+                                    <RemoveIcon />
+                                </button>
+                                {isOpen && <Modal setIsOpen={setIsOpen} />}
                             </div>
                             <figure className="item-card__figure">
                                 <img src={product.image ? product.image : noImage} alt={product.name} />
