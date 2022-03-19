@@ -3,7 +3,7 @@ import { destroyUserToken, updateToken, getToken } from '../helpers/jwtLocalStor
 import AuthService from '../services/auth';
 
 const API: AxiosInstance = axios.create({
-    baseURL: 'http://localhost:3030/api/',
+    baseURL: 'https://project4-pe.herokuapp.com/api/',
     timeout: 10000,
     withCredentials: true,
     headers: { 'X-Requested-With': 'XMLHttpRequest' }
