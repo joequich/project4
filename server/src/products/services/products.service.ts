@@ -15,6 +15,7 @@ export default class ProductsService implements IProductsService {
             await product.save();
             return product;
         } catch (error){
+            console.log(error);
             throw new Error('Error while save products');
         }
     }
@@ -32,7 +33,8 @@ export default class ProductsService implements IProductsService {
                 products,
                 total
             }
-        } catch {
+        } catch(error) {
+            console.log(error);
             throw new Error('Error while paginating products');
         }
     }
@@ -40,7 +42,8 @@ export default class ProductsService implements IProductsService {
         try {
             const product = await Product.findById(id).populate('user', 'username');
             return product;
-        } catch {
+        } catch(error) {
+            console.log(error);
             throw new Error('Error while reading a product');
         }
     }
@@ -49,7 +52,8 @@ export default class ProductsService implements IProductsService {
         try {
             const product = await Product.findOne({name});
             return product;
-        } catch {
+        } catch(error) {
+            console.log(error);
             throw new Error('Error while reading a user email');
         }
     }
@@ -64,7 +68,8 @@ export default class ProductsService implements IProductsService {
             }
             const productUpdated = await Product.findByIdAndUpdate(id, {$set: data}, {new: true}).setOptions({upsert: true});
             return productUpdated;
-        } catch {
+        } catch(error) {
+            console.log(error);
             throw new Error('Error while updating a product');
         }
     }
@@ -73,7 +78,8 @@ export default class ProductsService implements IProductsService {
         try {
             await Product.findByIdAndDelete(id);
             return { id, deleted: true };
-        } catch {
+        } catch(error) {
+            console.log(error);
             throw new Error('Error while deleting a product');
         }
     }
