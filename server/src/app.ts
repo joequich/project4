@@ -11,7 +11,11 @@ if (env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    const allowedOrigins = ['http://192.168.1.88:3000', 'http://localhost:3000', 'https://musing-mcclintock-dfa200.netlify.app/'];
+    const origin = req.headers.origin;
+    if (origin && allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, Authorization, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", "true");
