@@ -17,7 +17,7 @@
   },
   "author": "Joseph Quispe",
   "license": "MIT",
-  "homepage": "https://github.com/joequich/project4/#readme",
+  "homepage": ".",
   "dependencies": {
     "@reduxjs/toolkit": "1.6.1",
     "@testing-library/jest-dom": "5.14.1",
