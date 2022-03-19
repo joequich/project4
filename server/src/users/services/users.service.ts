@@ -54,7 +54,7 @@ export default class UsersService implements IUsersService {
             const user = await User.findOne({email}).select(['_id','email','password','role','google','username']).exec();
             return user;
         } catch {
-            throw new Error('Error while Reading User email');
+            throw new Error('Error while Reading User email Creds');
         }
     }
 
