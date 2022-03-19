@@ -11,7 +11,7 @@ if (env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 app.use(function (req, res, next) {
-    const allowedOrigins = ['http://192.168.1.88:3000', 'http://localhost:3000', 'https://musing-mcclintock-dfa200.netlify.app/'];
+    const allowedOrigins = ['http://192.168.1.88:3000', 'http://localhost:3000', 'https://musing-mcclintock-dfa200.netlify.app'];
     const origin = req.headers.origin;
     if (origin && allowedOrigins.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
