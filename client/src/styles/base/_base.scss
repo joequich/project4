@@ -66,13 +66,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     font-weight: 400; // regular
     font-size: 16px;
-    color: $primary-2;
+    color: $primary-3;
 }
 
 .text-sm {
@@ -165,7 +167,7 @@ hr {
 .hr-break {
     border: none;
     border-top: 1px solid $grey-dark-3;
-    color: $primary-2;
+    color: $primary-3;
     overflow: visible;
     text-align: center;
     height: 6px;
@@ -173,7 +175,7 @@ hr {
 .hr-break:after {
     font-size: 16px;
     line-height: 20px;
-    background: $background-base;
+    background: $primary-1;
     content: attr(data-break);
     padding: 0 8px;
     position: relative;
@@ -189,11 +191,16 @@ textarea {
     outline: none;
     }
 :focus {
-    outline: 3px solid rgba(131, 192, 253, 0.75);
+    outline: 3px solid $focus;
 }
 
 a:focus-visible {
     outline: 2px solid black;
+}
+
+button{
+    background: transparent;
+    padding: 0;
 }
 
 

@@ -22,10 +22,10 @@
     font-size: 13.32px;
     line-height: 16px;
     padding: 8px 10px;
-    background-color: $primary-3;
-    border: 1px solid $primary-3;
+    background-color: $secondary;
+    border: 1px solid $secondary;
     color: #FFF;
-    border-radius: 4px;
+    border-radius: 6px;
     font-family: inherit;
     border: none;
     color: #fff;
@@ -104,7 +104,7 @@
 
     &__actions {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         margin-bottom: 1rem;
 
         @media (min-width: 768px) {
@@ -133,8 +133,8 @@
 .item-card {
     display: flex;
     flex-direction: column;
-    background-color: $primary-1;
-    border-radius: 0 0 4px 4px;
+    background-color: $primary-2;
+    border-radius: 0 0 6px 6px;
     box-shadow: 0px 0px 0px 1px rgba(16, 11, 0, 0.07);
     width: 100%;
 
@@ -204,7 +204,7 @@
         font-size: 19.2px;
         line-height: 24px;
         font-weight: 700;
-        color: $accents-4;
+        color: $secondary;
     }
 
     &__stock {

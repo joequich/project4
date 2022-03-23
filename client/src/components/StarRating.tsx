@@ -10,8 +10,8 @@ export const StarRating = ({ style = {}, totalStars = 5 }) => {
             {createArray(totalStars).map((n, i) => (
                 <StarIcon
                     key={i}
-                    fill={selectedStars > i ? '#0E8937' : 'transparent'}
-                    stroke={selectedStars > i ? '#0E8937' : '#CDCDCD'}
+                    fill={selectedStars > i ? '#B44D9E' : 'transparent'}
+                    stroke={selectedStars > i ? '#B44D9E' : '#c7c7cc'}
                     onClick={() => setSelectedStars(i + 1)}
                 />
             ))}

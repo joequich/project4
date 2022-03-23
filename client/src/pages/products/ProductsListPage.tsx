@@ -23,11 +23,11 @@ export const ProductsListPage = () => {
         .catch(err => console.log(err));
     }, [])
 
-    useEffect(() => {
-        const body = document.querySelector('body');
-        if(body)
-            body.style.overflow = isOpen ? 'hidden' : 'auto';
-      }, [isOpen])
+    // useEffect(() => {
+    //     const body = document.querySelector('body');
+    //     if(body)
+    //         body.style.overflow = isOpen ? 'hidden' : 'auto';
+    //   }, [isOpen])
 
     const handleNew = () => {
         history.replace('/products/add');
