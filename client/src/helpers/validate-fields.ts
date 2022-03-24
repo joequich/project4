@@ -44,9 +44,9 @@ export const validateProductFields = (values: IFormAddProduct) => {
         errors.name = 'Product name required';
     }
 
-    if (!values.description.trim()) {
-        errors.description = 'Description required';
-    }
+    // if (!values.description.trim()) {
+    //     errors.description = 'Description required';
+    // }
 
     if (isNaN(Number(values.stock))) {
         errors.stock = 'Number value is required';

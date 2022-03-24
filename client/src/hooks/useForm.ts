@@ -28,8 +28,13 @@ export const useForm: (initFieldValues:FieldValues, callback: Function, validate
     }
 
     useEffect(() => {
+        let cancel = false;
         if (errors.fields && Object.keys(errors.fields).length === 0 && isSubmited) {
+            if (cancel) return;
             callback();
+        }
+        return () => { 
+            cancel = true;
         }
     }, [errors])
 
