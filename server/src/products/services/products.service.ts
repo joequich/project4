@@ -7,10 +7,6 @@ export default class ProductsService implements IProductsService {
 
     async create (data: IPostProduct): Promise<IProduct> {
         try {
-            if(data.image){
-                const image = await this.uploadsService.uploadImage(data.image);
-                data.image = image;
-            }
             const product = new Product(data);
             await product.save();
             return product;
@@ -63,8 +59,6 @@ export default class ProductsService implements IProductsService {
             if(data.image){
                 const product = await Product.findById(id);
                 if(product?.image) await this.uploadsService.destroyImage(product.image);
-                const image = await this.uploadsService.uploadImage(data.image);
-                data.image = image;
             }
             const productUpdated = await Product.findByIdAndUpdate(id, {$set: data}, {new: true}).setOptions({upsert: true});
             return productUpdated;

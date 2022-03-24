@@ -2,7 +2,6 @@ import { Router } from "express";
 import { body } from 'express-validator';
 import { Roles } from '../constants';
 import { validateFields } from '../common/middlewares/validate-fields';
-import upload from "../common/middlewares/multer-upload";
 import ProductsService from "./services/products.service";
 import RoleService from "../roles/services/roles.service";
 import UsersService from "../users/services/users.service";
@@ -30,7 +29,6 @@ const ProductsRoute = (app: Router) => {
     // create a product - private - anyone with a valid token
     route.post('/', [
         jwtMiddleware.validateJWT,
-        upload.single('image'),
         body('name', 'Invalid name value').not().isEmpty(),
         validateFields,
     ], productsController.createProduct)
@@ -46,7 +44,6 @@ const ProductsRoute = (app: Router) => {
     // update - private - anyone with a valid token
     route.put('/:id', [
         jwtMiddleware.validateJWT,
-        upload.single('image'),
         body('name', 'Invalid name value').not().isEmpty(),
         body('image', 'Invalid image value'),
         body('description', 'Invalid name value').not().isEmpty(),
@@ -59,7 +56,6 @@ const ProductsRoute = (app: Router) => {
     // update (patch) - private - anyone with a valid token
     route.patch('/:id', [
         jwtMiddleware.validateJWT,
-        upload.single('image'),
         body('name', 'Invalid name value').isString().optional(),
         body('image', 'Invalid image value').optional(),
         body('description', 'Invalid name value').isString().optional(),
