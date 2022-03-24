@@ -68,7 +68,7 @@ const ProductsRoute = (app: Router) => {
     // delete a product
     route.delete('/:id', [
         jwtMiddleware.validateJWT,
-        rolesMiddleware.hasRole(Roles.ADMIN),
+        // rolesMiddleware.hasRole(Roles.ADMIN),
     ], productsController.removeProduct)
 }
 
