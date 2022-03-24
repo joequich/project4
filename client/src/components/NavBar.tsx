@@ -75,7 +75,7 @@ export const NavBar = () => {
                                    <UserIcon /> <span>{username}</span>
                                 </div>
                                 <button
-                                    className="btn-navbar btn btn-logout"
+                                    className="btn__navbar btn btn__logout"
                                     onClick={handleLogout}
                                 >
                                     Log Out <LogoutIcon />
@@ -84,13 +84,13 @@ export const NavBar = () => {
                         ) : (
                             <div className="navbar__auth">
                                 <button
-                                    className="btn-navbar btn btn-signin text-sm"
+                                    className="btn__navbar btn btn__signin btn--small text-sm"
                                     onClick={handleLogin}
                                 >
                                     Sign In
                                 </button>
                                 <button
-                                    className="btn-navbar btn btn-signup text-sm"
+                                    className="btn__navbar btn btn__signup btn--small text-sm"
                                     onClick={handleRegister}
                                 >
                                     Sign Up

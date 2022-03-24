@@ -38,8 +38,8 @@ export const ProductsListPage = () => {
             <div className="products-header">
                 <span className="products-header__title">All Products</span>
                 <div className="products-header__actions">
-                    <button onClick={handleNew} className="btn btn-primary btn-primary">
-                        <PlusIcon />
+                    <button onClick={handleNew} className="btn btn--primary ">
+                        <PlusIcon  className="icon icon__btn" />
                         <span className="text-sm">New product</span>
                     </button>
                 </div>
@@ -49,14 +49,14 @@ export const ProductsListPage = () => {
                     products.map( (product, idx) => (
                         <div key={idx} className="item-card">
                             <div className="item-card__options">
-                                <Link className="opt" to={`/products/${product._id}/edit`}>
-                                    <EditIcon />
+                                <Link className="opt btn" to={`/products/${product._id}/edit`}>
+                                    <EditIcon className="icon"/>
                                 </Link>
                                 {/* <Link className="opt" to="">
                                     <RemoveIcon />
                                 </Link> */}
-                                <button className="opt" onClick={() => setIsOpen(!isOpen)}>
-                                    <RemoveIcon />
+                                <button className="opt btn" onClick={() => setIsOpen(!isOpen)}>
+                                    <RemoveIcon className="icon" />
                                 </button>
                                 {isOpen && <Modal setIsOpen={setIsOpen} />}
                             </div>

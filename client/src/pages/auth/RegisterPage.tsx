@@ -118,7 +118,7 @@ export const RegisterPage = () => {
                                 </p>
                             ) : null}
                         </div>
-                        <button type="submit" className="btn btn-login">
+                        <button type="submit" className="btn btn__login">
                             Create account
                         </button>
                         <div className="auth-footer">

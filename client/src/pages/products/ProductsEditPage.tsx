@@ -202,10 +202,10 @@ export const ProductsEditPage = () => {
                     </div>
                 </div>
                 <div className="products-btn mt-sm mb-md">
-                    <button type="button" onClick={() => history.push('/products')} className="btn btn-primary--outline btn-primary--outline__lg mt-sm">
+                    <button type="button" onClick={() => history.push('/products')} className="btn btn--primary-outline btn--medium mt-sm">
                         Cancel
                     </button>
-                    <button type="submit" className="btn btn-primary btn-primary__lg ml-sm mt-sm">
+                    <button type="submit" className="btn btn--primary btn--medium ml-sm mt-sm">
                         Save
                     </button>
                 </div>

@@ -102,7 +102,7 @@ export const LoginPage = () => {
                                 </p>
                             ) : null}
                         </div>
-                        <button type="submit" className="btn btn-login">
+                        <button type="submit" className="btn btn__login">
                             Sign In
                         </button>
                     </form>

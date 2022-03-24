@@ -18,36 +18,39 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    transition: opacity .5s;
+    // opacity: 0;
 }
 
 .modal__content {
-    margin-top: 3rem;
+    margin-top: 3.75rem;
+    margin-bottom: 3.75rem;
     background-color: #fff;
     width: 90%;
     max-width: 500px;
     max-height: 50%;
     // height: 20%;
     overflow: hidden;
-    text-align: center;
+    // text-align: center;
     // padding: 24px 16px;
     border-radius: 8px;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal__header {
     flex: 0 1 0%;
-    padding-inline-start: 16px;
-    padding-inline-end: 16px;
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-inline-start: 24px;
+    padding-inline-end: 24px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     height: 56px;
     background: white;
     overflow: hidden;
     // border-top-left-radius: 16px;
     // border-top-right-radius: 16px;
-    display: flex;
-    justify-content: space-between;
 }
 
 .modal__close-btn {
@@ -55,10 +58,7 @@
     display: flex;
     top: 8px;
     right: 16px;
-    svg {
-        width: 24px;
-        height: 24px;
-    }
+    color: $primary-3;
 }
 
 
@@ -67,16 +67,15 @@
     font-weight: 500;
     font-size: 19.2px;
     line-height: 24px;
-    text-align: center;
 }
 
 .modal__body {
     flex: 1 1 0%;
-    padding-inline-start: 16px;
-    padding-inline-end: 16px;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    min-height: 200px;
+    padding-inline-start: 24px;
+    padding-inline-end: 24px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    min-height: 100px;
     font-size: 14px;
     color: #2c3e50;
 }
@@ -85,8 +84,8 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-inline-start: 16px;
-    padding-inline-end: 16px;
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-inline-start: 24px;
+    padding-inline-end: 24px;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }

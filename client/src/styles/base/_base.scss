@@ -187,9 +187,14 @@ textarea {
     height: 150px;
     resize: none;
 }
-:focus:not(:focus-visible) {
-    outline: none;
-    }
+// :focus:not(:focus-visible) {
+//     outline: none;
+// }
+
+button:focus {
+    outline: 3px solid $focus;
+}
+
 :focus {
     outline: 3px solid $focus;
 }
@@ -198,9 +203,18 @@ a:focus-visible {
     outline: 2px solid black;
 }
 
-button{
-    background: transparent;
-    padding: 0;
+.icon {
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    line-height: 22px;
+    flex-shrink: 0;
+    color: currentColor;
+    vertical-align: middle;
+}
+
+.icon__btn{
+    margin-right: 0.25rem;
 }
 
 

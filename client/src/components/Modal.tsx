@@ -16,17 +16,17 @@ export const Modal = ({ setIsOpen }: IModal) => {
             <div className="modal__wrapper" onClick={() => setIsOpen(false)}>
                 <section className="modal__content">
                     <header className="modal__header">
-                        <div className="modal-title">Titulo de Modal</div>
+                        <div className="modal-title">Eliminar producto</div>
                     </header>
-                    <button className="modal__close-btn" onClick={() => setIsOpen(false)}>
-                        <CloseIcon />
+                    <button className="modal__close-btn btn" autoFocus onClick={() => setIsOpen(false)}>
+                        <CloseIcon className='icon'/>
                     </button>
                     <div className="modal__body">
-                        COntenido del cuerpo del modal
+                        Desea eliminar este producto?
                     </div>
                     <footer className="modal__footer">
-                        <button onClick={() => setIsOpen(false)}>Cancel</button>
-                        <button>Continue</button>
+                        <button className="btn btn--primary btn--primary-outline btn__close" onClick={() => setIsOpen(false)}>Cancel</button>
+                        <button className="btn btn--primary">Continue</button>
                     </footer>
                 </section>
             </div>

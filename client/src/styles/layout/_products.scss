@@ -19,11 +19,10 @@
 }
 
 .browse::file-selector-button {
-    font-size: 13.32px;
-    line-height: 16px;
-    padding: 8px 10px;
-    background-color: $secondary;
-    border: 1px solid $secondary;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 6px 8px;
+    background-color: #4E59BC;
     color: #FFF;
     border-radius: 6px;
     font-family: inherit;
@@ -75,9 +74,11 @@
 }
 
 .products-btn {
+    // display: flex;
     display: flex;
-    align-self: flex-end;
-    justify-self: flex-end;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
 .products-header {
@@ -109,16 +110,6 @@
 
         @media (min-width: 768px) {
             margin-bottom: 1.5rem;
-        }
-
-        button {
-            display: inline-flex;
-            align-items: center;
-            svg {
-                width: 24px;
-                height: 24px;
-                margin-right: 0.25rem;
-            }
         }
     }
 }
@@ -162,13 +153,8 @@
         margin: 8px;
 
         .opt {
-            padding-left: 8px; // 16px
-        }
-
-        svg {
-            color: black;
-            width: 22px; //21px
-            height: 22px; //21px
+            margin-left: 8px; // 16px
+            color: $primary-3;
         }
     }
 
