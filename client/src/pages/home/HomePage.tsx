@@ -11,7 +11,7 @@ export const HomePage = () => {
     useEffect(() => {
         API.get('/products')
         .then(resp => {
-            console.log(resp.data)
+            // console.log(resp.data)
             setProducts(resp.data.products);
         })
         .catch(err => console.log(err));

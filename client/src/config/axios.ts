@@ -25,10 +25,10 @@ API.interceptors.response.use(function (response: AxiosResponse) {
     const originalRequest = error.config;
     const status = error.response ? error.response.status : null;
     if (status === 401 && error.config.url !== '/auth/refresh-token') {
-        console.log('refresh token')
+        // console.log('refresh token')
         return AuthService.refreshToken()
             .then(data => {
-                console.log('new token received')
+                // console.log('new token received')
                 updateToken(data.accessToken)
                 return API(originalRequest);
             })

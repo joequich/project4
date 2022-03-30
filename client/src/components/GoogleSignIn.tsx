@@ -22,7 +22,6 @@ export const GoogleSignIn = memo(() => {
             
             const { google } = window;
             
-            setIsMounted(true);
             google.accounts.id.initialize({
                 client_id:
                 '812157899128-oe9th8r0c05ikbnmrp91ndujvfvlpdvs.apps.googleusercontent.com',
@@ -50,6 +49,7 @@ export const GoogleSignIn = memo(() => {
             document.querySelector('body')?.appendChild(script);
             
             return () => {
+                setIsMounted(true);
                 window.google?.accounts.id.cancel();
                 document.getElementById('google-script')?.remove();
             };
